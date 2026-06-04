@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>在答案廉價的時代，提問與覺察才是真正的智慧｜若有所思</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC&family=Noto+Sans+TC:wght@300;400;500&family=Noto+Serif+TC:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/* ── 設計語彙 ── */
+:root {
+  --font-kai:  'LXGW WenKai TC', serif;
+  --font-body: 'Noto Serif TC', serif;
+  --font-sans: 'Noto Sans TC', sans-serif;
+
+  --ink:        #1a1a1a;
+  --ink-mid:    #3d3228;
+  --ink-light:  #6b5a40;
+  --ink-faint:  #9c8870;
+  --zhu:        #9a2a1e;
+  --gold-pale:  #c4a24a;
+  --gold-line:  rgba(196,162,74,0.3);
+  --xuan:       #fdfaf4;
+  --xuan-warm:  #f4ede0;
+
+  --sz-base: 20px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  background: var(--xuan-warm);
+  font-family: var(--font-sans);
+  font-size: var(--sz-base);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── 版心 ── */
+.page-wrap {
+  background: var(--xuan);
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+/* ── Hero ── */
+.article-hero {
+  background: linear-gradient(160deg, var(--xuan-warm) 0%, var(--xuan) 100%);
+  padding: 48px 36px 42px;
+  border-bottom: 1px solid var(--gold-line);
+}
+
+.hero-series {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--gold-pale);
+  opacity: 0.85;
+  letter-spacing: 0.6em;
+  margin-bottom: 1.4rem;
+}
+
+.hero-title {
+  font-family: var(--font-kai);
+  font-size: 28px;
+  font-weight: 400;
+  color: var(--ink);
+  line-height: 1.55;
+  letter-spacing: 0.06em;
+  margin-bottom: 1.1rem;
+}
+
+.hero-subtitle {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--ink-light);
+  letter-spacing: 0.07em;
+  line-height: 1.8;
+}
+
+/* ── 文章主體 ── */
+.article-body {
+  background: var(--xuan);
+  padding: 3rem 2.5rem 6rem;
+}
+
+/* ── 導言 Lead ── */
+.lead {
+  font-family: var(--font-kai);
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: var(--ink-mid);
+  line-height: 1.9;
+  letter-spacing: 0.04em;
+  border-left: 3px solid var(--gold-pale);
+  padding-left: 1.2rem;
+  margin-bottom: 4rem;
+}
+
+/* ── 章節標題 ── */
+h2 {
+  font-family: var(--font-kai);
+  font-size: 1.35rem;
+  font-weight: 400;
+  color: var(--zhu);
+  letter-spacing: 0.1em;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--gold-line);
+  margin-top: 5rem;
+  margin-bottom: 1.8rem;
+}
+
+h2.summary::before {
+  content: '◈ ';
+  font-size: 13px;
+  opacity: 0.55;
+}
+
+/* ── 正文 ── */
+.article-body p {
+  font-family: var(--font-body);
+  font-size: var(--sz-base);
+  font-weight: 300;
+  color: var(--ink);
+  line-height: 2.1;
+  letter-spacing: 0.05em;
+  text-align: justify;
+  margin-bottom: 1.6rem;
+}
+
+.article-body p:last-child { margin-bottom: 0; }
+
+strong {
+  font-family: var(--font-body);
+  font-size: var(--sz-base);
+  font-weight: 500;
+  color: var(--ink);
+}
+
+/* ── 引用框 blockquote ── */
+blockquote {
+  position: relative;
+  background: var(--xuan-warm);
+  border-radius: 2px;
+  padding: 1.6rem 1.8rem 1.4rem;
+  margin: 2rem 0 2.4rem;
+  overflow: hidden;
+}
+
+blockquote::before {
+  content: '「';
+  position: absolute;
+  top: -0.3rem;
+  left: 0.6rem;
+  font-family: var(--font-kai);
+  font-size: 5rem;
+  color: var(--gold-pale);
+  opacity: 0.22;
+  line-height: 1;
+  pointer-events: none;
+}
+
+blockquote p {
+  font-family: var(--font-kai) !important;
+  font-size: 1.1rem !important;
+  font-weight: 400 !important;
+  color: var(--ink-mid) !important;
+  line-height: 2.0 !important;
+  text-align: left !important;
+  margin-bottom: 0.6rem !important;
+  position: relative;
+  z-index: 1;
+}
+
+.bq-source {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--ink-faint);
+  letter-spacing: 0.15em;
+  text-align: right;
+  display: block;
+  margin-top: 0.6rem;
+}
+
+/* ── 概念卡 ── */
+.concept-card {
+  background: var(--xuan-warm);
+  border-radius: 2px;
+  padding: 1.4rem 1.6rem 1.5rem;
+  margin: 2rem 0 2.4rem;
+}
+
+.c-label {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--gold-pale);
+  letter-spacing: 0.45em;
+  margin-bottom: 0.8rem;
+  display: block;
+}
+
+.c-label::before {
+  content: '';
+  display: inline-block;
+  width: 14px;
+  height: 1px;
+  background: var(--gold-pale);
+  vertical-align: middle;
+  margin-right: 8px;
+}
+
+.concept-card p {
+  font-family: var(--font-kai) !important;
+  font-size: var(--sz-base) !important;
+  font-weight: 400 !important;
+  color: var(--ink-mid) !important;
+  line-height: 1.95 !important;
+  letter-spacing: 0.04em !important;
+  text-align: left !important;
+}
+
+/* ── 因果次第 ── */
+.causal-chain {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+  margin: 1.8rem 0 2.2rem;
+  padding: 1rem 0;
+}
+
+.causal-item {
+  font-family: var(--font-kai);
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--ink-mid);
+  letter-spacing: 0.08em;
+}
+
+.causal-arrow {
+  font-size: 18px;
+  font-weight: 400;
+  color: var(--gold-pale);
+  padding: 0 6px;
+}
+
+/* ── 染淨流程 ── */
+.flow-list {
+  list-style: none;
+  margin: 1.8rem 0 2.4rem;
+}
+
+.flow-item {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  padding: 1rem 0;
+  border-bottom: 1px dashed var(--gold-line);
+}
+
+.flow-item:last-child { border-bottom: none; }
+
+.flow-num {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-kai);
+  font-size: 17px;
+  font-weight: 400;
+  color: #fff;
+}
+
+.flow-num.ran { background: linear-gradient(135deg, var(--zhu), #c0392b); }
+.flow-num.jing { background: linear-gradient(135deg, var(--gold-pale), #a8893d); }
+
+.flow-content { flex: 1; }
+
+.flow-title {
+  font-family: var(--font-kai);
+  font-size: 18px;
+  font-weight: 400;
+  color: var(--ink);
+  letter-spacing: 0.06em;
+  margin-bottom: 4px;
+}
+
+.flow-desc {
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 300;
+  color: var(--ink-light);
+  line-height: 1.75;
+}
+
+/* ── info-box ── */
+.info-box {
+  background: var(--xuan-warm);
+  border-radius: 2px;
+  padding: 1.4rem 1.6rem 1.5rem;
+  margin: 2rem 0 2.4rem;
+}
+
+.info-box .label {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--zhu);
+  opacity: 0.8;
+  letter-spacing: 0.45em;
+  margin-bottom: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.info-box .label::before,
+.info-box .label::after {
+  content: '';
+  display: inline-block;
+  height: 1px;
+  width: 16px;
+  background: var(--zhu);
+  opacity: 0.5;
+}
+
+.info-box p {
+  font-family: var(--font-kai) !important;
+  font-size: var(--sz-base) !important;
+  font-weight: 300 !important;
+  color: var(--ink-mid) !important;
+  line-height: 1.95 !important;
+  text-align: left !important;
+}
+
+/* ── 箴言 ── */
+.motto-box {
+  margin: 3rem 0 3.4rem;
+}
+
+.motto-label {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--zhu);
+  opacity: 0.7;
+  letter-spacing: 0.45em;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 1rem;
+}
+
+.motto-label::before {
+  content: '';
+  display: inline-block;
+  width: 16px;
+  height: 1px;
+  background: var(--zhu);
+  opacity: 0.6;
+}
+
+.motto-box p {
+  font-family: var(--font-kai) !important;
+  font-size: 1.4rem !important;
+  font-weight: 400 !important;
+  color: var(--zhu) !important;
+  line-height: 2.1 !important;
+  letter-spacing: 0.15em !important;
+  text-align: left !important;
+  border-top: 1px solid var(--gold-line);
+  border-bottom: 1px solid var(--gold-line);
+  padding: 1rem 0;
+}
+
+/* ── 頁尾 ── */
+.article-footer {
+  background: var(--xuan-warm);
+  padding: 1.8rem 2rem;
+  text-align: center;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--ink-faint);
+  letter-spacing: 0.4em;
+  border-top: 1px solid var(--gold-line);
+}
+
+/* ── 響應式 ── */
+@media (max-width: 520px) {
+  :root { --sz-base: 19px; }
+  .article-hero { padding: 32px 20px 36px; }
+  .hero-title { font-size: 23px; }
+  .article-body { padding: 2.5rem 1.2rem 5rem; }
+  .lead { margin-bottom: 3rem; }
+}
+
+@media (max-width: 360px) {
+  :root { --sz-base: 18px; }
+  .article-body { padding: 2rem 1rem 4rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="page-wrap">
+
+  <!-- ── Hero ── -->
+  <header class="article-hero">
+    <div class="hero-series">若有所思</div>
+    <h1 class="hero-title">在答案廉價的時代<br>提問與覺察才是真正的智慧</h1>
+    <div class="hero-subtitle">當 AI 讓所有答案唾手可得，我們的心智該何去何從？</div>
+  </header>
+
+  <!-- ── 文章主體 ── -->
+  <main class="article-body">
+
+    <!-- 導言 -->
+    <p class="lead">答案，變得前所未有的廉價。但弔詭的是，我們卻比過去任何一個時代都更焦慮、更迷茫、更不知道自己是誰。因為我們在不知不覺中，把一個更珍貴的東西交了出去——提問的能力、懷疑的勇氣，以及對自己內心的覺察。</p>
+
+    <!-- 第一章 -->
+    <h2>從洗衣機到 AI——工具關係的徹底翻轉</h2>
+
+    <p>你有沒有發現，這輩子從來沒有哪個時代，像現在這樣——你問任何問題，幾乎都能在幾秒鐘內得到一個「完美的答案」。想去哪裡旅行？AI 幫你排好行程。不知道買哪台電腦？AI 幫你比好規格。甚至連「我該怎麼和伴侶溝通」、「人生的意義是什麼」，ChatGPT 都能給你一段結構完整、語氣自信的回覆。</p>
+
+    <p>通常我們在談論人類發明了一項新工具的時候，那個關係非常直接、很單純，就是純粹的物理外包。你買一台洗衣機，它幫你洗衣服；買一台洗碗機，它幫你洗碗。這些機器承擔勞力，你省下時間，非常乾脆。過去的工具，是我們肢體的延伸。</p>
+
+    <p>但當我們步入 AI 時代，情況突然變得非常混濁。我們外包的好像不再只是體力活了，我們好像正在不知不覺中外包<strong>「我們之所以為人」的核心能力</strong>——判斷、記憶、甚至內心的觀察。這絕對是當代最隱蔽、也最深刻的認知危機。</p>
+
+    <!-- 第二章 -->
+    <h2>AI 的真正挑戰——不是搶工作，而是接管判斷</h2>
+
+    <p>科技專家 Kevin Kelly 提出了一個核心觀點，非常震撼：<strong>AI 真正帶來的挑戰，從來就不是搶走我們的工作，而是正在無聲無息地接管人類的判斷。</strong></p>
+
+    <p>你可能會說：「不對啊，如果我讓 AI 幫我規劃東京自由行的行程，或者讓它幫我比較兩台筆記型電腦的規格，最終決定要買哪一台、要去哪個景點的，不還是我嗎？」表面上看似是你做的決定。但讓我們來拆解現代科技背後的三個底層機制。</p>
+
+    <!-- 三層機制 概念卡 -->
+    <div class="concept-card">
+      <span class="c-label">三層底層機制</span>
+      <p><strong>資訊的絕對過剩。</strong>現在資訊真的太多了，知識不再稀缺，但我們人類處理資訊的頻寬並沒有增加。<br><br>
+      <strong>運算速度的極端提升。</strong>演算法能在毫秒之間，從千萬筆資料中篩選出「它認為」最適合你的三個選項。<br><br>
+      <strong>隨之而來的極致便利。</strong>當這兩者加總，你的大腦為了節省能量，會自動跳過蒐集、懷疑、比較、沉澱的過程，直接全盤接受那三個選項。</p>
+    </div>
+
+    <p>於是，你以為你在做選擇，其實你只是在別人畫好的三個圈圈裡面打勾而已。這就像我們過度依賴 GPS 導航，用久了之後，連自己家附近的巷子都會迷路，因為大腦的方向感退化了。換到 AI 身上，我們思考的肌肉是不是也正在萎縮？</p>
+
+    <!-- 第三章 -->
+    <h2>神經科學的警告——思考肌肉正在萎縮</h2>
+
+    <p>從神經科學的角度來看，大腦就是「用進廢退」的。當我們習慣了演算法提供的無阻力體驗——想要什麼就有什麼，一秒鐘就能得到解答——那麼我們神經迴路中負責<strong>延遲滿足</strong>和<strong>深度沉思</strong>的區塊就會慢慢退化。</p>
+
+    <blockquote>
+      <p>既然 AI 的底層邏輯是不斷向外掠奪注意力，並提供極致的便利，那我們就需要一套完全相反的「注意力防疫機制」。這套機制的方向，恰好指向了強調內觀與覺察的修行。</p>
+    </blockquote>
+
+    <!-- 第四章 -->
+    <h2>破解迷思——資訊不等於智慧</h2>
+
+    <p>聽到這裡，很多人會產生一個真實的生存焦慮：「如果我不去大量擁抱 AI 總結出來的龐大資訊，不讓它每天幫我讀完 50 份產業報告，我就會在職場上被淘汰。難道單靠靜坐觀照、向內收斂就能抵消這種焦慮嗎？」</p>
+
+    <p>這個焦慮確實是現代人最普遍的痛點。但其中藏著一個<strong>致命的偷換概念</strong>：我們把「獲取資訊」跟「產生智慧」畫上了等號。</p>
+
+    <!-- 外熏 內熏 info-box -->
+    <div class="info-box">
+      <div class="label">外在擴取</div>
+      <p>科技的操作方式是向外抓取與堆疊，目的是極大化資訊的吞吐量，就像把硬碟塞滿。你用 AI 讀完 50 份報告，得到的只是「別人消化後的結論」——你只是在下載結論。</p>
+    </div>
+
+    <div class="info-box">
+      <div class="label">內在觀照</div>
+      <p>修行的本質是向內觀照與做減法，目的是在繁雜的資訊中看清事物的本質。真正的智慧——對自己情緒升起的覺察力、對自我執著的看破——必須透過親自體驗、親自觀照，才能長出來的肌肉。AI 沒辦法幫你算出來。</p>
+    </div>
+
+    <p>當你跳過了那種痛苦的思考、質疑甚至撞牆的過程，直接拿到了一個完美的懶人包，那個結論永遠不會變成你大腦神經元的一部分。一個人就算讀遍了全世界的心理學論文，可以用 AI 分析出 100 種情緒管理模型，當他面對伴侶的一句言語攻擊，依然可能瞬間暴怒。</p>
+
+    <!-- 第五章 -->
+    <h2>三大喪失危機——耐心、判斷、內觀</h2>
+
+    <p>如果我們繼續無意識地把認知過程外包，我們失去的不僅僅是記憶力。在 AI 普及的未來，人類將面臨失去三種核心能力的危機。</p>
+
+    <ul class="flow-list">
+      <li class="flow-item">
+        <div class="flow-num ran">一</div>
+        <div class="flow-content">
+          <div class="flow-title">失去思考的耐心</div>
+          <div class="flow-desc">當大腦習慣了按下 Enter 後一秒鐘就能得到完美解答，我們將再也無法忍受那種沒有立即答案的模糊狀態。可是複雜的人生難題需要極度的耐心，因為人生是沒有一秒鐘生成的懶人包的。</div>
+        </div>
+      </li>
+      <li class="flow-item">
+        <div class="flow-num ran">二</div>
+        <div class="flow-content">
+          <div class="flow-title">失去獨立判斷的能力</div>
+          <div class="flow-desc">當 AI 的回答越來越流暢、語氣越來越自信，人類會不自覺產生「機器總是對的」的盲目信任。AI 幻覺最可怕的不是 AI 講了錯的話，而是我們失去了辨識它在胡說八道的能力。</div>
+        </div>
+      </li>
+      <li class="flow-item">
+        <div class="flow-num ran">三</div>
+        <div class="flow-content">
+          <div class="flow-title">失去覺察能力</div>
+          <div class="flow-desc">當外在工具能填滿你所有的時間縫隙，你就再也沒有機會面對空白。唯有當心安靜下來的時候，你才能清楚覺知自己念頭的起落。若用無止境的外部刺激填補每一秒鐘，我們將徹底遺忘怎麼與自己的情緒相處——那份對當下身心狀態的清明覺察，也將在喧囂中悄然流失。</div>
+        </div>
+      </li>
+    </ul>
+
+    <!-- 第六章 -->
+    <h2>科技是中性的——它是放大鏡，不是毒藥</h2>
+
+    <p>聽到這裡，你可能會覺得：AI 簡直是裹著糖衣的毒藥。但如果我們冷靜下來看，<strong>錯的根本不是演算法本身</strong>。AI 其實就像一面放大鏡——如果我們本性裡有想要偷懶、逃避痛苦思考的傾向，AI 就是世界上最強的逃避工具；但如果我們能夠保持清醒，AI 可以是極佳的助手。</p>
+
+    <p>科技沒有善惡，問題在於人心。它是一股強大的動能：<strong>如果你習慣逃避，它幫你逃避得天衣無縫；但如果你願意保持覺察，它就會成為你理解世界的巨大助緣。</strong></p>
+
+    <!-- 因果次第：逃避路徑 -->
+    <div class="causal-chain">
+      <span class="causal-item">惰性</span>
+      <span class="causal-arrow">→</span>
+      <span class="causal-item">無意識外包</span>
+      <span class="causal-arrow">→</span>
+      <span class="causal-item">思考退化</span>
+      <span class="causal-arrow">→</span>
+      <span class="causal-item">失去自己</span>
+    </div>
+
+    <!-- 第七章 -->
+    <h2>動態平衡——AI 是顯微鏡，覺察力是準焦旋鈕</h2>
+
+    <p>最終的解方並不是要我們砸爛電腦、退回山林裡去過原始生活，而是建立一個<strong>科技與修行的動態平衡</strong>。</p>
+
+    <!-- 染淨平衡：兩個方向 -->
+    <ul class="flow-list">
+      <li class="flow-item">
+        <div class="flow-num jing">外</div>
+        <div class="flow-content">
+          <div class="flow-title">AI 是最強大的顯微鏡</div>
+          <div class="flow-desc">它可以幫你在幾秒鐘內看清千萬筆數據的細節，處理繁瑣知識和大腦無法負荷的龐大運算。這是「外在的擴展」——幫助我們理解世界。</div>
+        </div>
+      </li>
+      <li class="flow-item">
+        <div class="flow-num jing">內</div>
+        <div class="flow-content">
+          <div class="flow-title">覺察力是那顆準焦旋鈕</div>
+          <div class="flow-desc">在使用 AI 這台顯微鏡的時候，你的內在必須保持清明。你要時刻問自己：我現在為了什麼目的在使用它？我是被工具綁架，還是我在利用它？</div>
+        </div>
+      </li>
+    </ul>
+
+    <p>讓 AI 去做它擅長的算力工作，去當我們的外接硬碟。但我們必須把方向盤緊握在自己手裡。<strong>我們的大腦應該用來問更好的問題、進行價值判斷，以及產生共鳴與同理心。</strong></p>
+
+    <p>我們大可以使用 AI 的強大算力幫我們翻譯整理浩瀚無垠的典籍——這是科技的完美應用。但是，當你要將裡面的智慧內化成你面對生老病死的從容時，AI 永遠無法代勞，你必須親自去修煉。</p>
+
+    <!-- 第八章 -->
+    <h2>為什麼現在比任何時代都更需要覺察？</h2>
+
+    <p>理論上，AI 把我們從繁瑣的資訊整理中解放出來，我們應該擁有更多時間去向內探索才對。只可惜，我們現在的慣性是：省下來的時間，又被拿去滑更多的短影音了。</p>
+
+    <p>過去資訊匱乏、干擾有限；現在每一台手機背後，都有成千上萬頂尖的工程師在用演算法奪取你的注意力。如果沒有刻意建立內在的防禦機制，真的很容易被吞噬。</p>
+
+    <!-- 結語 -->
+    <h2 class="summary">答案廉價，提問與覺察才是真正的壁壘</h2>
+
+    <p>AI 讓答案變得像自來水一樣便宜，打開水龍頭就有。但也正是因為如此，<strong>一個人還願意自己提出問題、願意在沒有標準答案的模糊地帶停留、願意花時間去覺察自己的念頭與情緒</strong>——這些能力，反而成為這個時代最稀缺、也最珍貴的智慧。</p>
+
+    <p>你不必砸爛手機，也不必逃到深山。你只需要在每一次準備按下 Enter、向 AI 索取答案之前，<strong>停頓三秒鐘</strong>。</p>
+
+    <!-- 兩個問題 概念卡 -->
+    <div class="concept-card">
+      <span class="c-label">停頓三秒的兩個問題</span>
+      <p>一、我現在是真的需要這個答案，還是只是想逃避思考的痛苦？<br><br>
+      二、這個答案，是我親自咀嚼過的，還是只是一個漂亮的懶人包？</p>
+    </div>
+
+    <p>那三秒鐘的停頓，就是覺察。那三秒鐘的提問，就是智慧。我們可以用機器來洗衣服、洗碗，甚至讓 AI 幫我們整理資料、撰寫郵件。但請不要把最核心的權力交出去——<strong>提問的權力、判斷的權力，以及向內觀照自己內心的權力。</strong></p>
+
+    <!-- 箴言 -->
+    <div class="motto-box">
+      <div class="motto-label">箴言</div>
+      <p>在一個答案廉價的時代<br>唯有仍然敢於提問<br>仍然願意覺察的人<br>才真正擁有思考的自由</p>
+    </div>
+
+    <p>願我們在資訊的洪流中，都能為自己的心，留下一片清明的空間。</p>
+
+  </main>
+
+  <!-- 頁尾 -->
+  <footer class="article-footer">
+    若有所思
+  </footer>
+
+</div>
+
+</body>
+</html>

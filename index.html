@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>若有所思・目錄</title>
+<meta name="description" content="若有所思・延伸閱讀目錄">
+<meta property="og:title" content="若有所思・目錄">
+<meta property="og:description" content="若有所思・延伸閱讀目錄">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;500;600&family=LXGW+WenKai+TC&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:      #f2e8d0;
+  --surface: rgba(248, 242, 226, 0.96);
+  --border:  #d4bc8a;
+  --gold:    #7a5200;
+  --gold2:   #a07020;
+  --amber:   #8a6010;
+  --dim:     #6a5a40;
+  --ink:     #1a140a;
+  --shadow:  rgba(80, 50, 10, 0.10);
+
+  --c01:#2e6845; --c02:#5a3a7a; --c03:#8a5020;
+  --c04:#2a4a8a; --c05:#1a5a6a; --c06:#4a6a20;
+  --c07:#7a2040; --c08:#2a3d50; --c09:#5a3a10;
+  --c10:#1a4a3a;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 18px; }
+
+body {
+  background: var(--bg)
+    url('https://www.transparenttextures.com/patterns/natural-paper.png');
+  font-family: 'Noto Serif TC', serif;
+  color: var(--ink);
+  line-height: 1.7;
+  overflow-x: hidden;
+  padding: 32px 0 100px;
+  -webkit-text-size-adjust: 100%;
+  min-height: 100vh;
+}
+
+::selection { background: var(--gold); color: #fff; }
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
+
+.wrap {
+  position: relative; z-index: 1;
+  width: 92%; max-width: 580px;
+  margin: 0 auto;
+}
+
+@media (min-width: 640px) {
+  body { padding: 56px 0 120px; }
+  .wrap {
+    background: var(--surface);
+    border: 1px solid rgba(200,180,140,0.35);
+    border-radius: 24px;
+    box-shadow:
+      0 2px 0 rgba(255,255,255,0.7) inset,
+      0 40px 90px var(--shadow),
+      0 4px 20px rgba(0,0,0,0.04);
+    padding: 56px 52px 80px;
+    width: 88%;
+  }
+}
+
+/* ── Hero ── */
+.hero { text-align: center; padding: 8px 0 32px; }
+.hero-eyebrow {
+  font-size: 11px; font-weight: 300;
+  letter-spacing: 0.7em; color: var(--amber);
+  opacity: 0.75; margin-bottom: 18px;
+}
+.hero-title {
+  font-family: 'LXGW WenKai TC', serif;
+  font-size: clamp(32px, 9vw, 48px);
+  color: var(--ink); letter-spacing: 0.22em;
+  line-height: 1.2; margin-bottom: 10px;
+}
+.hero-subtitle {
+  font-size: 13px; font-weight: 300;
+  color: var(--dim); letter-spacing: 0.5em; margin-bottom: 28px;
+}
+.divider {
+  display: flex; align-items: center;
+  gap: 14px; justify-content: center;
+  margin: 0 auto; max-width: 220px;
+}
+.divider::before, .divider::after {
+  content: ''; flex: 1; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold2), transparent);
+  opacity: 0.5;
+}
+.divider-glyph { font-size: 14px; color: var(--gold2); opacity: 0.7; }
+
+/* ── 卡片列表 ── */
+.card-list { display: flex; flex-direction: column; gap: 18px; margin-top: 36px; }
+
+/* ── 可讀卡片 ── */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px; overflow: hidden;
+  box-shadow: 0 4px 18px var(--shadow);
+  opacity: 0; transform: translateY(20px);
+  transition: opacity .55s ease, transform .55s ease, box-shadow .3s ease;
+}
+.card.visible { opacity: 1; transform: translateY(0); }
+
+@media (min-width: 640px) {
+  .card:not(.card-pending):hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 40px rgba(80,50,10,0.13);
+  }
+}
+
+.card-inner { display: flex; }
+.card-bar { width: 6px; flex-shrink: 0; }
+.card-body { flex: 1; padding: 20px 20px 18px 18px; }
+
+.card-header {
+  display: flex; align-items: baseline;
+  gap: 12px; margin-bottom: 6px; flex-wrap: wrap;
+}
+.card-num {
+  font-size: 11px; font-weight: 300;
+  letter-spacing: 0.18em; color: var(--dim);
+  white-space: nowrap; flex-shrink: 0;
+}
+.card-title {
+  font-family: 'LXGW WenKai TC', serif;
+  font-size: 22px; font-weight: 400;
+  line-height: 1.3; letter-spacing: 0.06em;
+}
+.card-sub {
+  font-size: 13px; font-weight: 300;
+  color: var(--dim); letter-spacing: 0.1em; margin-bottom: 10px;
+}
+.card-summary {
+  font-size: 14px; font-weight: 300;
+  color: var(--dim); line-height: 1.85; letter-spacing: 0.04em;
+  border-top: 1px solid rgba(200,180,140,0.3);
+  padding-top: 12px; margin-top: 10px;
+}
+.card-footer { display: flex; justify-content: flex-end; margin-top: 14px; }
+.btn-read {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: linear-gradient(135deg, var(--gold2) 0%, var(--gold) 100%);
+  color: #fff; text-decoration: none;
+  padding: 10px 18px; border-radius: 8px;
+  font-family: 'Noto Serif TC', serif;
+  font-size: 14px; font-weight: 500;
+  letter-spacing: 0.12em; white-space: nowrap;
+  box-shadow: 0 3px 10px rgba(120,80,0,0.2);
+  min-height: 44px;
+  transition: opacity .2s, transform .15s, box-shadow .2s;
+}
+.btn-read:hover { opacity: 0.87; box-shadow: 0 6px 20px rgba(120,80,0,0.28); }
+.btn-read:active { transform: scale(0.96); }
+
+/* ── 待續卡片 ── */
+.card-pending { opacity: 0 !important; filter: grayscale(0.5); }
+.card-pending.visible { opacity: 0.4 !important; }
+.card-pending .card-body {
+  display: flex; align-items: center;
+  gap: 16px; padding: 18px 20px 18px 18px;
+}
+.pending-num {
+  font-size: 11px; font-weight: 300;
+  letter-spacing: 0.18em; color: var(--dim);
+}
+.pending-tag {
+  font-size: 12px; letter-spacing: 0.14em;
+  padding: 5px 13px;
+  background: rgba(138,120,90,0.07);
+  border: 1px solid rgba(138,120,90,0.2);
+  border-radius: 4px; color: var(--dim);
+}
+
+/* ── 頁尾 ── */
+.footer { text-align: center; padding: 36px 0 12px; }
+.footer-text {
+  font-size: 11px; font-weight: 300;
+  color: var(--dim); letter-spacing: 0.45em;
+  opacity: 0.65; margin-top: 14px;
+}
+
+/* ── 回頂 ── */
+.back-top {
+  position: fixed; right: 18px; bottom: 22px;
+  width: 48px; height: 48px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--gold2), var(--gold));
+  color: #fff; font-size: 20px;
+  border: none; cursor: pointer;
+  box-shadow: 0 4px 16px rgba(120,80,0,0.28);
+  opacity: 0; pointer-events: none;
+  transition: opacity .3s, transform .2s;
+  display: flex; align-items: center; justify-content: center;
+}
+.back-top.show { opacity: 1; pointer-events: auto; }
+.back-top:active { transform: scale(0.92); }
+
+/* 山水浮水印 */
+.watermark {
+  position: fixed; top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+  width: min(500px,88vw);
+  opacity: 0.038; pointer-events: none; z-index: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card, .btn-read { transition: none; }
+}
+@media (max-width: 360px) {
+  .card-title { font-size: 19px; }
+  .card-body { padding: 16px 14px 14px 14px; }
+  .btn-read { padding: 10px 14px; font-size: 13px; }
+}
+</style>
+</head>
+<body>
+
+<svg class="watermark" viewBox="0 0 520 400" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <path d="M0 260 Q40 155 82 178 Q112 162 132 198 Q152 172 178 192 Q198 162 218 198 L218 275 L0 275 Z" fill="#5a3a1a" opacity="0.4"/>
+  <path d="M302 260 Q342 148 388 168 Q418 152 442 182 Q462 158 492 178 Q510 162 520 182 L520 275 L302 275 Z" fill="#5a3a1a" opacity="0.4"/>
+  <path d="M55 288 Q98 138 146 96 Q162 82 180 112 Q198 86 218 128 Q238 102 262 158 Q278 132 298 172 L312 288 Z" fill="#3a2810" opacity="0.6"/>
+  <path d="M278 288 Q318 168 362 138 Q380 122 400 152 Q418 128 442 162 Q460 138 478 178 L492 288 Z" fill="#3a2810" opacity="0.55"/>
+  <path d="M0 328 Q32 288 72 298 Q102 282 132 302 Q162 286 202 308 Q232 292 272 312 Q302 296 342 316 Q372 300 412 320 Q442 306 482 322 Q502 312 520 318 L520 400 L0 400 Z" fill="#2a1e0e" opacity="0.65"/>
+</svg>
+
+<div class="wrap" role="main">
+
+  <header class="hero" role="banner">
+    <p class="hero-eyebrow">延伸閱讀・隨筆</p>
+    <h1 class="hero-title">若有所思</h1>
+    <p class="hero-subtitle">目　錄</p>
+    <div class="divider" aria-hidden="true"><span class="divider-glyph">◈</span></div>
+  </header>
+
+  <nav class="card-list" id="cardList" aria-label="文章目錄"></nav>
+
+  <footer class="footer" role="contentinfo">
+    <div class="divider" aria-hidden="true"><span class="divider-glyph">◈</span></div>
+    <p class="footer-text">AQE&nbsp;@&nbsp;2026</p>
+  </footer>
+
+</div>
+
+<button class="back-top" id="backTop" aria-label="回到頁首"
+  onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+const COLORS = [
+  'var(--c01)','var(--c02)','var(--c03)','var(--c04)','var(--c05)',
+  'var(--c06)','var(--c07)','var(--c08)','var(--c09)','var(--c10)'
+];
+
+const cards = [
+  {
+    ready: true,
+    title: '外熏與內熏',
+    sub:   '離染還淨的修學次第',
+    summary: '覺悟並不是突然發生的事件，而是長期熏習、逐步轉化的過程。《大乘起信論》指出，眾生能從迷惑走向覺悟，乃由內熏與外熏兩種力量相互作用。禪修班的聞法、思惟與靜坐，是典型的外熏環境；外熏喚醒內在本具的覺性（內熏），使法義活化，染污習氣漸次淡化。聞思修的修學次第，配合日常生活中的覺照實踐，讓每一個當下都成為離染還淨的契機。',
+    file: 't01.html'
+  },
+  { ready: false }, { ready: false }, { ready: false }, { ready: false },
+  { ready: false }, { ready: false }, { ready: false }, { ready: false }, { ready: false },
+];
+
+const list = document.getElementById('cardList');
+
+cards.forEach((c, i) => {
+  const num   = String(i + 1).padStart(2, '0');
+  const color = COLORS[i];
+  const el    = document.createElement('article');
+
+  if (c.ready) {
+    el.className = 'card';
+    el.setAttribute('aria-labelledby', `title-${num}`);
+    el.innerHTML = `
+      <div class="card-inner">
+        <div class="card-bar" style="background:${color};" aria-hidden="true"></div>
+        <div class="card-body">
+          <div class="card-header">
+            <span class="card-num">NO.&nbsp;${num}</span>
+            <h2 class="card-title" id="title-${num}" style="color:${color};">${c.title}</h2>
+          </div>
+          <p class="card-sub">${c.sub}</p>
+          <p class="card-summary">${c.summary}</p>
+          <div class="card-footer">
+            <a href="./${c.file}" class="btn-read" aria-label="閱讀《${c.title}》全文">
+              閱讀全文
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M9 18l6-6-6-6"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>`;
+  } else {
+    el.className = 'card card-pending';
+    el.setAttribute('aria-hidden', 'true');
+    el.innerHTML = `
+      <div class="card-inner">
+        <div class="card-bar" style="background:#c0b090;" aria-hidden="true"></div>
+        <div class="card-body">
+          <span class="pending-num">NO.&nbsp;${num}</span>
+          <span class="pending-tag">即將發布</span>
+        </div>
+      </div>`;
+  }
+
+  list.appendChild(el);
+});
+
+/* 滾動淡入 */
+const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+if (reduced) {
+  document.querySelectorAll('.card').forEach(c => c.classList.add('visible'));
+} else {
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const card = entry.target;
+        const idx  = Array.from(list.children).indexOf(card);
+        setTimeout(() => card.classList.add('visible'), idx * 70);
+        obs.unobserve(card);
+      }
+    });
+  }, { threshold: 0.04 });
+  document.querySelectorAll('.card').forEach(c => obs.observe(c));
+}
+
+/* 回頂 */
+window.addEventListener('scroll', () => {
+  document.getElementById('backTop').classList.toggle('show', window.scrollY > 300);
+}, { passive: true });
+</script>
+</body>
+</html>
