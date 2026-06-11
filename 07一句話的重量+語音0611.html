@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>一句話的重量｜若有所思</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC&family=Noto+Serif+TC:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f0ede6;
+    --ink: #2a2620;
+    --ink-mid: #5e574f;
+    --ink-light: #9a9188;
+    --accent: #5a4e42;
+    --rule: rgba(90,78,66,0.18);
+    --max: 700px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Noto Serif TC', serif;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 2.1;
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  /* Paper texture */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Watermark */
+  .watermark {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    opacity: 0.030;
+    z-index: 0;
+  }
+  .watermark svg { width: 360px; height: 360px; }
+
+  .wrap {
+    position: relative;
+    z-index: 1;
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 0 22px 100px;
+  }
+
+  /* Hero */
+  .hero {
+    padding: 64px 0 44px;
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 48px;
+  }
+  .hero-eyebrow {
+    font-size: 13px;
+    letter-spacing: 0.32em;
+    color: var(--ink-light);
+    margin-bottom: 18px;
+  }
+  .hero-title {
+    font-family: 'LXGW WenKai TC', serif;
+    font-size: clamp(27px, 7vw, 34px);
+    font-weight: 400;
+    line-height: 1.4;
+    color: var(--ink);
+    margin-bottom: 10px;
+  }
+  .hero-sub {
+    font-style: italic;
+    font-size: 17px;
+    color: var(--ink-mid);
+    letter-spacing: 0.06em;
+    margin-bottom: 32px;
+  }
+
+  /* Audio player */
+  .player-wrap {
+    background: rgba(90,78,66,0.06);
+    border-left: 3px solid var(--accent);
+    padding: 18px 20px;
+    border-radius: 0 2px 2px 0;
+  }
+  .player-label {
+    font-size: 13px;
+    letter-spacing: 0.25em;
+    color: var(--ink-light);
+    margin-bottom: 10px;
+  }
+  audio {
+    width: 100%;
+    height: 42px;
+    accent-color: var(--accent);
+  }
+
+  /* Article body */
+  .article {
+    padding-bottom: 12px;
+  }
+
+  /* Opening paragraph (before first section) */
+  .opening {
+    margin-bottom: 2.4em;
+  }
+  .opening p {
+    margin-bottom: 1.2em;
+    color: var(--ink-mid);
+  }
+
+  /* Sections */
+  .section {
+    margin-bottom: 3em;
+  }
+
+  .section-title {
+    font-family: 'LXGW WenKai TC', serif;
+    font-size: clamp(18px, 4.8vw, 22px);
+    font-weight: 400;
+    color: var(--ink);
+    line-height: 1.5;
+    margin-bottom: 0.6em;
+    padding-bottom: 0.4em;
+    border-bottom: 1px solid var(--rule);
+  }
+  .section-num {
+    font-style: italic;
+    font-size: 14px;
+    color: var(--ink-light);
+    letter-spacing: 0.2em;
+    margin-right: 0.6em;
+  }
+
+  .section p {
+    margin-bottom: 1.2em;
+    color: var(--ink-mid);
+  }
+  .section p:last-child { margin-bottom: 0; }
+
+  /* Inline bold term */
+  strong {
+    font-weight: 400;
+    color: var(--ink);
+  }
+
+  /* Step list (indented) */
+  .steps {
+    margin: 1em 0 1.2em 1em;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7em;
+  }
+  .step {
+    display: flex;
+    gap: 0.8em;
+    color: var(--ink-mid);
+    font-size: 17px;
+  }
+  .step-num {
+    flex-shrink: 0;
+    font-style: italic;
+    color: var(--ink-light);
+    letter-spacing: 0.1em;
+    width: 2em;
+  }
+
+  /* Closing question */
+  .closing-q {
+    margin-top: 3.2em;
+    padding: 28px 24px;
+    border-left: 3px solid var(--accent);
+    background: rgba(90,78,66,0.05);
+    border-radius: 0 2px 2px 0;
+  }
+  .closing-q p {
+    font-family: 'LXGW WenKai TC', serif;
+    font-size: clamp(17px, 4.5vw, 20px);
+    font-weight: 400;
+    line-height: 1.8;
+    color: var(--ink);
+  }
+
+  /* Divider */
+  .divider {
+    text-align: center;
+    margin: 2.4em 0;
+    color: var(--ink-light);
+    font-size: 15px;
+    letter-spacing: 0.5em;
+    opacity: 0.45;
+  }
+
+  /* Footer */
+  footer {
+    text-align: center;
+    padding: 48px 0 0;
+    color: var(--ink-light);
+    font-size: 13px;
+    letter-spacing: 0.3em;
+    border-top: 1px solid var(--rule);
+    margin-top: 48px;
+  }
+
+  /* Back to top */
+  #back-top {
+    position: fixed;
+    bottom: 28px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    background: var(--accent);
+    color: #f0ede6;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+    z-index: 100;
+  }
+  #back-top.show { opacity: 1; pointer-events: auto; }
+
+  @media (min-width: 660px) {
+    .wrap { padding: 0 48px 100px; }
+    .hero { padding: 72px 0 48px; }
+  }
+
+  @media (max-width: 360px) {
+    body { font-size: 16px; }
+    .hero-title { font-size: 25px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="watermark" aria-hidden="true">
+  <svg viewBox="0 0 340 340" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M40 280 Q80 200 120 230 Q150 180 170 140 Q195 180 220 200 Q255 170 300 280Z" stroke="#5a4e42" stroke-width="1.2" fill="none"/>
+    <path d="M20 300 Q100 240 170 260 Q240 240 320 300" stroke="#5a4e42" stroke-width="0.8" fill="none"/>
+    <path d="M30 315 Q110 295 170 310 Q230 295 310 315" stroke="#5a4e42" stroke-width="0.6" fill="none"/>
+    <circle cx="170" cy="90" r="18" stroke="#5a4e42" stroke-width="0.8" fill="none"/>
+    <path d="M155 90 Q162 75 170 70 Q178 75 185 90" stroke="#5a4e42" stroke-width="0.7" fill="none"/>
+  </svg>
+</div>
+
+<div class="wrap">
+
+  <header class="hero">
+    <p class="hero-eyebrow">若有所思 * 講義13 </p>
+    <h1 class="hero-title">一句話的重量</h1>
+    <p class="hero-sub">從《大乘起信論》的「三細六麤」看見情緒風暴的真正起源</p>
+
+    <div class="player-wrap">
+      <p class="player-label">語音講義</p>
+      <audio controls preload="metadata">
+        <source src="0611.m4a" type="audio/mp4">
+        您的瀏覽器不支援音訊播放。
+      </audio>
+    </div>
+  </header>
+
+  <div class="article">
+
+    <div class="opening">
+      <p>你有沒有過這種經驗？某個人可能只是不經意的一句話，或者甚至只是一個轉瞬即逝的眼神，結果居然像一顆巨石，砰一聲砸進你的心湖，直接激起滔天巨浪。</p>
+      <p>說真的，我自己身為一個佛教徒，在修行的過程裡常常觀察到這個現象。所以今天這次的探討，我想直接從我個人的實踐經驗出發，帶大家一起挖深一點，來看看這個核心問題：為什麼有時候別人明明只是一句話、一個眼神，卻可以這麼強烈地影響我們？</p>
+      <p>我想先問螢幕前的你，因為這絕對是我們大家都有的共同經歷。你可能曾經因為同事一個有點奇怪的眼神，就在那邊反覆揣想，搞到徹夜難眠，甚至因為這樣去動搖了一段關係。等事情過了一陣子，你一定問過自己：奇怪，為什麼就那麼一句話，能讓我整晚睡不著覺？</p>
+      <p>你注意到了嗎？這裡有一個超級強烈的對比。那個觸發點，那句話明明這麼短暫、這麼微不足道，可是我們心裡感受到的情緒破壞力卻是大到完全不成比例。這到底說明了什麼呢？</p>
+    </div>
+
+    <div class="section">
+      <h2 class="section-title"><span class="section-num">一</span>最初的衝擊——力量不在外面</h2>
+      <p>這件事情清楚地告訴我們，真正能傷害我們的力量，根本就不在那句話或那個眼神裡面。你想想看是不是這樣？相反的，那個力量的來源，是我們內在某個超級隱秘、卻又無比強大的運作機制。現在我們就準備來好好拆解一下這個機制了。</p>
+      <p>要搞懂這個機制的基礎，佛教裡有一部經典叫《大乘起信論》，它裡面的概念真的是完美解釋了這一點。它說啊，我們的心其實可以分成兩道門。</p>
+      <p>第一道叫做「<strong>心真如門</strong>」，這就是我們最自然、最平靜、清淨無染的本來狀態。而另一道門呢，叫做「<strong>心生滅門</strong>」，這是一個充滿無明風動、各種妄念跟情緒反應的動盪領域。</p>
+      <p>我們之所以會覺得「我受傷了」，其實就是因為我們的心跑進了生滅門裡面，正在經歷一場把外在刺激瘋狂加工放大的情緒風暴。</p>
+    </div>
+
+    <div class="divider">◇</div>
+
+    <div class="section">
+      <h2 class="section-title"><span class="section-num">二</span>藏在深處的舊劇本</h2>
+      <p>好，接著進入第二部分，來聊聊藏在深處的舊劇本。那麼，我們心底到底藏著什麼不可告人的秘密呢？</p>
+      <p>你有沒有想過，為什麼明明是同一句帶有批評的話，你心情好的時候可以笑笑就算了，但如果哪天你特別累、心情特別低落，那句話卻能把你徹底擊垮？</p>
+      <p>這個答案其實就藏在我們潛意識的最深處。也就是說，在我們每一個人的心識深處，其實都儲存著無數個因為過去經驗而留下來的業力種子。有些種子長得特別巨大、特別強壯，像是那種「我很怕被輕視」、「我會被拋棄」、或者是「我總是不夠好」的這種深層恐懼。</p>
+      <p>這些種子平常都在睡覺，它們在等什麼？等待一個外在的條件，也就是佛教常說的「<strong>緣</strong>」，來把它們喚醒。</p>
+      <p>所以你看，別人那個漫不經心的眼神，其實就是那個「緣」。它直接為你內心深處的舊劇本，提供了一個可以重新上演的完美舞台。</p>
+    </div>
+
+    <div class="divider">◇</div>
+
+    <div class="section">
+      <h2 class="section-title"><span class="section-num">三</span>看不見的加工廠——三細</h2>
+      <p>當那個外在的緣，真的去碰到你心裡那顆敏感的種子時，到底會發生什麼事？你現在想像一下，我們打開了一台超高速攝影機，我們要去捕捉在意識甚至都還沒察覺到之前，你的大腦跟心智那種比閃電還要快上一百倍的微細動作。</p>
+      <p>這個微細的過程呢，最有趣的地方在於，它可以被精準裁切成三個步驟，也就是《大乘起信論》裡面說的「<strong>三細</strong>」。</p>
+      <p><strong>第一步叫做「無明業相」。</strong>它就像是原本平靜的湖水，突然被丟進一顆石子，你內在的某種不安就開始震動了。</p>
+      <p><strong>再來第二步，「能見相」。</strong>從剛剛那個震動裡面，瞬間就成型了一個帶著舊傷口濾鏡、極度脆弱的「我」。</p>
+      <p><strong>然後第三步，「境界相」。</strong>既然有了一個脆弱的「我」，你的大腦立刻就會向外投射出一個充滿敵意的「他」。</p>
+      <p>你看，就在眨眼之間，受害者跟威脅者通通都已經就位了。你真的可以好好體會一下這件事：你的世界早就已經被粗暴地切成了「脆弱的我」跟「帶著威脅的外界」。而且最驚人的是，這一切的發生，遠遠早於你腦海裡浮現出「他是不是討厭我」這個明確的念頭之前。</p>
+      <p>也就是說，生產痛苦的鷹架，在你的潛意識底層早就已經悄悄搭好了。</p>
+    </div>
+
+    <div class="divider">◇</div>
+
+    <div class="section">
+      <h2 class="section-title"><span class="section-num">四</span>情緒風暴的成形——六麤</h2>
+      <p>鷹架既然搭好了，我們那個比較粗顯的表層意識就要準備接手了。接下來的走勢，絕對會以一種你無法想像的速度，瘋狂升溫、急速惡化。這就是一個像滾雪球一樣的「<strong>六麤</strong>」階段。</p>
+      <p><strong>首先，「智相」，你開始瘋狂貼標籤：</strong>這語氣絕對是諷刺。</p>
+      <p><strong>接著就進入「相續相」，這是最可怕的放大器：</strong>你不斷在腦袋裡面循環反芻——他憑什麼這樣看我？他以為他是誰？</p>
+      <p><strong>然後，「執取相」，你就死抓住這個受害者的故事不放了。接著，「計名字相」，你甚至會開始給它命名定罪</strong>：好啊，他就是個傲慢的人。</p>
+      <p><strong>當內在張力直接爆表之後，「起業相」讓你終於忍不住了。</strong>你可能會摔門、直接回嗆。</p>
+      <p><strong>那最後的結果是什麼？關係破裂嘛，「業繫苦相」來了。</strong>你把自己死捆綁在憤怒跟無助的地獄裡面，完全就是作繭自縛啊。</p>
+      <p>好，我們在這個「<strong>執取相</strong>」的階段稍微按一下暫停鍵。你想一想，為什麼我們要在腦海裡面把痛苦加工得這麼嚴重，卻又緊抓著不放手呢？</p>
+      <p>這其實是一個非常深刻的體悟。那是因為，我們早就已經對自己編造出來的這個傷害故事深信不已了。我們緊緊抱著那個「被傷害的我」，因為如果放手了，這個由業力一層一層堆疊出來的自我，反而會因為突然失去存在感而感到無比的虛無。</p>
+      <p>沒錯，這就是我們常常捨不得放下痛苦的真實原因。</p>
+    </div>
+
+    <div class="divider">◇</div>
+
+    <div class="section">
+      <h2 class="section-title"><span class="section-num">五</span>業力的交織——為何偏偏是「他」？</h2>
+      <p>如果我們現在把視角拉高，用一種上帝視角來看整場衝突，我們就必須問出一個更深層次的問題了：世界這麼大，為什麼偏偏就是那個人觸發了你？</p>
+      <p>其實啊，在人際衝突裡面，往往藏著最不可思議的巧合。說穿了，這就是兩個人業力劇本的完美嵌合。在你的劇本裡，剛好就是需要一個輕視你的人，來完整你這個受害者的體驗；而另一邊，在對方的劇本裡，或許那真的只是一個他因為眼睛乾澀而皺了眉頭的無心之舉，又或者是他自己心裡其實也在防衛著某些東西。</p>
+      <p>結果就是，你們兩個人就這麼剛好地，在彼此的業力迴圈裡面，扮演了對方潛意識裡最需要的那個角色。</p>
+      <p>這也就是為什麼很多衝突變得無休無止。因為你的反擊，比如說你那一氣極敗壞的回嗆，對你自己來說，你覺得你在自我防衛。可是對他而言呢？哇，那簡直是完美觸發了他的三細跟六麤加工廠。</p>
+      <p>結果就是你們兩邊的業力互相鎖死，就像雪球越滾越大一樣，把你們雙方都緊緊捆綁在一個共享的痛苦輪迴裡面。</p>
+    </div>
+
+    <div class="divider">◇</div>
+
+    <div class="section">
+      <h2 class="section-title"><span class="section-num">六</span>看見，就是解脫的開始</h2>
+      <p>好了，大家可以先深呼吸一下。我們剛剛一起經歷了一場超級驚心動魄的內在風暴。但是呢，只要當我們能夠徹底看清這個結構的運作方式，一條充滿希望的解脫之路，其實就已經出現在我們眼前了。</p>
+      <p>所以這裡最關鍵的重點在於，外在的那些言語或是眼神，從來、從來就不是真正刺殺你的武器。它真的就僅僅只是一個開關而已。你想一想，既然生產痛苦的整條加工鏈，完完全全都在我們自己的心裡，這代表什麼？就代表著我們絕對握有把這台機器給關掉的絕對權利。我們是可以選擇不痛的。</p>
+      <p>這裡我想跟大家分享，一個你立刻就可以在日常生活中拿來用的小技巧。</p>
+      <p>下一次，當你又覺得被誰惹毛、被觸發的時候，試著做一個內在的小實驗：</p>
+      <div class="steps">
+        <div class="step"><span class="step-num">一、</span><span><strong>先喊暫停。</strong>千萬別急著跳進那個「他怎麼可以這樣對我」的八點檔劇情裡。</span></div>
+        <div class="step"><span class="step-num">二、</span><span><strong>向內看。</strong>你去仔細感覺一下，那個身體上的不舒服到底是在哪邊升起的。</span></div>
+        <div class="step"><span class="step-num">三、</span><span><strong>靜靜看著。</strong>看著腦袋裡那些一直想要反芻的念頭，看它們怎麼吸引你的注意。</span></div>
+        <div class="step"><span class="step-num">四、</span><span><strong>溫柔地對自己承認：</strong>啊，原來是我心裡的那家痛苦加工廠又開工了。</span></div>
+      </div>
+      <p>真的，只要有這份簡單的覺察，就足以瞬間切斷那整條全自動的連鎖反應。其實這就是佛教經典裡教導我們的終極解藥，也就是從那個充滿生滅風暴的狀態，重新回到清淨的「<strong>心真如門</strong>」。</p>
+      <p>當我們慢慢學會，透過靜心跟自我觀察，讓我們內在的湖水再次恢復平靜的時候，我們就不會再一直去給那些舊有的業力種子澆水了。一旦那種最根本的無明波動開始減弱，你才會怎麼樣？那顆投向你的石子，就只會單純地咚一聲沉入水底，再也激不起任何一絲風暴了。</p>
+      <p>一句話的重量，從來就不是什麼你命中注定必須去承受的宿命。當你看清了這一切是怎麼運作的，那份重量自然而然就會鬆開來。</p>
+    </div>
+
+    <div class="closing-q">
+      <p>下一次，當別人的言語又像石子一樣落進你的心湖時，你會繼續跟著那場情緒風暴起舞呢——還是你會選擇成為一個充滿智慧、只是靜靜看著這一切的觀察者？</p>
+    </div>
+
+  </div><!-- /article -->
+
+  <footer>
+    <p>AQE &nbsp;@&nbsp; 2026</p>
+  </footer>
+
+</div><!-- /wrap -->
+
+<button id="back-top" aria-label="回到頂部">↑</button>
+
+<script>
+  const btn = document.getElementById('back-top');
+  window.addEventListener('scroll', () => {
+    btn.classList.toggle('show', window.scrollY > 300);
+  });
+  btn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+</script>
+</body>
+</html>
