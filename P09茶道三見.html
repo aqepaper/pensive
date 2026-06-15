@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>茶道三見｜若有所思</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC&family=Noto+Serif+TC:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f5f2eb;
+    --ink: #1c1a17;
+    --ink-mid: #4a443c;
+    --ink-light: #8c8175;
+    --accent: #6f5f4e;
+    --rule: rgba(111,95,78,0.12);
+    --max: 680px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Noto Serif TC', serif;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 1.85;
+    letter-spacing: 0.05em;
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  /* Paper texture */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Watermark */
+  .watermark {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    opacity: 0.030;
+    z-index: 0;
+  }
+  .watermark svg { width: 360px; height: 360px; }
+
+  .wrap {
+    position: relative;
+    z-index: 1;
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 0 22px 100px;
+  }
+
+  /* Hero */
+  .hero {
+    padding: 64px 0 44px;
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 48px;
+  }
+  .hero-eyebrow {
+    font-size: 13px;
+    letter-spacing: 0.32em;
+    color: var(--ink-light);
+    margin-bottom: 18px;
+  }
+  .hero-title {
+    font-family: 'LXGW WenKai TC', serif;
+    font-size: clamp(27px, 7vw, 34px);
+    font-weight: 400;
+    line-height: 1.4;
+    color: var(--ink);
+    margin-bottom: 10px;
+  }
+  .hero-sub {
+    font-family: 'LXGW WenKai TC', serif;
+    font-style: normal;
+    font-size: 17px;
+    color: var(--ink-mid);
+    letter-spacing: 0.06em;
+    margin-bottom: 32px;
+  }
+
+  /* Article body */
+  .article {
+    padding-bottom: 12px;
+  }
+
+  /* Part label */
+  .part-label {
+    font-size: 12px;
+    letter-spacing: 0.35em;
+    color: var(--ink-light);
+    margin-bottom: 32px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  /* Opening quote */
+  .opening-quote {
+    margin-bottom: 2.8em;
+    padding: 28px 28px 28px 32px;
+    border-left: 3px solid var(--accent);
+    background: rgba(111,95,78,0.04);
+    border-radius: 0 4px 4px 0;
+  }
+  .opening-quote p {
+    font-family: 'LXGW WenKai TC', serif;
+    font-size: clamp(17px, 4.5vw, 20px);
+    line-height: 2;
+    color: var(--ink);
+  }
+
+  /* Sections */
+  .section {
+    margin-bottom: 3em;
+  }
+
+  .section-title {
+    font-family: 'LXGW WenKai TC', serif;
+    font-size: clamp(18px, 4.8vw, 22px);
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1.5;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.6em;
+    padding-bottom: 0.6em;
+    border-bottom: 1px solid var(--rule);
+  }
+  .section-num {
+    font-style: italic;
+    font-size: 14px;
+    color: var(--ink-light);
+    letter-spacing: 0.2em;
+    margin-right: 0.6em;
+  }
+
+  .section p {
+    margin-bottom: 1.2em;
+    color: var(--ink-mid);
+  }
+  .section p:last-child { margin-bottom: 0; }
+
+  /* Inline bold term */
+  strong {
+    font-weight: 400;
+    color: var(--ink);
+  }
+
+  /* Three-sees list */
+  .sees-list {
+    margin: 1.2em 0 1.4em;
+    display: flex;
+    flex-direction: column;
+    gap: 1.4em;
+  }
+  .see-item {
+    padding: 18px 20px 18px 22px;
+    border-left: 2px solid var(--rule);
+    border-radius: 0 3px 3px 0;
+  }
+  .see-title {
+    font-family: 'LXGW WenKai TC', serif;
+    font-size: 17px;
+    color: var(--ink);
+    margin-bottom: 0.4em;
+    letter-spacing: 0.06em;
+  }
+  .see-body {
+    font-size: 16px;
+    color: var(--ink-mid);
+    line-height: 1.85;
+  }
+
+  /* Quote block */
+  .quote-block {
+    background: rgba(111, 95, 78, 0.03);
+    border-left: 3px solid var(--accent);
+    padding: 24px 28px;
+    margin: 1.8em 0;
+    border-radius: 0 4px 4px 0;
+    color: var(--ink);
+    font-family: 'LXGW WenKai TC', serif;
+    font-size: 17px;
+    line-height: 1.9;
+  }
+
+  /* Divider */
+  .divider {
+    text-align: center;
+    margin: 2.4em 0;
+    color: var(--ink-light);
+    font-size: 15px;
+    letter-spacing: 0.5em;
+    opacity: 0.45;
+  }
+
+  /* Part divider */
+  .part-divider {
+    margin: 4em 0;
+    display: flex;
+    align-items: center;
+    gap: 1em;
+  }
+  .part-divider::before,
+  .part-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--rule);
+  }
+  .part-divider span {
+    font-family: 'LXGW WenKai TC', serif;
+    font-size: 13px;
+    letter-spacing: 0.4em;
+    color: var(--ink-light);
+    white-space: nowrap;
+  }
+
+  /* Closing question */
+  .closing-q {
+    margin-top: 3.2em;
+    padding: 28px 24px;
+    border-left: 3px solid var(--accent);
+    background: rgba(90,78,66,0.05);
+    border-radius: 0 2px 2px 0;
+  }
+  .closing-q p {
+    font-family: 'LXGW WenKai TC', serif;
+    font-size: clamp(17px, 4.5vw, 20px);
+    font-weight: 400;
+    line-height: 1.8;
+    color: var(--ink);
+  }
+
+  /* Footer */
+  footer {
+    text-align: center;
+    padding: 48px 0 0;
+    color: var(--ink-light);
+    font-size: 13px;
+    letter-spacing: 0.3em;
+    border-top: 1px solid var(--rule);
+    margin-top: 48px;
+  }
+
+  /* Back to top */
+  #back-top {
+    position: fixed;
+    bottom: 28px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    background: var(--accent);
+    color: #f0ede6;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+    z-index: 100;
+  }
+  #back-top.show { opacity: 1; pointer-events: auto; }
+
+  @media (min-width: 660px) {
+    .wrap { padding: 0 48px 100px; }
+    .hero { padding: 72px 0 48px; }
+  }
+
+  @media (max-width: 360px) {
+    body { font-size: 16px; }
+    .hero-title { font-size: 25px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="watermark" aria-hidden="true">
+  <svg viewBox="0 0 340 340" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="170" cy="210" rx="100" ry="27" stroke="#5a4e42" stroke-width="0.9" fill="none"/>
+    <path d="M70 210 Q62 148 90 112 Q126 76 170 72 Q214 76 250 112 Q278 148 270 210" stroke="#5a4e42" stroke-width="0.9" fill="none"/>
+    <ellipse cx="170" cy="72" rx="80" ry="18" stroke="#5a4e42" stroke-width="0.7" fill="none"/>
+    <path d="M126 50 Q140 24 154 14 Q162 9 170 14 Q178 9 186 14 Q200 24 214 50" stroke="#5a4e42" stroke-width="0.6" fill="none"/>
+    <path d="M138 246 Q148 274 170 282 Q192 274 202 246" stroke="#5a4e42" stroke-width="0.6" fill="none"/>
+    <ellipse cx="170" cy="284" rx="36" ry="7" stroke="#5a4e42" stroke-width="0.5" fill="none"/>
+  </svg>
+</div>
+
+<div class="wrap">
+
+  <header class="hero">
+    <p class="hero-eyebrow">若有所思 * 散文</p>
+    <h1 class="hero-title">茶道三見</h1>
+    <p class="hero-sub">見天地　見眾生　見自己</p>
+  </header>
+
+  <div class="article">
+
+    <!-- ░░ PART ONE ░░ -->
+    <p class="part-label">其一　茶道三見</p>
+
+    <div class="opening-quote">
+      <p>初問茶道，答曰：「於一碗茶湯中，以寂靜之心映照山川風月，在舉手投足的從容裡，見天地，見眾生，見自己。」此三見，遂成問答之樞紐。</p>
+    </div>
+
+    <div class="section">
+      <h2 class="section-title"><span class="section-num">一</span>三見</h2>
+      <div class="sees-list">
+        <div class="see-item">
+          <p class="see-title">如何見天地？</p>
+          <p class="see-body">燒水時聽松濤，注水時觀水線，捧茶碗而察陶土紋理。茶葉來自山川，水源自泉流，掛軸花器隨季節更替。在一席茶中，體認風霜雨雪、春華秋實，知自身不過自然一塵。</p>
+        </div>
+        <div class="see-item">
+          <p class="see-title">如何見眾生？</p>
+          <p class="see-body">為客點茶，觀其呼吸表情，調濃淡、緩急。將所悟以無言之禮分享，從對方微笑或沉默中，讀懂千萬種人生。知人人皆在苦樂中修行，乃生慈悲平等之心。</p>
+        </div>
+        <div class="see-item">
+          <p class="see-title">如何見自己？</p>
+          <p class="see-body">爐火靜、茶煙歇，獨啜殘湯。動作瑕疵、心念起伏，無處遁形。不評判、不追逐，如實看見急躁或從容、貪味或知足。久而久之，於茶碗倒影中，照見本來面目。</p>
+        </div>
+      </div>
+      <p>三者貫通，便是茶道之「道」。然問者又云：「見天地、見眾生、見自己，亦之謂術乎？」</p>
+      <p>對曰：是也。道為境界本體，術為實踐路徑。見天地之術在調水溫、辨茶葉、順節氣；見眾生之術在行禮儀、觀呼吸、調節奏；見自己之術在每日一碗茶中觀照修心。無術則道空，無道則術陋。故曰：以術載道，以道御術。</p>
+    </div>
+
+    <div class="divider">◇</div>
+
+    <div class="section">
+      <h2 class="section-title"><span class="section-num">二</span>亦術亦道</h2>
+      <p>進而問：「亦術亦道乎？」答曰：燒水注湯奉茶收盞，步步有法是為術；舉手投足間流露天地之寬、眾生之敬、自己之真，是為道。術若不載道，終成賣弄；道若離於術，便是空談。</p>
+      <p>茶碗之水，既是物理之水，亦是心境之水。舉手即術，放下即道。</p>
+    </div>
+
+    <div class="divider">◇</div>
+
+    <div class="section">
+      <h2 class="section-title"><span class="section-num">三</span>非道非術</h2>
+      <p>終極一問：「非道非術乎？」至此，思辨已臻極致。道可道非常道，術成套路即生執著。真正的茶，只是燒水、注湯、喝茶。那一刻，無「修道」之念，無「用術」之分。</p>
+      <p>不標榜道，不計較術，如實完成一碗茶的遞與接。說「亦術亦道」是破片面，說「非道非術」是破一切名相。連「道」「術」二字都放下，才是茶碗裡那一口清涼的真滋味。</p>
+    </div>
+
+    <div class="closing-q">
+      <p>祖師云：「喫茶去。」既不問是道是術，亦不問非道非術。一碗茶畢，天地、眾生、自己，皆在無言之中。</p>
+    </div>
+
+    <!-- ░░ PART TWO ░░ -->
+    <div class="part-divider"><span>其二　一碗茶的功夫</span></div>
+
+    <div class="section">
+      <p>有人問我，茶道是什麼？</p>
+      <p>我說，茶道不過是在一碗茶湯裡，安安靜靜地，看見天地，看見眾生，看見自己。</p>
+      <p>這三句話，聽著玄，其實很簡單。</p>
+    </div>
+
+    <div class="section">
+      <h2 class="section-title"><span class="section-num">一</span>看見天地</h2>
+      <p>看見天地，是你燒水的時候，聽見水聲從微響到滾沸，像遠處的松濤。你注水的時候，看著水流劃出弧線，落入壺中，濺起細小的白沫。你捧起茶碗，拇指輕輕摩過粗糲的陶釉——你知道，這茶葉是山裡春天摘的，這水是某條溪流帶來的，這碗是用泥土和火焰燒成的。</p>
+      <p>四季流轉，風霜雨雪，都濃縮在這一口溫熱裡。你不是天地的主宰，你只是天地之間，一個靜靜喝茶的人。</p>
+    </div>
+
+    <div class="divider">◇</div>
+
+    <div class="section">
+      <h2 class="section-title"><span class="section-num">二</span>看見眾生</h2>
+      <p>看見眾生，是你為旁邊的人點茶。你看著他的眉眼，覺察他今天是不是累了，於是茶湯泡淡一些，動作放慢一些。你雙手捧著碗，輕輕轉兩下，把最完整的一面朝向對方。他不說話，但你從他接過茶碗時微微顫動的指尖，讀懂了他心裡的波瀾。</p>
+      <p>你忽然明白，每個人都在自己的路上掙扎著，苦著，樂著，忍耐著。你端出這碗茶，不是施捨，不是炫耀，只是一種沉默的陪伴。這就是慈悲。</p>
+    </div>
+
+    <div class="divider">◇</div>
+
+    <div class="section">
+      <h2 class="section-title"><span class="section-num">三</span>看見自己</h2>
+      <p>看見自己，是夜深人靜，只剩下你一個人。爐火暗下去，茶煙散盡，你倒出最後半碗殘湯，慢慢喝。你回味剛才的動作：注水的時候是不是急了一點？奉茶的時候是不是多說了一句廢話？</p>
+      <p>你笑了，不責怪自己，也不誇獎自己，就這麼看著——看著自己的笨拙，自己的驕傲，自己的安靜，自己的慌張。茶碗裡映出你的臉，那不是別人，那就是你。真實的，不遮掩的你。</p>
+    </div>
+
+    <div class="divider">◇</div>
+
+    <div class="section">
+      <h2 class="section-title"><span class="section-num">四</span>亦術亦道</h2>
+      <p>這三種看見，就是茶道的「道」。可也有人問，這是「術」嗎？是的，當然是術。</p>
+      <p>怎麼看見天地？你得學會看茶葉、辨水溫、選茶器，順著節氣喝茶——這是技術。怎麼看見眾生？你得學會行禮的規矩、奉茶的姿勢、察言觀色的本領——這是技術。怎麼看見自己？你得老老實實每天泡一碗茶，練習安住當下，覺察念頭——這也是技術。沒有這些具體的、一舉一動的「術」，那些「道」不過是空中樓閣。</p>
+      <p>可是，反過來說，如果只會炫技，倒茶如雜耍，心裡卻一片混亂，那也不過是個泡茶的工具人。茶道之所以迷人，就在於它「亦術亦道」——手上有功夫，心裡有覺知。你倒茶的時候，技巧純熟，心中無事，那一刻，術就是道，道就是術。</p>
+    </div>
+
+    <div class="divider">◇</div>
+
+    <div class="section">
+      <h2 class="section-title"><span class="section-num">五</span>只是喝茶</h2>
+      <p>最後，連「道」和「術」這兩個字都要放下。</p>
+      <p>真正端起茶碗的時候，你根本不會想：「我這是在修道呢，還是在用術呢？」你只是想：燙，吹一吹；香，聞一聞；暖，喝下去。沒有標籤，沒有分別，只是簡簡單單地，喝茶。</p>
+      <p>祖師爺早就說透了：「喫茶去。」</p>
+      <p>所以，別管什麼天地眾生自己了，也別管什麼道啊術啊的。</p>
+      <p>你好好燒一壺水，好好泡一碗茶，好好遞給對面的人，好好喝下最後一口。</p>
+    </div>
+
+    <div class="closing-q">
+      <p>在那個片刻裡，你什麼都看見了，也什麼都沒有想。這，就是一碗茶的功夫。</p>
+    </div>
+
+  </div><!-- /article -->
+
+  <footer>
+    <p>AQE &nbsp;@&nbsp; 2026</p>
+  </footer>
+
+</div><!-- /wrap -->
+
+<button id="back-top" aria-label="回到頂部">↑</button>
+
+<script>
+  const btn = document.getElementById('back-top');
+  window.addEventListener('scroll', () => {
+    btn.classList.toggle('show', window.scrollY > 300);
+  });
+  btn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+</script>
+</body>
+</html>
