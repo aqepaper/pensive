@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>招生初衷是一道看不見的光｜若有所思</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC&family=Noto+Serif+TC:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:        #f5f2eb;
+    --ink:       #1c1a17;
+    --ink-mid:   #4a443c;
+    --ink-light: #8c8175;
+    --accent:    #6f5f4e;
+    --rule:      rgba(111,95,78,0.12);
+    --max:       680px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Noto Serif TC', serif;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 1.85;
+    letter-spacing: 0.05em;
+    min-height: 100vh;
+    position: relative;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .watermark {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 360px;
+    height: 360px;
+    opacity: 0.030;
+    z-index: 0;
+    pointer-events: none;
+  }
+  .watermark svg { width: 100%; height: 100%; }
+
+  .wrap {
+    position: relative;
+    z-index: 1;
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 0 22px 100px;
+  }
+
+  @media (min-width: 660px) {
+    .wrap { padding: 0 48px 100px; }
+  }
+
+  /* ── Hero ── */
+  .hero {
+    padding: 64px 0 44px;
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 48px;
+  }
+  @media (min-width: 660px) {
+    .hero { padding: 72px 0 48px; }
+  }
+  .hero-eyebrow {
+    font-size: 13px;
+    letter-spacing: 0.32em;
+    color: var(--ink-light);
+    margin-bottom: 18px;
+  }
+  .hero-title {
+    font-family: 'LXGW WenKai TC', serif;
+    font-size: clamp(27px, 7vw, 34px);
+    font-weight: 400;
+    line-height: 1.4;
+    color: var(--ink);
+    margin-bottom: 10px;
+  }
+  .hero-sub {
+    font-style: italic;
+    font-size: 17px;
+    color: var(--ink-mid);
+    letter-spacing: 0.06em;
+    margin-bottom: 32px;
+  }
+  .player-wrap {
+    background: rgba(90,78,66,0.06);
+    border-left: 3px solid var(--accent);
+    padding: 18px 20px;
+    border-radius: 0 2px 2px 0;
+  }
+  .player-label {
+    font-size: 13px;
+    letter-spacing: 0.25em;
+    color: var(--ink-light);
+    margin-bottom: 10px;
+  }
+  audio {
+    width: 100%;
+    height: 42px;
+    accent-color: var(--accent);
+  }
+
+  /* ── Opening ── */
+  .opening { margin-bottom: 2.4em; }
+  .opening p { margin-bottom: 1.2em; color: var(--ink-mid); }
+  .opening p:last-child { margin-bottom: 0; }
+
+  /* ── Section ── */
+  .section { margin-bottom: 3em; }
+  .section-title {
+    font-family: 'LXGW WenKai TC', serif;
+    font-size: clamp(18px, 4.8vw, 22px);
+    font-weight: 500;
+    color: var(--ink);
+    letter-spacing: 0.08em;
+    margin-bottom: 0.6em;
+    padding-bottom: 0.6em;
+    border-bottom: 1px solid var(--rule);
+  }
+  .section-num {
+    font-style: italic;
+    font-size: 14px;
+    color: var(--ink-light);
+    letter-spacing: 0.2em;
+    margin-right: 0.6em;
+  }
+  .section p { margin-bottom: 1.2em; color: var(--ink-mid); }
+  .section p:last-child { margin-bottom: 0; }
+  strong { font-weight: 400; color: var(--ink); }
+
+  /* ── Quote Block ── */
+  .quote-block {
+    background: rgba(111,95,78,0.03);
+    border-left: 3px solid var(--accent);
+    padding: 24px 28px;
+    margin: 1.8em 0;
+    border-radius: 0 4px 4px 0;
+    color: var(--ink);
+    font-family: 'LXGW WenKai TC', serif;
+    font-size: 17px;
+    line-height: 1.9;
+  }
+
+  /* ── Card List ── */
+  .reject-list {
+    margin: 1.5em 0 1.5em 1em;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8em;
+  }
+  .reject-item {
+    background: rgba(255,255,255,0.4);
+    padding: 10px 16px;
+    border-radius: 4px;
+    border-left: 2px solid var(--ink-light);
+    font-size: 16px;
+    color: var(--ink-mid);
+  }
+  .reject-bullet { display: none; }
+
+  /* ── Divider ── */
+  .divider {
+    text-align: center;
+    margin: 2.4em 0;
+    color: var(--ink-light);
+    font-size: 15px;
+    letter-spacing: 0.5em;
+    opacity: 0.45;
+  }
+
+  /* ── Closing-Q ── */
+  .closing-q {
+    margin-top: 3.2em;
+    padding: 28px 24px;
+    border-left: 3px solid var(--accent);
+    background: rgba(90,78,66,0.05);
+    border-radius: 0 2px 2px 0;
+  }
+  .closing-q p {
+    font-family: 'LXGW WenKai TC', serif;
+    font-size: clamp(17px, 4.5vw, 20px);
+    font-weight: 400;
+    line-height: 1.8;
+    color: var(--ink);
+  }
+
+  /* ── Footer ── */
+  footer {
+    text-align: center;
+    padding: 48px 0 0;
+    color: var(--ink-light);
+    font-size: 13px;
+    letter-spacing: 0.3em;
+    border-top: 1px solid var(--rule);
+    margin-top: 48px;
+  }
+
+  /* ── Back to top ── */
+  #back-top {
+    position: fixed;
+    bottom: 28px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    background: var(--accent);
+    color: #f0ede6;
+    border: none;
+    border-radius: 2px;
+    font-size: 18px;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.3s;
+    z-index: 2;
+  }
+  #back-top.show { opacity: 1; }
+
+  @media (prefers-reduced-motion: reduce) {
+    #back-top { transition: none; }
+  }
+
+  @media (max-width: 360px) {
+    body { font-size: 16px; }
+    .hero-title { font-size: 25px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="watermark" aria-hidden="true">
+  <svg viewBox="0 0 340 340" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#5a4e42" stroke-width="1.2">
+    <path d="M40 230 Q90 180 140 220 Q180 250 230 200 Q270 165 300 200" />
+    <path d="M30 260 Q100 210 160 250 Q200 275 250 230 Q280 205 310 235" />
+    <circle cx="255" cy="95" r="45" />
+    <path d="M255 50 L255 25" />
+    <path d="M232 70 L210 50" />
+    <path d="M278 70 L300 50" />
+  </svg>
+</div>
+
+<div class="wrap">
+
+  <header class="hero">
+    <p class="hero-eyebrow">若有所思 * 專題探討EP</p>
+    <h1 class="hero-title">招生初衷是一道看不見的光</h1>
+    <p class="hero-sub">&nbsp;</p>
+    <div class="player-wrap">
+      <p class="player-label">語音講義</p>
+      <audio controls preload="metadata">
+        <source src="A0616.m4a" type="audio/mp4">
+      </audio>
+    </div>
+  </header>
+
+  <div class="article">
+
+    <div class="opening">
+      <p>師兄，我知道你最近心裡有點挫敗感，沒關係，我們坐下來好好聊一聊。哎，我懂，真的懂，夜闌人靜的時候會想起那些已讀不回的訊息，還有那些很客氣，但其實就是拒絕的話。心裡那種感覺酸酸的沉沉的，對吧，那種挫敗感真的很磨人。</p>
+      <p>不過呢，在我們繼續往下聊之前，師兄，我想請你先停一下，真的先停一下，先好好地謝謝自己。謝謝自己那份這麼單純，這麼真誠，一心只想要幫助別人的心，這份心啊本身就閃閃發光，你知道嗎？這，就是修行了。</p>
+    </div>
+
+    <div class="section">
+      <h2 class="section-title"><span class="section-num">一</span>祖師走過的路，你一點都不孤單</h2>
+      <p>好，從一個更宏觀的角度來看，你可能會很驚訝的發現你現在遇到的這個狀況，其實啊在這條菩提道上一點都不陌生。</p>
+      <p>你看哦，這很有趣，像當年佛陀覺悟之後，第一次轉法輪，你猜聽眾有誰？就只有那五位跟他一起苦行多年的夥伴。再來達摩祖師從印度來到中土，花了多久？整整九年，就只是在山洞裡面壁，靜靜的等，等那個真正準備好要來求法的人出現。</p>
+      <p>所以師兄你看到了嗎?你現在走的這條路，佛陀走過，祖師也走過，你一點都不孤單。</p>
+      <p>我們心裡頭啊，常常會有個小小的聲音，覺得說，哎呦，這麼棒的法，應該要像天降甘霖一樣，所有人都會馬上接受，馬上受益才對啊，對不對？</p>
+      <p>但現實是，因緣的現實是，佛法這顆珍貴的種子，只會在那些已經準備好的心田裡，才會真正的發芽茁壯。所以那些拒絕真的不是在否定你，也不是在否定佛法，它其實就只是很平靜的告訴我們四個字：<strong>時機未到</strong>，就這麼簡單。</p>
+      <p>所以師兄你一定要明白，你現在這段時間真的不是失敗，你換個角度想，這就像是達摩祖師面壁的那九年一樣，這是一個.....沉澱的過程，一個篩選的過程，在那個真正有心、真心渴望的人出現之前，這段寧靜是必須的。</p>
+    </div>
+
+    <div class="divider">◇</div>
+
+    <div class="section">
+      <h2 class="section-title"><span class="section-num">二</span>不順遂其實是三份禮物</h2>
+      <p>好，接下來這部分我覺得是今天最核心的了，我們要來聊聊這次的不順利，它其實根本就不是一個障礙，恰恰相反，它其實是法輪轉了一個方向，要特別送給你的一份修行的禮物。</p>
+      <p>這份禮物啊，它有三層包裝，很精緻的。打開第一層，你會看到照見我執；第二層呢，是修習安忍；第三層是開啟善巧。聽起來有點玄嗎？別急，我們一個一個來拆開來看。</p>
+      <p><strong>第一份禮物：照見我執。</strong> 這是什麼意思呢？就是這個挫折啊，它像一面鏡子，很溫柔的照見我們自己。它在問我們，我們是不是不知不覺中，把「有多少人來上課」跟「我這個人有沒有價值」這兩件事給綁在一起了。它提醒我們，我們只是一個橋樑，一個助緣，而不是那個能掌控一切的源頭。當我們能夠鬆開那隻緊緊抓住結果的手的時候，哇，那個時候才能體會到什麼是真正的自在。</p>
+      <p><strong>第二份禮物：修習安忍。</strong> 這個更棒了，它是一個讓我們修安忍的絕佳機會。你知道嗎？這就是所謂的忍辱波羅蜜的道場啊。你可以想像自己是一個很有智慧的老農夫。老農夫他懂天時，他知道自己該做什麼，就是努力的翻土播種澆水。至於那顆種子什麼時候發芽，什麼時候開花結果，那是太陽，是雨水，是整個大自然的事，他只管耕耘，不問收穫。我們也是一樣，專注在過程就好。</p>
+      <p><strong>第三份禮物：開啟善巧。</strong> 這也是一個反思的機會，它讓我們停下來想一想，我們的方法是不是可以再調整一下。現在大家每天生活壓力這麼大，煩惱這麼多，我們有沒有真的去理解他們在煩什麼？我們說的話，是不是他們聽得懂的語言？我們有沒有告訴他們，禪修這個工具，到底要怎麼實際的幫助他們，解決那些失眠啊，焦慮啊，注意力不集中的問題。</p>
+    </div>
+
+    <div class="divider">◇</div>
+
+    <div class="section">
+      <h2 class="section-title"><span class="section-num">三</span>向內耕耘，做一個穩定的光源</h2>
+      <p>OK，所以我們拆開了這三份禮物，那接下來我們就可以來實際操作了。佛法常講境隨心轉。當我們內在的念頭一轉，外在的處境真的會跟著改變，關鍵就在這裡，把那份向外追逐的力氣收回來，轉向往內心深深的耕耘。</p>
+      <p>所以當你又開始覺得很茫然、很挫折的時候，師兄，你可以輕聲地問自己一句話：</p>
+      <div class="quote-block">「我現在這麼努力，究竟是為了傳遞佛法的好，還是為了滿足我自己對於成功的期待？」</div>
+      <p>哇，這個問題非常有力量，它就像一把智慧的劍，能幫我們切開那個迷霧，看清楚我們動力的來源，到底是純粹的利他，還是夾雜了小我的成就感。</p>
+      <p>你看這個對比就非常清楚了，當我們的心一直向外追，追著那個結果跑，哎呀，很容易就焦慮挫敗，但是如果我們把力氣反過來，用在涵養自己的內心，讓自己變成一個很穩定、很安詳的光源，你不用去拉人，你身上的那份平靜，那份喜悅，自然而然就會像光一樣，吸引那些在黑暗中尋找方向的有緣人自己靠過來。</p>
+      <p>所以具體來說，我們可以怎麼做呢？這裡有三個很溫柔的行動，你可以試試看：</p>
+      <div class="reject-list">
+        <div class="reject-item"><span class="reject-bullet">—</span><span>把更多的時間跟精力加倍投資在自己的修行上，你的安定就是最有力量的邀請函。</span></div>
+        <div class="reject-item"><span class="reject-bullet">—</span><span>在生活中隨緣播種，可能只是一句溫暖的關懷，或是一次耐心的傾聽，這些都是在結善緣。</span></div>
+        <div class="reject-item"><span class="reject-bullet">—</span><span>這點很重要，就是盡力了之後，就把結果全然的交付給佛法僧三寶，讓自己的心有個安放的地方，不再懸著。</span></div>
+      </div>
+    </div>
+
+    <div class="divider">◇</div>
+
+    <div class="section">
+      <h2 class="section-title"><span class="section-num">四</span>堅持本身，就是最深的禪法</h2>
+      <p>啊，最後我想跟師兄分享一個我認為最重要的觀念，那就是你所做的這一切，你現在的這份堅持，這份等待，它本身就是最深刻、最堅實的禪法了。</p>
+      <p>維摩詰經裡頭有這麼一句話，充滿了智慧：</p>
+      <div class="quote-block">「先以欲勾牽，後令入佛智。」</div>
+      <p>這句話告訴我們什麼？接引眾生啊，本來就需要無量的耐心跟善巧方便。這提醒我們，這件事它從來就不是一件簡單的事，所以你的每一次努力都非常非常的有價值。</p>
+      <p>師兄，你知道嗎？你的那份挫折感恰恰就證明了，你那顆想要利益他人的心，是多麼的純淨，多麼的真誠。如果無所謂，你根本不會難過，對不對？所以現在是時候，把這份慈悲溫柔的轉向你自己了，好好的擁抱一下自己，接納自己所有的感受。</p>
+      <p>所以師兄，請你一定要記得，你沒有失敗，你完全沒有失敗。你只是用你自己的生命親身去經歷、去體證了法輪運轉的那個自然節奏，那就是：佛法只為因緣成熟的人而轉。</p>
+      <p>因此在這個看似沒有進展、有點孤單的等待跟堅持裡，你其實正在做的，就是最深刻、最道地的禪法修行。師兄，你走的路完全正確。所以請你一定要繼續走下去。</p>
+      <p>我們發心度人，但千萬別忘了也要利益自己。這份利益自己最好的方式是什麼？就是保持你對課程的熱情，繼續來上課、好好學習。你知道嗎？你的出現，你的精進，本身就是對課堂上所有師兄們最好的一種鼓舞了。好嗎？</p>
+    </div>
+
+    <div class="closing-q">
+      <p>我們課堂上見。</p>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>AQE &nbsp;@&nbsp; 2026</p>
+  </footer>
+
+</div>
+
+<button id="back-top" aria-label="回到頂部">↑</button>
+<script>
+  const btn = document.getElementById('back-top');
+  window.addEventListener('scroll', () => {
+    btn.classList.toggle('show', window.scrollY > 300);
+  });
+  btn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+</script>
+</body>
+</html>
