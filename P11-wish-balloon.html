@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>願望氣球 · Wish Balloon</title>
+<link href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sky-top: #0d0b2b;
+    --sky-mid: #1a1245;
+    --sky-dawn: #2d1b5e;
+    --horizon: #7b3fa0;
+    --glow-gold: #f5c842;
+    --glow-warm: #ff9f5b;
+    --card-bg: rgba(255,245,220,0.96);
+    --text-ink: #2c1a0e;
+    --balloon-red: #e85d5d;
+    --balloon-shine: #ff9a9a;
+    --thread: #c9a96e;
+    --cloud: rgba(255,255,255,0.18);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'LXGW WenKai TC', '楷體', serif;
+    background: var(--sky-top);
+    min-height: 100vh;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* ── Sky Canvas ── */
+  #sky {
+    position: fixed; inset: 0; z-index: 0;
+    background: linear-gradient(
+      180deg,
+      #08061e 0%,
+      #110d35 25%,
+      #1e1050 45%,
+      #3d1a70 65%,
+      #7b3fa0 80%,
+      #c2607a 92%,
+      #f0925a 100%
+    );
+  }
+
+  /* ── Stars Background ── */
+  #star-layer {
+    position: fixed; inset: 0; z-index: 1; pointer-events: none;
+  }
+
+  /* ── Cloud Layer ── */
+  #cloud-layer {
+    position: fixed; inset: 0; z-index: 2; pointer-events: none; overflow: hidden;
+  }
+
+  .cloud-svg {
+    position: absolute;
+    opacity: 0.22;
+    animation: driftCloud linear infinite;
+  }
+
+  @keyframes driftCloud {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-120vw); }
+  }
+
+  /* ── Particle Layer ── */
+  #particle-layer {
+    position: fixed; inset: 0; z-index: 3; pointer-events: none; overflow: hidden;
+  }
+
+  /* ── Balloon Flight Layer ── */
+  #flight-layer {
+    position: fixed; inset: 0; z-index: 5; pointer-events: none; overflow: hidden;
+  }
+
+  /* ── Stars History Layer ── */
+  #history-layer {
+    position: fixed; inset: 0; z-index: 6; pointer-events: all; overflow: hidden;
+  }
+
+  /* ── UI Layer ── */
+  #ui-layer {
+    position: fixed; inset: 0; z-index: 10;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: flex-end;
+    padding-bottom: env(safe-area-inset-bottom, 20px);
+  }
+
+  /* ── Title ── */
+  #title-area {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 11;
+    text-align: center; padding: 18px 20px 0;
+    pointer-events: none;
+  }
+
+  #title-area h1 {
+    font-size: 1.15rem;
+    font-weight: 400;
+    color: rgba(255,245,200,0.75);
+    letter-spacing: 0.25em;
+    text-shadow: 0 0 20px rgba(245,200,66,0.4);
+  }
+
+  #title-area p {
+    font-size: 0.75rem;
+    color: rgba(255,220,160,0.45);
+    margin-top: 3px;
+    letter-spacing: 0.12em;
+  }
+
+  /* ── Wish Panel ── */
+  #wish-panel {
+    width: min(420px, 96vw);
+    margin-bottom: 18px;
+    transition: transform 0.4s cubic-bezier(.34,1.56,.64,1), opacity 0.3s;
+  }
+
+  #wish-card {
+    background: var(--card-bg);
+    border-radius: 14px;
+    padding: 18px 18px 14px;
+    box-shadow:
+      0 4px 30px rgba(0,0,0,0.5),
+      0 0 0 1px rgba(245,200,66,0.25),
+      inset 0 1px 0 rgba(255,255,255,0.8);
+    position: relative;
+    overflow: hidden;
+  }
+
+  #wish-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, transparent, var(--glow-gold), var(--glow-warm), var(--glow-gold), transparent);
+    opacity: 0.7;
+  }
+
+  #wish-card-header {
+    display: flex; align-items: center; gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  #wish-card-header .icon {
+    font-size: 1.2rem;
+    filter: drop-shadow(0 0 6px rgba(245,200,66,0.5));
+  }
+
+  #wish-card-header .label {
+    font-size: 0.9rem;
+    color: #7a4f1e;
+    letter-spacing: 0.1em;
+  }
+
+  #wish-input {
+    width: 100%;
+    min-height: 90px;
+    max-height: 160px;
+    background: rgba(255,248,230,0.6);
+    border: 1px solid rgba(180,140,80,0.3);
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-family: 'LXGW WenKai TC', '楷體', serif;
+    font-size: 1rem;
+    color: var(--text-ink);
+    line-height: 1.8;
+    resize: none;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  #wish-input:focus {
+    border-color: rgba(180,140,80,0.6);
+    box-shadow: 0 0 0 3px rgba(245,200,66,0.12);
+  }
+
+  #wish-input::placeholder {
+    color: rgba(120,80,40,0.4);
+    font-style: italic;
+  }
+
+  #launch-btn {
+    width: 100%;
+    margin-top: 12px;
+    padding: 13px;
+    background: linear-gradient(135deg, #7b3fa0, #c2607a, #f0925a);
+    background-size: 200% 200%;
+    animation: gradientShift 4s ease infinite;
+    border: none;
+    border-radius: 10px;
+    color: #fff;
+    font-family: 'LXGW WenKai TC', '楷體', serif;
+    font-size: 1.05rem;
+    letter-spacing: 0.15em;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(180,80,120,0.4);
+    transition: transform 0.15s, box-shadow 0.15s;
+    position: relative; overflow: hidden;
+  }
+
+  @keyframes gradientShift {
+    0%,100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+
+  #launch-btn:active {
+    transform: scale(0.97);
+    box-shadow: 0 2px 10px rgba(180,80,120,0.3);
+  }
+
+  #launch-btn span { position: relative; z-index: 1; }
+
+  /* ── Star Tooltip ── */
+  .star-tip {
+    position: fixed;
+    background: rgba(20,10,40,0.92);
+    border: 1px solid rgba(245,200,66,0.4);
+    border-radius: 10px;
+    padding: 10px 14px;
+    color: rgba(255,240,200,0.9);
+    font-size: 0.85rem;
+    line-height: 1.7;
+    max-width: 200px;
+    pointer-events: none;
+    z-index: 20;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    transition: opacity 0.3s;
+    white-space: pre-wrap;
+  }
+
+  /* ── Blessing Overlay ── */
+  #blessing {
+    position: fixed; inset: 0; z-index: 15;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    pointer-events: none; opacity: 0;
+    transition: opacity 0.8s;
+  }
+
+  #blessing.show { opacity: 1; }
+
+  .blessing-line {
+    font-size: 1.6rem;
+    color: rgba(255,240,180,0.9);
+    letter-spacing: 0.3em;
+    text-shadow: 0 0 30px rgba(245,200,66,0.6), 0 0 60px rgba(245,200,66,0.3);
+    margin: 6px 0;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.6s, transform 0.6s;
+  }
+
+  #blessing.show .blessing-line { opacity: 1; transform: translateY(0); }
+  #blessing.show .blessing-line:nth-child(2) { transition-delay: 0.3s; }
+  #blessing.show .blessing-line:nth-child(3) { transition-delay: 0.6s; }
+
+  /* ── History star badge ── */
+  .wish-star {
+    position: absolute;
+    width: 28px; height: 28px;
+    cursor: pointer;
+    transition: transform 0.2s;
+    filter: drop-shadow(0 0 4px rgba(245,200,66,0.7));
+    animation: starTwinkle 3s ease-in-out infinite;
+  }
+
+  .wish-star:hover { transform: scale(1.4); }
+
+  @keyframes starTwinkle {
+    0%,100% { opacity: 0.75; filter: drop-shadow(0 0 4px rgba(245,200,66,0.7)); }
+    50%      { opacity: 1;    filter: drop-shadow(0 0 8px rgba(245,200,66,1)); }
+  }
+
+  /* scrollbar */
+  #wish-input::-webkit-scrollbar { width: 4px; }
+  #wish-input::-webkit-scrollbar-track { background: transparent; }
+  #wish-input::-webkit-scrollbar-thumb { background: rgba(180,140,80,0.3); border-radius: 2px; }
+</style>
+</head>
+<body>
+
+<div id="sky"></div>
+<canvas id="star-layer"></canvas>
+<div id="cloud-layer"></div>
+<canvas id="particle-layer"></canvas>
+<div id="flight-layer"></div>
+<div id="history-layer"></div>
+
+<div id="title-area">
+  <h1>🎈 願望氣球</h1>
+  <p>Wish Balloon · 願力成形，升向天際</p>
+</div>
+
+<div id="blessing">
+  <div class="blessing-line">我心願達天</div>
+  <div class="blessing-line">喜樂滿人間</div>
+  <div class="blessing-line">✨</div>
+</div>
+
+<div id="ui-layer">
+  <div id="wish-panel">
+    <div id="wish-card">
+      <div id="wish-card-header">
+        <span class="icon">📝</span>
+        <span class="label">我的祈願卡</span>
+      </div>
+      <textarea id="wish-input" rows="4"
+        placeholder="願家人平安健康&#10;願自己精進修行&#10;願世界和平…"></textarea>
+      <button id="launch-btn" onclick="launchWish()">
+        <span>✨ 放飛願望</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ─────────────────────────────────────────────
+//  STATE
+// ─────────────────────────────────────────────
+const wishes = [];        // { text, x, y } saved wishes as stars
+let isLaunching = false;
+
+// ─────────────────────────────────────────────
+//  STAR BACKGROUND
+// ─────────────────────────────────────────────
+const starCanvas = document.getElementById('star-layer');
+const sCtx = starCanvas.getContext('2d');
+const stars = [];
+
+function resizeStarCanvas() {
+  starCanvas.width  = window.innerWidth;
+  starCanvas.height = window.innerHeight;
+  buildStars();
+}
+
+function buildStars() {
+  stars.length = 0;
+  const n = Math.floor((window.innerWidth * window.innerHeight) / 3000);
+  for (let i = 0; i < n; i++) {
+    stars.push({
+      x: Math.random() * starCanvas.width,
+      y: Math.random() * starCanvas.height * 0.7,
+      r: Math.random() * 1.3 + 0.3,
+      a: Math.random(),
+      speed: Math.random() * 0.01 + 0.005,
+      phase: Math.random() * Math.PI * 2
+    });
+  }
+}
+
+function animateStars(t) {
+  sCtx.clearRect(0, 0, starCanvas.width, starCanvas.height);
+  stars.forEach(s => {
+    s.a = 0.4 + 0.6 * Math.abs(Math.sin(t * s.speed + s.phase));
+    sCtx.beginPath();
+    sCtx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+    sCtx.fillStyle = `rgba(255,245,200,${s.a})`;
+    sCtx.fill();
+  });
+}
+
+resizeStarCanvas();
+window.addEventListener('resize', resizeStarCanvas);
+
+// ─────────────────────────────────────────────
+//  CLOUDS
+// ─────────────────────────────────────────────
+const cloudLayer = document.getElementById('cloud-layer');
+
+function makeClouds() {
+  cloudLayer.innerHTML = '';
+  const cloudDefs = [
+    { top: '12%', w: 220, dur: 90, delay: 0,   start: 20 },
+    { top: '24%', w: 160, dur: 130, delay: -40, start: 50 },
+    { top: '38%', w: 260, dur: 110, delay: -20, start: 80 },
+    { top: '18%', w: 140, dur: 150, delay: -70, start: 10 },
+    { top: '45%', w: 200, dur: 100, delay: -55, start: 60 },
+  ];
+
+  cloudDefs.forEach((c, i) => {
+    const ns = 'http://www.w3.org/2000/svg';
+    const svg = document.createElementNS(ns, 'svg');
+    svg.setAttribute('viewBox', '0 0 240 80');
+    svg.setAttribute('width', c.w);
+    svg.setAttribute('height', c.w / 3);
+
+    const path = document.createElementNS(ns, 'path');
+    path.setAttribute('d',
+      'M30 60 Q10 60 10 45 Q10 30 25 28 Q22 12 40 12 Q50 2 65 10 Q75 2 90 8 Q110 0 120 15 Q140 5 155 18 Q170 10 185 22 Q205 18 210 35 Q220 38 215 52 Q215 60 200 62 Z'
+    );
+    path.setAttribute('fill', 'white');
+    svg.appendChild(path);
+
+    svg.classList.add('cloud-svg');
+    svg.style.top = c.top;
+    svg.style.left = `${window.innerWidth + 50}px`;
+    svg.style.animationDuration = `${c.dur}s`;
+    svg.style.animationDelay = `${c.delay}s`;
+    cloudLayer.appendChild(svg);
+  });
+}
+
+makeClouds();
+window.addEventListener('resize', makeClouds);
+
+// ─────────────────────────────────────────────
+//  PARTICLES
+// ─────────────────────────────────────────────
+const pCanvas = document.getElementById('particle-layer');
+const pCtx = pCanvas.getContext('2d');
+const particles = [];
+
+function resizePCanvas() {
+  pCanvas.width  = window.innerWidth;
+  pCanvas.height = window.innerHeight;
+}
+resizePCanvas();
+window.addEventListener('resize', resizePCanvas);
+
+function spawnParticles() {
+  for (let i = 0; i < 3; i++) {
+    particles.push({
+      x: Math.random() * pCanvas.width,
+      y: pCanvas.height + 10,
+      vx: (Math.random() - 0.5) * 0.5,
+      vy: -(Math.random() * 0.5 + 0.3),
+      r: Math.random() * 2 + 0.5,
+      a: Math.random() * 0.5 + 0.2,
+      life: 1,
+      decay: Math.random() * 0.002 + 0.001,
+      color: Math.random() < 0.5 ? '245,200,66' : '255,160,100'
+    });
+  }
+}
+
+function animateParticles() {
+  pCtx.clearRect(0, 0, pCanvas.width, pCanvas.height);
+  for (let i = particles.length - 1; i >= 0; i--) {
+    const p = particles[i];
+    p.x  += p.vx;
+    p.y  += p.vy;
+    p.life -= p.decay;
+    if (p.life <= 0) { particles.splice(i, 1); continue; }
+    pCtx.beginPath();
+    pCtx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+    pCtx.fillStyle = `rgba(${p.color},${p.a * p.life})`;
+    pCtx.fill();
+  }
+}
+
+// ─────────────────────────────────────────────
+//  LAUNCH WISH
+// ─────────────────────────────────────────────
+function launchWish() {
+  if (isLaunching) return;
+  const text = document.getElementById('wish-input').value.trim();
+  if (!text) {
+    document.getElementById('wish-input').focus();
+    return;
+  }
+  isLaunching = true;
+  document.getElementById('launch-btn').disabled = true;
+
+  // Panel fold animation
+  const panel = document.getElementById('wish-panel');
+  panel.style.transform = 'scale(0.9)';
+  panel.style.opacity = '0.6';
+
+  // Clear input after brief delay
+  setTimeout(() => {
+    panel.style.transform = '';
+    panel.style.opacity = '1';
+    document.getElementById('wish-input').value = '';
+    document.getElementById('launch-btn').disabled = false;
+    isLaunching = false;
+  }, 2200);
+
+  // Spawn balloon
+  spawnBalloon(text);
+}
+
+// ─────────────────────────────────────────────
+//  BALLOON ANIMATION
+// ─────────────────────────────────────────────
+function spawnBalloon(text) {
+  const flightLayer = document.getElementById('flight-layer');
+  const vw = window.innerWidth;
+  const vh = window.innerHeight;
+
+  // Starting position: above the panel, centered
+  const startX = vw / 2;
+  const startY = vh - 200;
+
+  // Random drift target
+  const driftX = startX + (Math.random() - 0.5) * 80;
+
+  const container = document.createElement('div');
+  container.style.cssText = `
+    position: absolute;
+    left: ${startX}px;
+    top: ${startY}px;
+    transform: translate(-50%, 0);
+    pointer-events: none;
+    will-change: transform;
+  `;
+
+  // Build SVG balloon + card
+  const svgNS = 'http://www.w3.org/2000/svg';
+  const svg = document.createElementNS(svgNS, 'svg');
+  svg.setAttribute('width', '120');
+  svg.setAttribute('height', '340');
+  svg.setAttribute('viewBox', '0 0 120 340');
+
+  // Glow filter
+  const defs = document.createElementNS(svgNS, 'defs');
+
+  const glowFilter = document.createElementNS(svgNS, 'filter');
+  glowFilter.setAttribute('id', 'glow-' + Date.now());
+  glowFilter.innerHTML = `
+    <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+    <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+  `;
+  defs.appendChild(glowFilter);
+
+  // Shine gradient for balloon
+  const balloonGrad = document.createElementNS(svgNS, 'radialGradient');
+  balloonGrad.setAttribute('id', 'balloonGrad-' + Date.now());
+  balloonGrad.setAttribute('cx', '35%');
+  balloonGrad.setAttribute('cy', '30%');
+  balloonGrad.setAttribute('r', '60%');
+  balloonGrad.innerHTML = `
+    <stop offset="0%"   stop-color="#ffb3b3"/>
+    <stop offset="40%"  stop-color="#e85d5d"/>
+    <stop offset="100%" stop-color="#8b1a1a"/>
+  `;
+  defs.appendChild(balloonGrad);
+
+  svg.appendChild(defs);
+
+  // Balloon body
+  const balloonId = 'balloonGrad-' + Date.now();
+  const glowId = 'glow-' + Date.now();
+  // Recalculate IDs (since Date.now might be same)
+  const uid = Math.random().toString(36).slice(2);
+
+  defs.querySelector('radialGradient').setAttribute('id', 'bg-' + uid);
+  defs.querySelector('filter').setAttribute('id', 'gf-' + uid);
+
+  const balloonBody = document.createElementNS(svgNS, 'ellipse');
+  balloonBody.setAttribute('cx', '60');
+  balloonBody.setAttribute('cy', '55');
+  balloonBody.setAttribute('rx', '42');
+  balloonBody.setAttribute('ry', '52');
+  balloonBody.setAttribute('fill', `url(#bg-${uid})`);
+  balloonBody.setAttribute('filter', `url(#gf-${uid})`);
+  svg.appendChild(balloonBody);
+
+  // Balloon shine
+  const shine = document.createElementNS(svgNS, 'ellipse');
+  shine.setAttribute('cx', '45');
+  shine.setAttribute('cy', '35');
+  shine.setAttribute('rx', '12');
+  shine.setAttribute('ry', '16');
+  shine.setAttribute('fill', 'rgba(255,255,255,0.35)');
+  svg.appendChild(shine);
+
+  // Balloon tip
+  const tip = document.createElementNS(svgNS, 'path');
+  tip.setAttribute('d', 'M56 106 Q60 112 64 106');
+  tip.setAttribute('fill', '#8b1a1a');
+  tip.setAttribute('stroke', 'none');
+  svg.appendChild(tip);
+
+  // String (wiggly path, will animate)
+  const string = document.createElementNS(svgNS, 'path');
+  string.setAttribute('d', 'M60 108 Q52 125 60 140 Q68 155 60 170 Q52 185 60 200');
+  string.setAttribute('stroke', '#c9a96e');
+  string.setAttribute('stroke-width', '1.5');
+  string.setAttribute('fill', 'none');
+  string.setAttribute('stroke-linecap', 'round');
+  svg.appendChild(string);
+
+  // Gold particles on balloon
+  for (let i = 0; i < 5; i++) {
+    const sp = document.createElementNS(svgNS, 'circle');
+    sp.setAttribute('cx', String(30 + Math.random() * 60));
+    sp.setAttribute('cy', String(20 + Math.random() * 70));
+    sp.setAttribute('r', String(1 + Math.random() * 2));
+    sp.setAttribute('fill', 'rgba(255,220,100,0.6)');
+    svg.appendChild(sp);
+  }
+
+  // Wish card (foreignObject for text)
+  const fo = document.createElementNS(svgNS, 'foreignObject');
+  fo.setAttribute('x', '5');
+  fo.setAttribute('y', '205');
+  fo.setAttribute('width', '110');
+  fo.setAttribute('height', '130');
+
+  const cardDiv = document.createElement('div');
+  cardDiv.style.cssText = `
+    background: rgba(255,248,228,0.95);
+    border-radius: 8px;
+    padding: 8px 9px;
+    font-family: 'LXGW WenKai TC', serif;
+    font-size: 11px;
+    color: #3a1a06;
+    line-height: 1.7;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.3), 0 0 0 1px rgba(200,160,80,0.4);
+    height: 120px;
+    overflow: hidden;
+    position: relative;
+  `;
+  cardDiv.innerHTML = `
+    <div style="font-size:9px;color:#a0703a;margin-bottom:4px;letter-spacing:0.1em;">📝 祈願卡</div>
+    <div style="white-space:pre-wrap;word-break:break-all;">${escapeHtml(text).slice(0, 80)}</div>
+    <div style="position:absolute;bottom:5px;right:7px;font-size:8px;color:rgba(160,110,60,0.5);">🙏</div>
+  `;
+  fo.appendChild(cardDiv);
+  svg.appendChild(fo);
+
+  container.appendChild(svg);
+  flightLayer.appendChild(container);
+
+  // ── Animation ──
+  let startTime = null;
+  const duration = 5500; // ms to exit top
+  const wobbleAmp = 18;   // px horizontal wobble
+  const wobbleFreq = 0.9; // Hz
+
+  function animate(ts) {
+    if (!startTime) startTime = ts;
+    const elapsed = ts - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+
+    // Vertical: ease-in-out upward
+    const eased = easeInOutCubic(progress);
+    const currentY = startY - (vh + 250) * eased;
+
+    // Horizontal wobble
+    const wobbleX = Math.sin(elapsed / 1000 * wobbleFreq * Math.PI * 2) * wobbleAmp * (1 - progress * 0.5);
+    const currentX = startX + wobbleX;
+
+    // Slight rotation
+    const rot = Math.sin(elapsed / 1000 * wobbleFreq * Math.PI * 2) * 4;
+
+    // String animation
+    const stringPhase = elapsed / 1000 * wobbleFreq;
+    const qx = 60 + Math.sin(stringPhase * Math.PI * 2) * 8;
+    string.setAttribute('d',
+      `M60 108 Q${52 + Math.sin(stringPhase) * 8} 125 60 140 Q${68 - Math.sin(stringPhase) * 8} 155 60 170 Q${52 + Math.sin(stringPhase) * 6} 185 60 200`
+    );
+
+    container.style.left = currentX + 'px';
+    container.style.top  = currentY + 'px';
+    container.style.transform = `translate(-50%, 0) rotate(${rot}deg)`;
+
+    // Trail particles
+    if (progress < 0.9 && Math.random() < 0.3) {
+      particles.push({
+        x: currentX + (Math.random() - 0.5) * 30,
+        y: currentY + 300,
+        vx: (Math.random() - 0.5) * 0.8,
+        vy: -(Math.random() * 0.6 + 0.2),
+        r: Math.random() * 2 + 0.5,
+        a: 0.6,
+        life: 1,
+        decay: 0.008,
+        color: Math.random() < 0.6 ? '245,200,66' : '255,180,120'
+      });
+    }
+
+    if (progress < 1) {
+      requestAnimationFrame(animate);
+    } else {
+      // Remove balloon
+      container.remove();
+      // Save as star
+      const starX = 15 + Math.random() * (vw - 60);
+      const starY = 30 + Math.random() * (window.innerHeight * 0.55);
+      addWishStar(text, starX, starY);
+      // Show blessing
+      showBlessing();
+    }
+  }
+
+  requestAnimationFrame(animate);
+}
+
+function easeInOutCubic(t) {
+  return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+}
+
+function escapeHtml(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ─────────────────────────────────────────────
+//  WISH STARS (history)
+// ─────────────────────────────────────────────
+function addWishStar(text, x, y) {
+  wishes.push({ text, x, y });
+  const histLayer = document.getElementById('history-layer');
+
+  const svgNS = 'http://www.w3.org/2000/svg';
+  const svg = document.createElementNS(svgNS, 'svg');
+  svg.setAttribute('width', '28');
+  svg.setAttribute('height', '28');
+  svg.setAttribute('viewBox', '0 0 28 28');
+  svg.classList.add('wish-star');
+  svg.style.left = (x - 14) + 'px';
+  svg.style.top  = (y - 14) + 'px';
+  svg.style.animationDelay = (Math.random() * 2) + 's';
+
+  // Star path
+  const starPath = document.createElementNS(svgNS, 'path');
+  starPath.setAttribute('d', 'M14 2 L16.5 10 H25 L18.5 15 L21 23 L14 18 L7 23 L9.5 15 L3 10 H11.5 Z');
+  starPath.setAttribute('fill', '#f5c842');
+  starPath.setAttribute('stroke', 'rgba(255,200,80,0.5)');
+  starPath.setAttribute('stroke-width', '1');
+  svg.appendChild(starPath);
+  histLayer.appendChild(svg);
+
+  // Tooltip on click
+  let tooltip = null;
+
+  svg.addEventListener('click', (e) => {
+    if (tooltip) { tooltip.remove(); tooltip = null; return; }
+    tooltip = document.createElement('div');
+    tooltip.className = 'star-tip';
+    tooltip.textContent = text;
+
+    const rect = svg.getBoundingClientRect();
+    let tx = rect.left;
+    let ty = rect.top - 10;
+
+    document.body.appendChild(tooltip);
+    const tw = tooltip.offsetWidth;
+    const th = tooltip.offsetHeight;
+
+    if (tx + tw > window.innerWidth - 10) tx = window.innerWidth - tw - 10;
+    if (ty - th < 5) ty = rect.bottom + 10;
+    else ty = ty - th;
+
+    tooltip.style.left = tx + 'px';
+    tooltip.style.top  = ty + 'px';
+
+    // Auto-dismiss
+    setTimeout(() => { if (tooltip) { tooltip.remove(); tooltip = null; } }, 4000);
+    e.stopPropagation();
+  });
+
+  document.addEventListener('click', () => {
+    if (tooltip) { tooltip.remove(); tooltip = null; }
+  });
+
+  // Birth glow effect
+  svg.style.transform = 'scale(0)';
+  svg.style.transition = 'transform 0.5s cubic-bezier(.34,1.56,.64,1)';
+  requestAnimationFrame(() => {
+    svg.style.transform = 'scale(1)';
+  });
+}
+
+// ─────────────────────────────────────────────
+//  BLESSING OVERLAY
+// ─────────────────────────────────────────────
+function showBlessing() {
+  const el = document.getElementById('blessing');
+  el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), 3000);
+}
+
+// ─────────────────────────────────────────────
+//  MAIN LOOP
+// ─────────────────────────────────────────────
+let lastSpawn = 0;
+
+function loop(ts) {
+  animateStars(ts / 1000);
+  animateParticles();
+
+  if (ts - lastSpawn > 600) {
+    spawnParticles();
+    lastSpawn = ts;
+  }
+
+  requestAnimationFrame(loop);
+}
+
+requestAnimationFrame(loop);
+
+// Enter to submit (Shift+Enter = newline)
+document.getElementById('wish-input').addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    launchWish();
+  }
+});
+</script>
+</body>
+</html>
