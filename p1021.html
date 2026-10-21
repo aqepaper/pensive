@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>大乘起信論｜期中考總複習卷R2（110題）</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F5F3EF; --paper:#FFFFFF; --ink:#2C2C2C; --ink-soft:#6B665F;
+    --line:#E0DACE; --moss:#7D8272; --moss-light:#E9EAE3;
+    --gold-text:#704B19; --gold-light:#F8F0E3;
+    --success:#5A735C; --success-bg:#EEF1EA; --danger:#AB3B29; --danger-bg:#F7ECE9;
+    --shu:#B5432F; --charcoal:#4A4643; --radius:4px;
+  }
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+  body{
+    margin:0; background-color:var(--bg);
+    background-image:radial-gradient(rgba(0,0,0,.012) 1px, transparent 1px),radial-gradient(rgba(0,0,0,.012) 1px, transparent 1px);
+    background-size:3px 3px; background-position:0 0,1.5px 1.5px;
+    font-family:"Noto Sans TC",sans-serif; font-weight:400; font-size:18px; line-height:1.9;
+    color:var(--ink); -webkit-font-smoothing:antialiased;
+  }
+  .wrap{ max-width:600px; margin:0 auto; padding:0 20px 100px; }
+
+  .head{ padding:52px 0 22px; border-bottom:1px solid var(--line); }
+  .head .eyebrow{ font-family:"Noto Serif TC",serif; font-weight:500; font-size:14px; letter-spacing:.2em; color:var(--ink-soft); }
+  .head .eyebrow::before{ content:""; display:inline-block; width:6px; height:6px; border-radius:50%; background:var(--shu); margin-right:10px; vertical-align:middle; position:relative; top:-1px; }
+  .head h1{ font-family:"Noto Serif TC",serif; font-weight:500; font-size:26px; letter-spacing:.06em; line-height:1.55; margin:16px 0 6px; }
+  .head .sub{ color:var(--ink-soft); margin:0; }
+
+  .ctrl{ position:sticky; top:0; z-index:30; background:var(--bg); border-bottom:1px solid var(--line); padding:10px 20px; margin:0 -20px; }
+  .score{ font-size:15px; color:var(--ink-soft); margin:0 0 8px; line-height:1.6; }
+  .score b{ color:var(--ink); font-weight:500; }
+  .chips{ display:flex; gap:8px; overflow-x:auto; scrollbar-width:none; }
+  .chips::-webkit-scrollbar{ display:none; }
+  .chip{ flex:0 0 auto; height:40px; padding:0 14px; border:1px solid var(--line); border-radius:var(--radius); background:transparent; font-family:inherit; font-size:15px; color:var(--ink); cursor:pointer; }
+  .chip.on{ background:var(--ink); color:var(--bg); border-color:var(--ink); }
+
+  .part-title{ font-family:"Noto Serif TC",serif; font-weight:500; font-size:21px; letter-spacing:.05em; line-height:1.6; margin:40px 0 4px; padding-bottom:8px; border-bottom:1px solid var(--line); }
+  .topic{ font-family:"Noto Serif TC",serif; font-weight:500; font-size:18px; letter-spacing:.05em; color:var(--gold-text); margin:28px 0 12px; padding-left:12px; border-left:2px solid var(--moss); }
+
+  .q{ display:flex; flex-direction:column; gap:10px; margin-bottom:26px; }
+  .q.hide,.sec-hide{ display:none; }
+
+  .quiz-card{ background:var(--paper); border:1px solid var(--line); border-radius:var(--radius); padding:18px 18px; }
+  .quiz-header{ display:flex; align-items:center; gap:10px; margin-bottom:8px; flex-wrap:wrap; }
+  .quiz-type{ font-family:"Noto Serif TC",serif; font-weight:500; font-size:15px; letter-spacing:.1em; color:var(--moss); }
+  .quiz-type::before{ content:""; display:inline-block; width:6px; height:6px; border-radius:50%; background:var(--shu); margin-right:8px; vertical-align:middle; position:relative; top:-1px; }
+  .quiz-number{ font-family:"Noto Serif TC",serif; font-size:15px; letter-spacing:.05em; color:var(--ink-soft); }
+  .src{ font-size:13px; color:var(--ink-soft); border:1px solid var(--line); border-radius:3px; padding:0 6px; }
+  .question-text{ font-family:"Noto Serif TC",serif; font-weight:500; font-size:19px; line-height:1.85; letter-spacing:.02em; margin:0 0 14px; }
+
+  .vernacular-box{ margin:0; }
+  .vernacular-title{ cursor:pointer; list-style:none; min-height:40px; display:flex; align-items:center; font-family:"Noto Serif TC",serif; font-weight:500; font-size:15px; letter-spacing:.15em; color:var(--gold-text); border-bottom:1px dashed #CBBF9F; }
+  .vernacular-title::-webkit-details-marker{ display:none; }
+  .vernacular-title::after{ content:"＋"; margin-left:auto; color:var(--moss); font-size:18px; letter-spacing:0; }
+  .vernacular-box[open] .vernacular-title::after{ content:"－"; }
+  .vernacular-content{ font-size:18px; line-height:1.9; color:var(--ink); padding:10px 0 4px; }
+
+  .options-group{ display:flex; flex-direction:column; gap:8px; }
+  .option-btn{ width:100%; background:var(--paper); border:1px solid var(--line); border-radius:var(--radius); padding:10px 14px; min-height:52px; font-family:inherit; font-size:18px; font-weight:400; line-height:1.7; text-align:left; color:var(--ink); cursor:pointer; display:flex; align-items:flex-start; gap:10px; transition:border-color .15s ease; }
+  .option-btn:hover{ border-color:var(--moss); }
+  .option-icon{ flex:0 0 auto; min-width:1.5em; font-family:"Noto Serif TC",serif; color:var(--moss); }
+  .q.done .option-btn{ cursor:default; }
+  .q.done .option-btn:hover{ border-color:var(--line); }
+  .option-btn.selected-right{ border-color:var(--success); background:var(--success-bg); }
+  .option-btn.selected-right .option-icon{ color:var(--success); }
+  .option-btn.selected-wrong{ border-color:var(--danger); background:var(--danger-bg); }
+  .option-btn.selected-wrong .option-icon{ color:var(--danger); }
+
+  .feedback-card{ display:none; background:var(--gold-light); border-color:#EADFC8; }
+  .q.show .feedback-card{ display:block; }
+  .feedback-card.success{ border-left:3px solid var(--success); }
+  .feedback-card.wrong{ border-left:3px solid var(--danger); }
+  .feedback-status{ font-family:"Noto Serif TC",serif; font-weight:500; font-size:18px; letter-spacing:.05em; margin-bottom:8px; display:flex; align-items:baseline; gap:8px; flex-wrap:wrap; color:var(--gold-text); }
+  .feedback-card.success .feedback-status{ color:var(--success); }
+  .feedback-card.wrong .feedback-status{ color:var(--danger); }
+  .correct-answer{ font-family:"Noto Sans TC",sans-serif; font-size:16px; font-weight:400; letter-spacing:0; color:var(--ink); }
+  .explanation-section{ border-top:1px dashed #D9CBAE; padding-top:10px; }
+  .explanation-title{ font-family:"Noto Serif TC",serif; font-weight:500; font-size:14px; letter-spacing:.15em; color:var(--gold-text); margin-bottom:2px; }
+  .explanation-text{ font-size:18px; line-height:1.9; margin:0 0 8px; }
+  .explanation-text:last-child{ margin-bottom:0; }
+  .quote-box{ margin:0 0 8px; padding:8px 14px; background:var(--paper); border-left:2px solid var(--shu); border-radius:var(--radius); font-family:"Noto Serif TC",serif; font-size:18px; line-height:1.9; }
+  .quote-box:last-child{ margin-bottom:0; }
+  .quote-author{ font-size:15px; letter-spacing:.08em; color:var(--ink-soft); margin-bottom:2px; }
+  mark.highlight{ background:#F3E3BE; color:var(--gold-text); font-weight:500; padding:0 2px; border-radius:2px; }
+
+  .acts{ display:flex; gap:16px; }
+  .lnk,.retry-btn{ background:none; border:none; padding:6px 0; font-family:inherit; font-size:15px; color:var(--ink-soft); border-bottom:1px solid var(--line); cursor:pointer; }
+  .retry-btn{ margin-top:10px; display:inline-block; }
+  .lnk:hover,.retry-btn:hover{ color:var(--ink); }
+
+  .tools{ margin-top:36px; display:flex; flex-direction:column; gap:10px; }
+  .btn{ min-height:48px; border-radius:var(--radius); border:1px solid var(--ink); background:var(--charcoal); color:var(--bg); font-family:inherit; font-size:16px; letter-spacing:1px; cursor:pointer; }
+  .btn.sec{ background:transparent; color:var(--ink); border-color:var(--line); }
+  .empty{ display:none; padding:30px 0; color:var(--ink-soft); }
+  footer{ text-align:center; font-size:14px; letter-spacing:.06em; color:var(--ink-soft); padding:30px 0 0; }
+
+  /* ===== 標籤（書籤） ===== */
+  .bm-btn{ margin-left:auto; height:36px; padding:0 12px; border:1px solid var(--line); border-radius:var(--radius); background:transparent; font-family:inherit; font-size:14px; letter-spacing:.08em; color:var(--ink-soft); cursor:pointer; }
+  .q.bookmarked .bm-btn{ border-color:var(--shu); color:var(--shu); background:#FBF1EE; }
+  .q.bookmarked .quiz-card.main-question-card{ border-color:var(--shu); }
+  .resume{ display:none; margin:14px 0 0; padding:10px 14px; border:1px solid var(--line); border-left:3px solid var(--shu); border-radius:var(--radius); background:var(--paper); }
+  .resume.on{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  .resume .rt{ font-size:16px; color:var(--ink); flex:1 1 auto; }
+  .resume .rb{ height:40px; padding:0 14px; border-radius:var(--radius); border:1px solid var(--ink); background:var(--charcoal); color:var(--bg); font-family:inherit; font-size:15px; letter-spacing:.08em; cursor:pointer; }
+  .chip.bm{ display:none; border-color:var(--shu); color:var(--shu); }
+  .chip.bm.on2{ display:block; }
+  .q{ scroll-margin-top:130px; }
+
+  /* ===== 螢光筆 ===== */
+  mark.hl{ color:inherit; padding:0; border-radius:2px; -webkit-box-decoration-break:clone; box-decoration-break:clone; }
+  mark.c-y{ background:#F1E2A6; } mark.c-g{ background:#D3DDC1; } mark.c-p{ background:#EBC9BF; } mark.c-b{ background:#CCDAE0; }
+  body.erase mark.hl{ cursor:pointer; outline:1px dashed var(--shu); outline-offset:1px; }
+  body.hlmode .option-btn{ cursor:text; -webkit-user-select:text; user-select:text; }
+  .question-text,.vernacular-content,.option-label,.explanation-text,.quote-content{ -webkit-user-select:text; user-select:text; }
+  #hl-fab{ position:fixed; right:16px; bottom:calc(16px + env(safe-area-inset-bottom)); width:48px; height:48px; border-radius:var(--radius); background:var(--paper); border:1px solid var(--line); font-family:"Noto Serif TC",serif; font-size:16px; font-weight:500; color:var(--ink); display:flex; align-items:center; justify-content:center; z-index:50; cursor:pointer; }
+  #hl-bar{ position:fixed; left:0; right:0; bottom:0; z-index:60; background:var(--paper); border-top:1px solid var(--line); padding:10px 14px calc(12px + env(safe-area-inset-bottom)); display:none; }
+  #hl-bar.open{ display:block; }
+  #hl-bar .inner{ max-width:600px; margin:0 auto; }
+  #hl-status{ font-size:15px; color:var(--ink-soft); margin:0 0 8px; line-height:1.6; min-height:1.6em; }
+  .hl-row{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  .sw{ width:44px; height:44px; border-radius:var(--radius); border:1px solid var(--line); cursor:pointer; padding:0; }
+  .sw.c-y{ background:#F1E2A6; } .sw.c-g{ background:#D3DDC1; } .sw.c-p{ background:#EBC9BF; } .sw.c-b{ background:#CCDAE0; }
+  .sw.on{ outline:2px solid var(--ink); outline-offset:2px; }
+  .hbtn{ height:44px; padding:0 12px; border-radius:var(--radius); background:transparent; border:1px solid var(--line); font-family:inherit; font-size:15px; color:var(--ink); cursor:pointer; }
+  .hbtn.on{ background:var(--ink); color:var(--bg); border-color:var(--ink); }
+  .hbtn.close{ margin-left:auto; }
+  .bm-btn{ width:40px; padding:0 !important; display:flex; align-items:center; justify-content:center; }
+  .q.bookmarked .bm-btn svg{ fill:var(--shu); }
+  .chip.bm svg{ vertical-align:-5px; margin-right:4px; width:20px; height:20px; fill:var(--shu); }
+  .chip.bm.on2{ display:flex; align-items:center; }
+  #hl-fab svg{ width:24px; height:24px; }
+  .hbtn{ width:44px; padding:0 !important; display:inline-flex; align-items:center; justify-content:center; }
+  .hbtn.on svg{ stroke:currentColor; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="head">
+    <div class="eyebrow">大乘起信論</div>
+    <h1>期中考總複習卷 R2<br>（共 110 題）</h1>
+    <p class="sub">是非題 55 題・選擇題 55 題，依主題編排，作答後顯示解析</p>
+  </div>
+
+  <div class="resume" id="resume"><span class="rt" id="resumeText"></span><button class="rb" id="resumeGo" type="button">繼續閱讀</button></div>
+
+  <div class="ctrl">
+    <p class="score" id="score"></p>
+    <div class="chips" id="chips">
+      <button class="chip on" data-f="all">全部</button>
+      <button class="chip" data-f="tf">是非題</button>
+      <button class="chip" data-f="mc">選擇題</button>
+      <button class="chip" data-f="todo">未作答</button>
+      <button class="chip" data-f="wrong">答錯</button>
+      <button class="chip bm" id="gobm" type="button"></button>
+    </div>
+  </div>
+
+  <div id="paper"></div>
+  <p class="empty" id="empty">此篩選條件下沒有題目。</p>
+
+  <div class="tools">
+  </div>
+
+  <footer>大乘起信論｜期中考總複習卷</footer>
+</div>
+
+
+<button id="hl-fab" type="button" aria-label="螢光筆"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ><path d="M4 20h6"/><path d="M14.5 5.5l4 4L9 19l-4.5.5L5 15z"/><path d="M13 7l4 4"/></svg></button>
+<div id="hl-bar" role="toolbar" aria-label="螢光筆工具">
+  <div class="inner">
+    <p id="hl-status"></p>
+    <div class="hl-row">
+      <button class="sw c-y" data-c="y" type="button" aria-label="黃色"></button>
+      <button class="sw c-g" data-c="g" type="button" aria-label="綠色"></button>
+      <button class="hbtn" id="hl-erase" type="button" aria-label="橡皮擦"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ><path d="M4 16l9-9 6 6-6 6H8z"/><path d="M10 10l6 6"/><path d="M13 19h7"/></svg></button>
+      <button class="hbtn" id="hl-copy" type="button" aria-label="複製重點"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ><rect x="8" y="8" width="12" height="12" rx="1"/><path d="M16 8V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3"/></svg></button>
+      <button class="hbtn" id="hl-clear" type="button" aria-label="全部清除"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ><path d="M4 7h16"/><path d="M9 7V4h6v3"/><path d="M6 7l1 13h10l1-13"/></svg></button>
+      <button class="hbtn close" id="hl-close" type="button" aria-label="收起"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* 是非題：[題號, 答案(1=〇 2=╳), 題目, 解析, 出處(可省)] */
+/* 選擇題：[題號, 答案(1-4), 題幹, [選項], 解析] */
+var BMSVG = '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ><path d="M6 3h12v18l-6-4.5L6 21z"/></svg>';
+var BH = {"1": "在《大乘起信論》的生滅門裡，「淨法叫做真如」，包含三層意思：自己本來就清淨；它的體和相能從內心深處熏習無明，讓染污轉成清淨；它的用能順應眾生根機示現，成為幫助眾生轉淨的外緣。", "2": "講義說：染法要分成無明、妄心、妄境界三種來講，是因為它們各自的性質不同；淨法只有真如一種，是因為真如雖然對染法起了熏習的作用，但它的體和用本來沒有分別。", "3": "圓瑛法師講義說，「妄心」是統指業識和分別事識；論文裡只講「業識」，是拿末端的來涵蓋根本的（舉末該本）。", "4": "用「香熏衣服」來比喻：衣服本來沒有香味，熏了才有香味，可以通用來說明染與淨的熏習——清淨的本來沒有污染，熏了才有污染；染污的本來沒有清淨，熏了才有清淨。", "5": "《起信論》指出，染污的法之所以要詳細分成無明、妄心、妄境界三種，是因為它們在流轉生死時，各自的本質特徵都不一樣；而淨法只有真如一種，是因為真如的體、相、用本質上沒有分別、是一體不二的。", "6": "「無明熏真如」屬於返流生滅門，能發起始覺的智慧，覺察並破除生、住、異、滅四種相的夢中妄念。", "7": "根本無明熏習真如而生起業識，叫做「資熏」；業識反過來熏習無明、加重它的不明白，叫做「習熏」。", "8": "依憨山大師《起信論直解》，「根本無明」有真實存在的自體，是獨立在真如真心之外、能引發染污的本體。", "9": "根本無明熏習真如，因為不覺而心動、造業，形成阿梨耶業識；而由根本無明衍生的見思枝末無明，反過來熏習心體、順著六塵起分別，形成分別事識。", "10": "妄境界資助熏習業識，會讓心海掀起四種麁相的轉識波浪，其中「增長念」是增長事識裡細的部分——智相和相續相，屬於法執的分別念。", "11": "妄境界資熏所引起的「增長取」，是增長事識裡粗的部分——執取相和計名字相，屬於人我見愛的煩惱。", "12": "妄境界就是事識所攀緣的六塵。在六麁相中，前兩相（智相、相續相）屬於「念」，後兩相（執取相、計名字相）屬於「著」。", "13": "所謂「增長取熏習」，是說業識受外境資熏，增長了分別事識中細的功能（智相、相續相），本質上屬於法執的分別念。", "14": "染法沒有真實自體，也沒有返流還滅的功用，所以在隨流生滅門中只說「相」，不說體和用。", "15": "在隨流生滅門中，染法沒有自體，也不具備引導眾生回歸真心、返流還滅的清淨功用，所以論文在這裡以及講無明熏真如時，只稱它為虛妄顯現的「染相」，不說「體、用」。", "16": "業識資熏根本無明，使三乘聖人雖然超出三界、離開事識的分段粗苦，仍要承受阿賴耶識的變易行苦，這種苦通於九界。", "17": "分別事識資熏無明，會增長見愛煩惱，讓凡夫起惑造業，隨著業力承受變易行苦。", "18": "依講義，已超出三界、脫離事識分段苦的阿羅漢、辟支佛和一切法身菩薩，因為心識最深處「業識的根本熏習」還沒斷盡，仍要承受微細的變易生死苦（賴耶生滅苦）。", "19": "在淨熏中，真如從內熏習無明，讓眾生厭離苦、發心修行，叫「本熏」；被熏的妄心反過來熏習真如、增強真如的力量，叫「新熏」。", "20": "妄心受到真如內熏後，生起厭離生死苦、欣求涅槃的心，這個厭求心就是清淨的因，所起的清淨修行是清淨的緣，反過來熏習真如。", "21": "以真如自體為因、真如所流出的教法為緣，在內心暗中啟發眾生厭苦求樂，是「本熏」；妄心領受熏習、生起厭求心後，反過來用功增長真如的力量，是「新熏」。", "22": "依分別事識熏習的人，因為還有分別、法執，執著心外真有境界，不明白萬法唯心的道理，所以離大菩提又遠又疏，稱為「漸」。", "23": "論文中的「意熏習」，在本論專指分別事識；通論則指前五意。", "24": "菩薩依「意」的資助力量發心修行，知道一切法都只是識所變現，捨離事識向外的分別計較，直接觀照真如法性的道理，所以能快速趨向涅槃。", "25": "論文所說的「修遠離法」，是指初地以上的菩薩已親自證得現量的真如智，完全看不見一切虛妄境界的圓融境界。", "26": "分別事識熏習之所以是「漸」，是因為凡夫、二乘修行時還有分別法執，執著心外真有境界，只隨自己的理解作意修持，無法直達唯心本源，所以離成佛之路遙遠。", "27": "真如自體相熏習裡，「體」是指眾生本具的無漏法身理體（正因佛性），「相」是指自性本具的無漏功德相（稱性功德）。", "28": "佛法要成就道果，須因緣具足：本具的真如是正因佛性，經教和善知識是緣因佛性，因緣具足而開悟成就是了因佛性。", "29": "論文用「木中火性」作比喻：如果木頭裡有火性（正因），即使沒有人用鑽取的方法（緣因），火也能自己燒起來燒掉木頭。", "30": "眾生即使有外緣（善知識）的力量，但內在的清淨法沒有熏習力（或業障太厚、熏力敵不過），也不能究竟地厭離生死苦、欣求涅槃。", "31": "只要眾生本具真如的內因熏習力夠強，即使一生都沒遇到諸佛菩薩、善知識和大乘經教這些外緣啟發，也能靠自己斷惑、成就涅槃。", "32": "論文說「內淨法未有熏習力」，並不是說眾生心裡的真如自性失去了熏習的功能，而是比喻眾生罪障太深，真如微弱的熏力暫時敵不過無明巨大的遮蔽。", "33": "眾生同樣具有真如內熏，但發心修證有先後快慢的差別，原因在於真如體性本身有清淨和污染的不同。", "34": "憨山大師指出，「過恆沙等上煩惱」屬於所知障，細微難斷，所以證果較遲；「我見愛染煩惱」屬於煩惱障，粗顯易斷，所以證果較快。", "35": "在障礙修證的煩惱中，「我見愛染煩惱」屬於細微難斷的所知障，所以證悟較遲；「過恆沙等上煩惱」屬於粗顯易斷的煩惱障，所以證悟較快。", "36": "真如的「用熏習」就是眾生的外緣力量，是諸佛菩薩稱著真如體起作用、隨眾生根機示現，為求道眾生作外在的助緣。", "37": "眾生如果從分別事識發心，感見諸佛菩薩隨類化現的身，這叫「平等緣」。", "38": "差別緣包含「近緣」和「遠緣」，這是依眾生根性成熟的早晚來區分的。", "39": "近緣、遠緣中又各分兩種：「增長行緣」是能引起布施、持戒等方便行；「受道緣」是與正觀相應而更進一步的增進。", "40": "差別緣中的「增長行緣」是引導眾生生起布施、持戒等基礎的方便善行；「受道緣」則是更進一步，依方便行與正觀法性相應而入道。", "41": "諸佛菩薩作差別緣時，用慈愛來攝受、以謙卑來服侍、以同類來利益、以冤家來折伏、以四攝法來攝受，這些都出於無作大悲熏習的力量。", "42": "「平等緣」是諸佛菩薩以同體的悲心與智慧，恆常不捨眾生；眾生依靠三昧，才能平等地見到諸佛，身量平等，沒有彼此分隔的相。", "43": "在體用熏習中，「未相應位」是指凡夫、二乘和初發意菩薩，只靠信力修行，還沒得到無分別心來與真如體相應，也還沒得到自在的業用來與真如用相應。", "44": "「已相應位」是指地上的法身菩薩，得到無分別心（如理智）與真如體相應，得到如量智與諸佛的智用相應。", "45": "地上菩薩「只依法力、自然修行」，到了八地以上，能自然而然地熏習真如、滅除妄念，稱為無功用行。", "46": "凡夫依信力修行，已經深入真如三昧並得到自在業用，所以屬於已相應位。", "47": "初地以上的法身菩薩在已相應位中修行，因為已徹底證得法性，所以單單「依法力自然修行」，到八地以上更是無功用行，自然熏真滅妄，不再依靠凡夫那種刻意分別攀緣。", "48": "「因滅了，不相應心就滅；緣滅了，相應心就滅」，當因和緣都滅、心相全部盡了，就叫證得涅槃、成就自然業。", "49": "在淨熏斷惑的過程中，所謂「因緣俱滅」是指：以無明為「因」，無明滅則不相應心（業識等深細心識）滅；以境界為「緣」，境界滅則相應心（分別事識等心）滅。", "50": "在染淨盡不盡義中，染法是「無始無終」，淨法是「無始有終」。", "51": "染法之所以有終點，是因為無明這個染的因是依真如而生起的；當真如常熏習、妄心滅盡時，染法就斷了。", "52": "淨法之所以沒有窮盡，是因為妄心滅了之後法身顯現，生起不可思議的大用繼續熏習，所以直到未來都不會斷絕。", "53": "一旦修行圓滿成佛，無明妄心徹底止滅之後，淨法的熏習也會因為沒有妄心可熏化而跟著結束、歸於寂滅。", "54": "因緣具足的人，內靠真如殊勝的因來熏習，外蒙諸佛菩薩「示教利喜」，能很快地趨向涅槃道。", "55": "聽聞《大乘起信論》法門後，明白人人都有佛性，應當「以本覺的智慧去照始覺的道理」。", "56": "《大乘起信論》指出，阿梨耶識能涵攝一切法、能生出一切法。其中三細六麁這些染法，都是以哪一個作為正因？", "57": "依圓瑛法師講義，「妄境界」具體指的是什麼？", "58": "關於「染法要說三種、淨法只有一種」，以下哪一個解釋符合講義？", "59": "《起信論》有名的「衣香比喻」說：「衣服本來沒有香，若有人用香來熏，就有香氣。」關於這個比喻和佛法的對應，以下哪一項敘述是「錯的」？", "60": "明代憨山大師解釋「習熏」與「資熏」，以下哪一項屬於「習熏」？", "61": "在「真妄互熏」中，無明是緣、真如是因，熏成阿賴耶識的哪一種相？", "62": "論文說「不覺念起，現妄境界」，這是哪一種熏習的結果？", "63": "「隨流生滅門」與「返流生滅門」的主要差別，以下哪一項正確？", "64": "「一念熏習的力量，遮蔽了本有的光明，把真如變成業識」，這一念極其微細，只有誰能完全明了？", "65": "依圓瑛法師對「無明熏習」的解釋，關於「本末二熏，成就二識」的機制，以下哪一組對應與義理是正確的？", "66": "憨山大師《直解》指出，生滅門中的無明熏習有「習熏」與「資熏」兩種意思。關於這兩者的運作，以下哪一項最精確？", "67": "關於「妄境界熏習」的作用，以下哪一項的描述完全符合講義內容？", "68": "妄境界資熏心海，生起前七種波浪而形成六麁，最後導致哪一種生死果報？", "69": "憨山大師把唯識的「心海波浪喻」融入《起信論》。在「以境界資熏心海，起前七波浪而成六麁」的比喻中，平靜的「心海」、吹動的「風」和激起的「波浪」，各對應哪些概念？", "70": "在日常修行中，凡夫若想截斷「境界熏心」的惡性循環、停止「分別事識」的不斷增長，最務實、最直接的下手處應該放在哪裡？", "71": "業識資熏根本無明，會讓三乘聖人雖然超出三界、離開事識的粗苦，但仍要承受哪一種苦？", "72": "分別事識資熏無明，所增長並導致凡夫隨業被繫縛、承受分段粗苦的煩惱是什麼？", "73": "依講義，從根本無明所生起的枝末見思無明，反過來熏習心體、順著六塵起分別，會形成哪一種識？", "74": "淨熏過程中，真如從內熏習無明，讓眾生厭苦求樂、發心修行，這在憨山大師《直解》中稱為什麼？", "75": "憨山大師《起信直解》指出，真如內熏無明使人發心修行是「本熏」；那麼妄心受熏後生起厭離、欣求之心，反過來熏習真如、增強真如的力量，這又稱為什麼？", "76": "關於「本熏」與「新熏」的相互作用，以下哪一項敘述完全正確？", "77": "凡夫、二乘人修行「趨向大菩提又疏又遠，所以叫做漸」，根本原因是什麼？", "78": "菩薩依「意熏習」發心修行，能「快速趨向涅槃」，這裡的「意」就本論而言是指什麼？", "79": "凡夫、二乘人依分別事識發心修行，他們所依靠的內在修行力量主要是什麼？", "80": "依圓瑛法師對淨熏功能階位的科判，文中的「知心妄動，無前境界」——了知諸法本無實體，對應大乘菩薩修行的哪一個階位？", "81": "關於妄心熏習中「分別事識熏習」與「意熏習」在修證快慢上的差異，以下哪一項說明正確？", "82": "真如「自體相熏習」中，作為眾生內熏的「正因佛性」是指什麼？", "83": "真如自體相「具備不可思議的業用，作境界之性」，其中「作境界之性」是指真如能作為什麼？", "84": "論文說自體相熏習具足無漏法，「具備不可思議的業用，作境界之性」。圓瑛法師解釋真如「作境界之性」的真實意思是什麼？", "85": "眾生同樣具有真如，為什麼有「信與不信、利根鈍根、快慢」無量的先後差別？", "86": "針對「既然一切眾生都有真如內熏，為什麼世間有人深信、有人不信，發心與修證又有早晚快慢的差別？」這個提問，論主回答的根本原因是什麼？", "87": "關於「過恆沙等上煩惱」與「我見愛染煩惱」的比較，以下哪一項正確？", "88": "在「鑽木取火」的比喻中，「鑽取的方便」比喻佛法三種佛性中的哪一種？", "89": "論中用「鑽木取火」比喻修證佛法，其中「木中火性」、「鑽木方便」與「火出木燒」，在三因佛性中分別象徵什麼？", "90": "「若雖有外緣之力，而內淨法未有熏習力者，也不能究竟厭離生死苦」，圓瑛法師解釋「內淨法未有熏習力」是指什麼？", "91": "眾生內靠真如的殊勝因，外遇諸佛菩薩教導利益，因而歡喜地進趣，這種殊勝的緣叫做什麼？", "92": "依講義，聽聞大乘法門後，「以始覺的智慧去照本覺的道理」，慢慢熏習來成就道業，這屬於哪一種熏習？", "93": "諸佛菩薩稱著真如體起作用、隨眾生根機示現，為求道的眾生作外在助緣，這種熏習叫什麼？", "94": "眾生若依「業識」發心，能感見諸佛菩薩的受用報身，這種外緣叫什麼？", "95": "關於「差別緣」的化用內容，以下哪一項不屬於講義歸納的五類化用？", "96": "「差別緣」依眾生根性成熟的早晚分成近緣和遠緣，這兩者又各自包含哪兩種緣？", "97": "行者從剛發心求道一直到成佛的過程中，諸佛菩薩有時化現為眷屬父母，甚至化現為「冤家」來逆向磨練他，以啟發他的善根。這種外緣熏習屬於以下哪一種？", "98": "眾生能「平等見到諸佛，身量平等，沒有彼此分隔的相」，必須依靠哪一種功德？", "99": "關於諸佛菩薩所起的「平等緣」，以下哪一項敘述完全符合法藏大師與憨山大師的闡釋？", "100": "在體用熏習中，「未相應位」（凡夫、二乘、初發意菩薩）修行主要依靠的力量是什麼？", "101": "關於「未相應」的具體意思，以下哪一項說明完全正確？", "102": "地上法身菩薩得到「無分別心」與真如體相應，這個無分別心就是什麼？", "103": "法身菩薩與諸佛智用相應，稱著真如的道理而修，自然熏習真如、滅除妄念，他的修行稱為什麼？", "104": "八地以上菩薩的修行狀態稱為什麼？", "105": "在體用熏習中，論文說凡夫、二乘和初發意菩薩處於「未相應」位，關鍵原因是什麼？", "106": "「因滅了不相應心滅，緣滅了相應心滅」，其中的「因」與「緣」分別指什麼？", "107": "在果地，迷惑斷盡、回復本來心源叫做證得涅槃，生起不可思議的業用叫做什麼？", "108": "關於「染法與淨法」的盡與不盡，以下哪一項完全正確？", "109": "針對「染淨盡不盡義」，論文判定「染法熏習」與「淨法熏習」最終的歸宿與時間性，以下哪一項正確？", "110": "淨熏「直到未來都沒有斷絕」的根本原因是什麼？"};
+var SEC = [
+ { type:"tf", title:"第一部分：是非題　〇正確　╳錯誤（第 1–55 題）", topics:[
+  { t:"主題一：染淨法基本概念與衣香喻", qs:[
+   [1,1,"在《大乘起信論》生滅門中，「淨法名真如」具備自體本來清淨、體相能內熏令染成淨、用熏應機而成淨緣等三義。","依據講義，真如作為淨法具備三義：一約自體本來清淨；二約體相能內熏無明令染成淨；三約用熏能應機示現作外緣。"],
+   [2,1,"講義指出，染法具說無明、妄心、妄境界三種，乃因其自性差別；而淨法僅有一種（真如），係因對染雖成熏義，但體用無別。","染法有無明（因）、妄心（體）、妄境界（緣）三種不同性質；淨法本源皆為不生不滅的真心，體用不二，故唯一種。"],
+   [3,2,"圓瑛法師講義中說明，「妄心」總指業識及分別事識；論文中但言「業識」者，乃「舉末該本」之意。","應為「舉本該末」。業識是根本（本），分別事識是枝末（末），論文中只說業識，是舉出根本來含攝枝末。"],
+   [4,1,"以「香熏衣」為喻，衣服本無香而熏之有香，通喻染淨熏習之義，顯示淨本無染熏之有染，染本無淨熏之有淨。","衣服比喻一心本體（本無香），香比喻染淨二法。真如本無染，因無明熏而有染相；無明本無淨，因真如熏而有淨用。"],
+   [5,1,"《大乘起信論》指出，染污法之所以必須詳細區分為「無明」、「妄心」、「妄境界」三種，是因為它們在流轉生死時的「自體特徵（自性）」各不相同；而淨法唯有「真如」一種，是因為真如的體、相、用在本質上是「體用無別」、一體不二的。","同第2題，染法性質各異，淨法體用不二。這提醒我們染法皆是依真而起的幻相，無真實體。","原講17題庫"]
+  ]},
+  { t:"主題二：無明熏真如（習熏／資熏／隨返流）", qs:[
+   [6,2,"「無明熏真如」屬於返流生滅門，能發起始覺之智，覺破生住異滅四相夢念。","「無明熏真如」屬於「隨流生滅門」，會令眾生流轉生死；「真如熏無明」才屬於「返流生滅門」，能發起始覺智，斷除煩惱。"],
+   [7,2,"根本無明熏真如起業識稱為「資熏」；而業識返熏無明增其不了稱為「習熏」。","兩者相反。憨山大師云：「根本無明熏真如，為『習熏』；業識返熏無明，增其不了，為『資熏』。」"],
+   [8,2,"依據憨山大師《起信論直解》，「根本無明」具有其真實存在的自體，是獨立於真如真心之外、能觸發動染污的本體。","憨山大師指出根本無明「非實有體，依真而起」。無明不是客觀存在的實體，而是「不了真如法一」而產生的蒙昧狀態。","原講17題庫"],
+   [9,1,"根本無明熏習真如，依不覺故心動起業，成就阿梨耶業識；而枝末見思無明返熏心體，循塵分別，成就分別事識。","根本無明熏真如成「業識」；見思枝末無明返熏心體，產生執著分別，成「分別事識」。"]
+  ]},
+  { t:"主題三：境界熏心（增長念／取、六麁、心海波浪）", qs:[
+   [10,1,"妄境界資熏業識，會令心海起四麁轉識波浪，其中「增長念」屬於事識中細分之智相與相續相（法執分別念）。","增長念熏習增長的是事識中的「細分」，即智相、相續相，屬於法執分別。"],
+   [11,1,"妄境界資熏所起之「增長取」，係增長事識中麁分之執取相與計名字相，屬於人我見愛煩惱。","增長取熏習增長的是事識中的「麁分」，即執取相、計名字相，屬於人我見愛煩惱。"],
+   [12,1,"妄境界即事識所緣之六塵。在六麁相中，初二相（智相、相續相）為念，次二相（執取相、計名字相）為著。","憨山大師《直解》：「六麤：初二為念，次二為著。」（後二相為起業相、業繫苦相）。"],
+   [13,2,"所謂「增長取熏習」，是指業識受到外在境界的資熏，進而增長了分別事識中的「細分」功能（即智相、相續相），在修行本質上屬於「法執分別念」。","此描述為「增長念熏習」。增長取熏習增長的是「麤分」（執取相、計名字相），屬於「人我見愛煩惱」。","原講17題庫"],
+   [14,1,"染法無有實體，亦無返流之用，故於隨流生滅門中但云「相」，不云體用。","染法本質是虛妄的，沒有真實自體，也沒有引導眾生覺悟的淨用。因此在隨流門中，只說它有虛妄的「染相」。"],
+   [15,1,"在「隨流生滅門」中，因為染法無自體，且染法本身不具備引導眾生回歸真心、返流還滅的淨用，所以論文在此處及無明熏真如時，只稱之為妄現的「染相」，而不說「體、用」。","同第14題。要等到真如內熏起智對治無明時，才有「淨用」。","原講17題庫"]
+  ]},
+  { t:"主題四：分段與變易生死", qs:[
+   [16,1,"業識資熏根本無明，能使三乘人雖出三界離事識分段麁苦，但仍須受阿賴耶識之變易行苦，此苦通於九界。","三乘聖人雖已出離三界六道輪迴（分段生死），但阿賴耶識微細生滅未盡，仍有變易生死。講義：阿羅漢、辟支佛、一切菩薩因業識根本熏習未盡，仍受微細的變易生死苦。"],
+   [17,2,"分別事識資熏無明，會增長見愛煩惱，使凡夫起惑造業，隨業受變易行苦。","凡夫起惑造業，受的是「分段生死苦」；三乘聖人受的才是「變易行苦」。"],
+   [18,1,"依據講義，已經超出三界、脫離了事識分段苦的阿羅漢、辟支佛以及一切法身菩薩，因為心識極深處的「業識根本熏習」未盡，所以依然必須承受微細的「變易生死苦（賴耶生滅苦）」。","三乘聖者已斷見思惑，不受分段生死。但因根本無明未盡，阿賴耶識的微細生滅仍在，故受變易生死。","原講17題庫"]
+  ]},
+  { t:"主題五：本熏與新熏", qs:[
+   [19,1,"淨熏中，真如內熏無明令眾生厭苦求樂、發心修行稱為「本熏」；而受熏之妄心反熏真如增其勢力稱為「新熏」。","真如本具覺性時時內熏，為「本熏」；眾生聽聞教法發心修行，反過來增長真如力量，為「新熏」。"],
+   [20,1,"妄心受真如內熏後，產生厭生死苦、樂求涅槃之心，此厭求之心即為淨因，所起淨行為淨緣，反熏真如。","此即「新熏」的過程，妄心被真如啟發後，起清淨修行反過來增長真如勢力。"],
+   [21,1,"真如自體為因、真如所流教法為緣，在內冥冥啟發眾生厭苦求樂為「本熏」；妄心領受熏習後萌生厭求心反過來用功增長真如勢力，則為「新熏」。","本熏是自性本覺的作用；新熏是始覺修行的反饋。","原講18題庫"]
+  ]},
+  { t:"主題六：漸與速（事識與意熏）、修遠離法", qs:[
+   [22,1,"依分別事識熏習者，因尚有分別法執，執心外實有境界，不達唯心道理，故趣向大菩提疏遠而稱為「漸」。","凡夫二乘依意識修行，執著心外有法，未能直契真如，故成佛之道迂迴緩慢。"],
+   [23,2,"論文中之「意熏習」，若就本論專指分別事識；通論則指前五意。","就本論而言，「意」即業識；通論則指前五意。分別事識熏習是漸修，非意熏習。"],
+   [24,1,"諸菩薩依意資持力發心修行，知一切法唯是識量，捨離事識外計分別，直觀真如法性之理，故能速趣涅槃。","菩薩依深層的「意」（業識）修行，了達萬法唯識，不向外攀緣，直接觀照真如，故能快速成佛。"],
+   [25,2,"論文所說「修遠離法」，是指初地以上菩薩已經親自證得現量真如智，徹底不見一切虛妄境界的圓融境界。","「修遠離法」是指地前（行向位）依解起行，修唯識尋思等「比觀」。初地以上才是實證「現量智」。","原講18題庫"],
+   [26,1,"分別事識熏習之所以作「漸」，是因為凡夫二乘修行時還存有分別法執，執著心外實有境界，只隨自己的理解作意修持，不能直達唯心本源，故成佛道途疏遠。","執著心外有法，便無法契入真如，故修行進展緩慢。","原講18題庫"]
+  ]},
+  { t:"主題七：自體相、正因佛性、因緣具足（木中火性）", qs:[
+   [27,1,"真如自體相熏習中，「體」指眾生本具無漏法身理體（正因佛性），「相」指自性本具無漏功德之相（稱性功德）。","真如自體相為內熏之因，體為正因佛性，相為稱性功德。"],
+   [28,1,"佛法成辦道果須因緣具足：本具真如為正因佛性，經教善知識為緣因佛性，因緣具足開悟成辦為了因佛性。","正因（本具）、緣因（師教）、了因（開悟）三因佛性具足，方能成佛。"],
+   [29,2,"論文以「木中火性」為喻，若木中有火性（正因），即使無人鑽取方便（緣因），火亦能自然發作燒木。","講義云：「若不假鑽取方便，火不能發。」必須因緣具足，方能成辦。"],
+   [30,1,"眾生若雖有外緣（善知識）之力，但內淨法未有熏習力（或障厚熏力不敵），亦不能究竟厭生死苦、樂求涅槃。","內因（真如）與外緣（善知識）缺一不可，若業障太重，真如微弱熏力敵不過無明，亦難以成就。"],
+   [31,2,"只要眾生本具的真如內因熏習力足夠，就算一生之中從未值遇諸佛菩薩、善知識與大乘經教的外緣啟發，也能自力斷惑成就涅槃。","大乘佛法強調「因緣具足」，若無外緣善知識啟發，單憑內因亦難成就，如木中火性若無鑽取則火不出。","原講19題庫"],
+   [32,1,"論文所云「內淨法未有熏習力者」，並非指眾生心內的真如自性喪失了熏習的機能，而是比喻眾生罪障過於深厚，以致真如的微弱熏力暫時敵不過無明的巨大遮蔽。","非真如無力，乃眾生業障太重，如烏雲太厚遮蔽陽光。","原講19題庫"]
+  ]},
+  { t:"主題八：信與不信差別、二障粗細", qs:[
+   [33,2,"眾生同具真如內熏，但發心修證有前後遲速之差別，其原因在於真如體性本身有清淨與污染之不同。","真如本一，本無差別。遲速差別在於眾生無始以來的「無明厚薄」及「煩惱麁細」不同。"],
+   [34,1,"憨山大師指出，「過恆沙等上煩惱」屬於所知障，細而難斷，故取證較遲；「我見愛染煩惱」屬於煩惱障，麁而易斷，故取證較速。","所知障微細，需長劫修習方能斷盡；煩惱障粗顯，見道位即可漸斷。"],
+   [35,2,"在障礙修證的煩惱中，「我見愛染煩惱」屬於細微難斷的所知障，因此證悟較遲；而「過恆沙等上煩惱」屬於粗顯易斷的煩惱障，因此證悟較速。","顛倒。我見愛染為煩惱障（麁易斷、證速）；過恆沙煩惱為所知障（細難斷、證遲）。","原講18題庫"]
+  ]},
+  { t:"主題九：用熏習、差別緣、平等緣", qs:[
+   [36,1,"真如「用熏習」即是眾生的外緣之力，係諸佛菩薩稱體起用、隨機示現為求道眾生作外助緣。","真如用熏習是已證果位的佛菩薩，從清淨法身起大用，作眾生修行的外在助力。"],
+   [37,2,"眾生若從分別事識發心，感見諸佛菩薩隨類化身，此稱為「平等緣」。","從分別事識發心，感見的是隨類化身，稱為「差別緣」；依業識發心，感見受用報身，才是「平等緣」。"],
+   [38,1,"差別緣包含「近緣」與「遠緣」，此係就眾生根性成熟之早晚而區分。","根機成熟快者得度速（近緣），根機成熟慢者得度遲（遠緣）。"],
+   [39,1,"近遠二緣中復各開二種：「增長行緣」係能起施戒等方便行，「受道緣」係正觀相應之勝進。","增長行緣是修布施持戒等基礎善行；受道緣是進一步修觀契入真如。"],
+   [40,1,"差別緣中的「增長行緣」，是指能引導眾生生起布施、持戒等基礎方便善行；「受道緣」，則是更進一步依方便行與正觀法性相應而入道。","先修福德資糧（增長行），再修智慧契入真理（受道）。","原講19題庫"],
+   [41,1,"諸佛菩薩作差別緣時，慈愛攝之、居卑事之、同類益之、冤家折之、四攝攝之，皆出於無作大悲熏習之力。","佛菩薩度化眾生方式多樣（順度、逆度等），皆是出於無緣大慈、同體大悲的自然流露。"],
+   [42,1,"「平等緣」係諸佛菩薩以同體悲智恆常不捨，眾生依於三昧乃得平等見諸佛身量平等，無彼此分齊之相。","諸佛恆常護念眾生，但眾生必須自己修持禪定（三昧），才能親見諸佛平等的報身。"]
+  ]},
+  { t:"主題十：未相應與已相應（信力／法力、無功用行）", qs:[
+   [43,1,"體用熏習中，「未相應位」指凡夫、二乘、初發意菩薩，唯依信力修行，未得無分別心與體相應，未得自在業與用相應。","地前菩薩及二乘凡夫，修行多靠意識分別和信仰，尚未證得能所雙亡的無分別智，故「未相應」。"],
+   [44,1,"「已相應位」指地上法身菩薩，得無分別心（如理智）與真如體相應，得如量智與諸佛智用相應。","初地以上菩薩親證真如，根本智（如理智）與真如相應，後得智（如量智）與佛的度生妙用相應。"],
+   [45,1,"地上菩薩「唯依法力，自然修行」，到了八地以上，能任運熏真、任運滅妄，稱為無功用行。","八地菩薩不用刻意作意，自然能斷除煩惱、度化眾生，稱為「無功用行」。"],
+   [46,2,"凡夫依信力修行，已經深入真如三昧並獲得自在業用，故屬於已相應位。","凡夫與二乘等屬於「未相應位」，僅依信力修行，未得無分別智，未證法身。"],
+   [47,1,"初地以上的「法身菩薩」在已相應位中修行，因為已經徹證法性，所以單純「依法力自然修行」，到了八地以上更是無功用行，任運熏真滅妄，不再依賴凡夫式的刻意分別攀緣。","初地以上親證法身，修行是稱性而起，任運自然，不需刻意造作。","原講19題庫"]
+  ]},
+  { t:"主題十一：因緣俱滅、染淨盡不盡義", qs:[
+   [48,1,"「因滅故，不相應心滅；緣滅故，相應心滅」，當因緣俱滅、心相皆盡時，即名得涅槃、成自然業。","無明（因）滅，則阿賴耶識的細微不相應心滅；境界（緣）滅，則分別事識的粗顯相應心滅。此即成就涅槃與自然業用。"],
+   [49,1,"在淨熏斷惑的過程中，所謂「因緣俱滅」是指：以無明為「因」，無明滅則不相應心（業識等深細心識）滅；以境界為「緣」，境界滅則相應心（分別事識等心）滅。","無明是細微不相應心的根源，境界是引發粗顯相應心的助緣。兩者盡滅，則妄心全消。","原講18題庫"],
+   [50,2,"在染淨盡不盡義中，染法係「無始無終」，淨法係「無始有終」。","應為「染法無始有終，淨法無始無終」。染法因無明而起，成佛後即斷；淨法本具，盡未來際起大用無有窮盡。"],
+   [51,1,"染法之所以有終，是因為無明染因依真而起，當真如常熏、妄心滅盡時，染法即斷。","無明無實體，依真而起。修行圓滿，無明滅盡，染污之法自然終結。"],
+   [52,1,"淨法之所以無盡，是因為妄心滅後法身顯現，起不思議大用熏習，故盡於未來無有斷絕。","成佛後並非化為虛無，而是法身顯現，起無量度生妙用，盡未來際永不停止。"],
+   [53,2,"一旦修行圓滿成佛，無明妄心徹底止滅之後，淨法的熏習也會因為沒有妄心可以熏化而隨之告終、歸於寂滅。","成佛後，滅的是虛妄的無明（染法有終）；清淨的真如法身顯現，起不思議大用，盡未來際永不中斷（淨法無盡）。","原講19題庫"],
+   [54,1,"因緣具足者，內仗真如勝因熏習之力，外蒙諸佛菩薩「示教利喜」，能迅速進趣涅槃道。","「示教利喜」指諸佛菩薩開示教法，令眾生得利益而生歡喜，是強大的外緣助力。"],
+   [55,2,"聽聞《大乘起信論》法門後，了解人人皆有佛性，當以「本覺之智照始覺之理」。","應為「以始覺之智照本覺之理」。眾生透過聽聞佛法（始覺），去觀照本自具足的佛性（本覺）。"]
+  ]}
+ ]},
+ { type:"mc", title:"第二部分：選擇題（第 56–110 題）", topics:[
+  { t:"主題一：染淨法基本概念與衣香喻", qs:[
+   [56,2,"《大乘起信論》指出，阿梨耶識能攝一切法、能生一切法。其中三細六麁等染法，皆以何者為正因？",["妄境界","無明","分別事識","轉識"],"講義云：「染因名無明者，三細六麤染法，皆以無明為因也。」妄境界是外在的「緣」，無明才是生起染法最核心的「親因」。"],
+   [57,2,"依圓瑛法師講義，「妄境界」具體是指：",["阿賴耶識","事識所緣之六塵","真如理體","始覺之智"],"講義明言：「妄境界，即事識所緣之六塵也。」（色、聲、香、味、觸、法）。"],
+   [58,2,"關於「染法具說三種，淨法唯一」，下列解釋何者符合講義？",["染法體用無別，淨法自性差別","染法由自性差別具說三種，淨法對染雖成熏義但體用無別","染法只有無明一種","淨法包含三細六麁"],"染法性質各異（無明為因、妄心為體、境界為緣），故說三種；淨法（真如）本質皆為不生不滅的真心，體用不二，故說唯一。"],
+   [59,3,"《大乘起信論》著名的「衣香比喻」中，「衣服實無於香，若人以香而熏習故，則有香氣。」關於此比喻與佛法的法合，下列敘述何者「錯誤」？",["「衣服」比喻本具真心，本來清淨","「香氣」有可意與不可意之分，比喻淨法與染法","「衣本無香，因惡香熏而變臭」，比喻無明染法是真心本有的自體功能，無法被洗除","「被薰臭的衣服改用名香重新熏過又會恢復芬芳」，比喻能「返流還滅」發起淨用"],"③ 錯誤。衣服變臭只是接觸惡香而妄現的「客塵染相」，並非衣服（真心）本有的自體。正因煩惱非本有，眾生才能透過修行洗滌不淨習氣。"]
+  ]},
+  { t:"主題二：無明熏真如與熏習機制", qs:[
+   [60,2,"明代憨山大師解說「習熏」與「資熏」，下列何者屬於「習熏」之範疇？",["業識返熏無明","根本無明熏真如","妄境界資熏心海","現行心境與諸惑相資"],"憨山大師云：「根本無明熏真如，為習熏；業識返熏無明，增其不了，為資熏。」①③④皆為後續增長的「資熏」。"],
+   [61,2,"在「真妄互熏」中，無明為緣、真如為因，熏成阿賴耶識何種相？",["六麁染相","三細染相","淨用相","常果相"],"講義云：「無明熏真如，真如為因，無明為緣，熏成賴耶三細染相。」（即業相、轉相、現相）。"],
+   [62,1,"論文云「不覺念起，現妄境界」，這是何種熏習之結果？",["業識返熏無明（資熏）","妄境界資熏妄心","真如內熏無明","淨熏"],"憨山大師云：「業識返熏無明，增其不了，故成轉、現，而三細炳然...故云不覺念起，現妄境界也。」"],
+   [63,2,"「隨流生滅門」與「返流生滅門」之主要差別，下列何者正確？",["隨流顯淨用，返流顯染相","隨流係無明熏真如成染相，返流係真如內熏無明起淨用","隨流成菩提涅槃，返流成三細六麁","兩者皆以妄境界為正因"],"隨流是順著無明，流轉生死（染）；返流是逆著無明，真如內熏起智，還滅解脫（淨）。"],
+   [64,3,"「一念熏習之力，障蔽本明，變真如而為業識」，此一念極其微細，唯有何者能盡了？",["凡夫","二乘人","唯佛能了","初發心菩薩"],"講義云：「此起處難知，最極微細，故唯佛能了。」無明生起的最初一念（生相無明），唯有一切種智的佛陀才能透徹明瞭。"],
+   [65,2,"依據圓瑛法師對「無明熏習」的解釋，關於「本末二熏，成就二識」的機制，下列何種配對與義理是正確的？",["根本無明熏真如成就「分別事識」；見思枝末無明返熏心體成就「阿梨耶業識」","根本無明熏真如成就「阿梨耶業識」；見思枝末無明返熏心體成就「分別事識」","根本無明與枝末無明皆是熏習妄境界","根本無明熏習真如能成就凡夫的分段生死；枝末無明熏習則成就聖人的變易生死"],"根本無明（本）熏真如成極微細的「阿梨耶業識」；枝末無明（末）返熏心體成粗顯的「分別事識」。"],
+   [66,1,"憨山大師《直解》指出，生滅門中的無明熏習有「習熏」與「資熏」二義。關於這兩者的運作，下列敘述何者最精確？",["根本無明熏習真如真心，為「習熏」；業識返熏無明、增其不了，為「資熏」","真如內熏無明為「習熏」","習熏是指妄境界主動吹動事識","只有凡夫的心識活動才有習熏，聖人只有資熏"],"習熏是最原始的根本熏動；資熏是妄心（業識）生起後，反過來資助增長無明的力量。"]
+  ]},
+  { t:"主題三：境界熏心與心海波浪喻", qs:[
+   [67,4,"關於「妄境界熏習」的作用，下列何者描述完全符合講義內容？",["資熏心海起三細相","增長念指執取相與計名字相","增長取指智相與相續相","資熏業識，令起四麁轉識波浪，增長念與取"],"① 三細是無明熏真如；② 增長念是智相、相續相（法執）；③ 增長取是執取相、計名字相（人我見愛）。④ 為正確描述。"],
+   [68,1,"妄境界資熏心海起前七波浪而成六麁，最終導致何種生死果報？",["造業受苦，生死不斷","證得大乘涅槃","出離三界生死","成就不思議自然業"],"境界資熏妄心，令其起貪瞋癡造業，隨業受報，流轉生死。"],
+   [69,3,"憨山大師將唯識的「心海波浪喻」融入《大乘起信論》。在「即以境界資熏心海，起前七波浪而成六麁」的比喻中，平靜的「心海」、吹動的「風」以及激起的「波浪」，分別對應哪些概念？",["心海=前七識；風=始覺智；波浪=阿賴耶識","心海=真如自體；風=內熏力；波浪=涅槃常果","心海=阿賴耶識（業識）；風=虛妄境界（六塵）；波浪=前七轉識（六麁）","心海=分段生死；風=枝末無明；波浪=變易行苦"],"眾生的阿賴耶識如深沉平靜的海；外在六塵境界如狂風；激起的前七轉識（智相、相續相...）如滔天波浪。"],
+   [70,2,"在日常修行中，凡夫若想截斷「境熏心」的惡性循環、停止「分別事識」的不斷增長，最務實、最直接的修行下手處應該放在哪裡？",["徹底消滅物質世界","在面對外境時保持覺照，息滅當下的「見愛煩惱」，做到「有念而不分別、不執取」","直接對治阿賴耶識極微細的生滅心念","遠離一切善知識"],"外境無法消滅，修行下手處在於「根對塵」時不隨之起分別執取，截斷「增長念」與「增長取」的連鎖反應。"]
+  ]},
+  { t:"主題四：分段與變易生死", qs:[
+   [71,2,"業識資熏根本無明，會使三乘人雖出三界離事識麁苦，但仍須受何種苦？",["分段麁苦","變易行苦","三途惡苦","八相成道苦"],"三乘聖人已斷見思惑，不受六道輪迴的分段生死；但因無明未盡，仍有阿賴耶識微細生滅的「變易生死」。"],
+   [72,2,"分別事識資熏無明，所增長並導致凡夫隨業繫縛、受分段麁苦的煩惱為何？",["根本無明","見愛煩惱","塵沙惑","無漏功德"],"分別事識增長的是「見愛煩惱」，導致凡夫起惑造業，受分段生死之苦。"],
+   [73,3,"依講義所述，根本所起之枝末見思無明，返熏心體，循塵分別，會成就何種識？",["阿梨耶識","業識","分別事識","本覺識"],"枝末無明返熏，妄生執著、計我我所，成就粗顯的「分別事識」。"]
+  ]},
+  { t:"主題五：本熏、新熏與漸速差別", qs:[
+   [74,2,"淨熏過程中，真如內熏無明令眾生厭苦求樂、發心修行，此在憨山大師《直解》中稱為：",["新熏","本熏","資熏","漸熏"],"真如本具覺性時時內熏眾生，稱為「本熏」。"],
+   [75,3,"憨山大師《起信直解》指出，真如內熏無明令其發心修行為「本熏」；那麼妄心受熏後生起厭求「反熏真如增其勢力」，為什麼？",["體熏","用熏","新熏","緣熏"],"眾生受到真如內熏（本熏）後，發起修行反過來回饋、增長真如的力量，稱為「新熏」。"],
+   [76,3,"關於「本熏」與「新熏」的相互作用，下列敘述何者完全正確？",["先有新熏，後有本熏","本熏係妄心反熏真如，新熏係真如內熏無明","真如內熏為本熏；已受熏妄心起厭求反熏真如為新熏","兩者皆屬於無明熏習"],"同第74、75題，真如內熏為本，妄心反熏為新。"],
+   [77,3,"凡夫、二乘人修行「趣大菩提疏而且遠，故曰漸」，其根本原因為何？",["不具正因佛性","未遇外緣善知識","尚有分別法執，不達唯心道理（不達本）","完全缺乏信力"],"凡夫二乘依意識修行，執著心外有境，未能通達萬法唯心的本源，故修行迂迴緩慢。"],
+   [78,2,"菩薩依「意熏習」發心修行能「速趣涅槃」，此處之「意」就本論而言是指：",["分別事識","業識","六塵境界","意根"],"講義云：「若就本論，意即業識；通論，即前五意。」"],
+   [79,2,"凡夫、二乘人依分別事識發心修行，其所依止的內在修行力量主要是：",["現量智","已受熏分別事識之資持力與信力","無分別心","自然業用"],"凡夫二乘修行主要靠仰信的力量，以及受到真如微微熏習的意識資持力，未能親證無分別智。"],
+   [80,2,"依圓瑛法師對淨熏功能階位的科判，文中提到「知心妄動，無前境界」了知諸法本無實體，對應於大乘菩薩修行的哪一個階位？",["十信位","十解位（十住位）","行向位（十行、十迴向位）","初地以上"],"十信位深信己性；十解位（十住）能解了外境虛妄、本無實體；行向位起觀修行；初地以上親證。"],
+   [81,3,"關於妄心熏習中「分別事識熏習」與「意熏習」的修證遲速差異，下列說明何者正確？",["分別事識熏習因能直觀法性，所以「速」","意熏習依意識分別修習，故「漸」","菩薩依意熏習，了知一切法唯是識量，直觀真如，故向大涅槃「速」","凡夫與二乘人進趣速度等同於菩薩意熏習"],"執著心外有法（事識）故漸；了達萬法唯識（意熏習）故速。"]
+  ]},
+  { t:"主題六：真如自體相、作境界之性、信不信差別", qs:[
+   [82,1,"真如「自體相熏習」中，作為眾生內熏之「正因佛性」是指：",["眾生本具無漏法身理體（體大）","外緣善知識教法","分別事識之資持力","隨類化身"],"真如自體即眾生本具的無漏法身理體，是成佛的正因。"],
+   [83,2,"真如自體相「備有不思議業，作境界之性」，其中「作境界之性」是指真如能作為：",["事識所緣之六塵境界","能觀智之所觀境界性（法性）","業識之三細相","凡夫分段麁苦之因"],"真如既能啟發眾生的能觀智，其自身也是該智慧所觀照的對象（法性）。"],
+   [84,3,"論文云自體相熏習具足無漏法，「備有不思議業，作境界之性」。此處圓瑛法師解釋真如「作境界之性」的真實意涵為何？",["變現凡夫執著的六塵妄相","指諸佛菩薩隨緣示現的清淨國土境界","真如為眾生修行之「能觀智」作「所觀境界之性」（即作為法性所觀境）","指阿賴耶識中所含藏的種子境界"],"同第83題，強調真如作為「所觀境（法性）」的深刻意涵。"],
+   [85,2,"眾生同具真如，為何有「信與不信、利鈍遲速」無量前後差別？",["真如自體有優劣等級","無明從本以來厚薄不同及所起煩惱麁細差別","諸佛菩薩偏心護念","涅槃有多種不同果位"],"真如平等無別，差別在於覆蓋真如的「無明」厚薄不同，以及煩惱的粗細差異。"],
+   [86,3,"針對「既然一切眾生都有真如內熏，為何世間有人深信、有人不信，發心與修證又有早晚遲速的差別？」之提問，論主答覆的根本原因是什麼？",["諸佛菩薩的慈悲願力有親疏厚薄之別","眾生本具真如自性本來就大小不一","真如本來平等不二，差別在於眾生無始以來所覆蓋的無明厚薄不等、煩惱麤細難易不同","眾生所生長之時代與地理環境客觀條件不同"],"同第85題，強調「無明厚薄」是導致修行快慢的根本原因。"]
+  ]},
+  { t:"主題七：二障比較與因緣具足（三因佛性）", qs:[
+   [87,2,"關於「過恆沙等上煩惱」與「我見愛染煩惱」之比較，下列何者正確？",["前者為煩惱障，後者為所知障","前者為所知障（細而難斷，取證遲），後者為煩惱障（麁而易斷，取證速）","前者易斷，後者難斷","兩者皆屬於事識分段苦"],"所知障（上煩惱）微細，需長劫修行方能斷；煩惱障（見愛）粗顯，見道位即可漸斷。"],
+   [88,2,"在「鑽木取火」的比喻中，「鑽取方便」比喻佛法三性中的哪一種？",["正因佛性","緣因佛性","了因佛性","報身佛"],"木中火性喻正因；鑽取方便喻緣因（善知識、經教）；火出木燒喻了因（開悟）。"],
+   [89,2,"論中以「鑽木取火」比喻修證佛法，其中「木中火性」、「鑽木方便」與「火出木燒」在佛法三性中分別象徵什麼？",["緣因佛性、了因佛性、正因佛性","正因佛性、緣因佛性、了因佛性","了因佛性、正因佛性、緣因佛性","差別緣、平等緣、自體相熏"],"完整對應。木中火性（眾生本具佛性）為正因；鑽木取火（善知識教法）為緣因；火出燒木（開悟斷惑）為了因。"],
+   [90,3,"「若雖有外緣之力，而內淨法未有熏習力者，亦不能究竟厭生死苦」，圓瑛法師解釋「內淨法未有熏習力」是指：",["真如本身不具備熏習功能","眾生完全不具備佛性","眾生惑障深厚，真如內熏之力不能相敵","外緣善知識力量不夠"],"非真如無熏力，而是眾生業障深厚，遮蔽了真如的作用。"],
+   [91,2,"眾生內仗真如勝因，外值諸佛菩薩教導利益，獲得歡喜進趣，此勝緣稱為：",["因具緣闕","示教利喜","隨流成染","差別緣之冤家折之"],"諸佛菩薩開示教法，令眾生得法益而歡喜修行，即「示教利喜」。"],
+   [92,2,"依講義所述，聽聞大乘法門後，「以始覺之智照本覺之理」，漸漸熏習以成就道業，這屬於：",["隨流染熏","返流淨熏","資熏惑業","變易行苦"],"眾生聽聞佛法（始覺）觀照本具佛性（本覺），是逆生死流、向涅槃的「淨熏」。"]
+  ]},
+  { t:"主題八：用熏習、差別緣與平等緣", qs:[
+   [93,2,"諸佛菩薩稱體起用，隨機示現，為求道眾生作外助緣，此種熏習稱為：",["自體相熏習","用熏習","無明熏習","妄心熏習"],"佛菩薩從真如法身起大悲妙用，作眾生修行的外在助緣，稱為「用熏習」。"],
+   [94,2,"眾生若依「業識」發心，能感見諸佛菩薩之受用報身，此外緣稱為：",["差別緣","平等緣","漸緣","近緣"],"依深層的業識發心，見佛平等的受用報身，稱為「平等緣」。"],
+   [95,4,"關於「差別緣」之化用內涵，下列何者不屬於講義所歸納之五類化用？",["慈愛攝之（眷屬父母）","居卑事之（給使）","同類益之（知友）","強制鎮壓"],"講義所列五類為：慈愛攝之、居卑事之、同類益之、冤家折之（非強制鎮壓）、四攝攝之。"],
+   [96,2,"「差別緣」依眾生根性成熟早晚分為近緣與遠緣，兩者又各自包含哪兩種緣？",["習熏緣與資熏緣","增長行緣與受道緣","本熏緣與新熏緣","體熏緣與用熏緣"],"講義云：「近遠二緣，分別復有二種...一者增長行緣，二者受道緣。」"],
+   [97,2,"行者在初發意求道乃至成佛過程中，諸佛菩薩或化現為眷屬父母，甚至化現為「怨家」加以逆折磨礪，以啟發其善根。這種外緣熏習屬於下列何者？",["平等緣","差別緣","自體相熏習","意熏習"],"佛菩薩根據眾生根機，示現父母、怨家等不同身分來度化，稱為「差別緣」。"],
+   [98,2,"眾生能「平等見諸佛身量平等，無有彼此分齊之相」，必須依於何種功德？",["事識分別力","三昧力","見愛煩惱","變易苦"],"眾生必須修持禪定（三昧），方能平等見諸佛（受用報身）。"],
+   [99,3,"關於諸佛菩薩所起之「平等緣」，下列敘述何者完全符合法藏大師與憨山大師的闡釋？",["平等緣是指佛菩薩一律示現丈六金身","平等緣唯有從分別事識發心的凡夫才得以相見","平等緣是諸佛菩薩以同體悲智念念恆熏，眾生須依三昧力方能平等見佛身量平等無礙","眾生無須自己修持定力，佛菩薩自然會令其親見受用報身"],"佛菩薩恆常以同體大悲護念眾生，但眾生必須自己修持禪定（三昧），才能親見諸佛平等的受用報身。"]
+  ]},
+  { t:"主題九：未相應與已相應（信力／法力、無功用行）", qs:[
+   [100,3,"體用熏習中，「未相應位」（凡夫、二乘、初發意菩薩）修行的主要依持力為何？",["如理智","法力","信力","自然業用"],"地前菩薩與凡夫二乘，尚未證得無分別智，修行主要依靠對佛法的「信仰力」。"],
+   [101,1,"關於「未相應」之具體意涵，下列說明何者完全正確？",["未得無分別心與體相應，未得自在業與用相應","未具備正因佛性","完全未受無明熏習","已證得平等法身"],"未相應位者，未證得能所雙亡的無分別智，因此無法與真如理體及佛的度生妙用相應。"],
+   [102,2,"地上法身菩薩得「無分別心」與真如體相應，此無分別心即是：",["如量智","如理智","分別事識","業識"],"契合真如理體的智慧，稱為「如理智」（根本智）；能觀照萬法差別的，稱為「如量智」（後得智）。"],
+   [103,2,"法身菩薩與諸佛智用相應，稱真如理而修，任運熏真滅妄，其修行稱為：",["依信力修行","唯依法力，自然修行","作意修習","隨流生滅修行"],"初地以上菩薩證得法身，修行是稱合真如理體（法力）而自然流露，不再需要刻意作意。"],
+   [104,2,"八地以上菩薩之修行狀態稱為：",["漸趣菩提","真無功用行","增長見愛","資熏惑業"],"八地菩薩不退轉，能任運自然地斷惑度生，稱為「無功用行」。"],
+   [105,3,"在體用熏習中，論文提到凡夫、二乘及初發意菩薩處於「未相應」位，其關鍵原因是什麼？",["體內完全缺乏真如本覺之理性","完全沒有值遇外在善知識","尚依分別意識以「信力」修行，未契入「無分別心」與體相應，未得自在智業與用相應","已經斷盡根本無明"],"未相應位者，未能證得無分別智，修行仍依賴意識的分別與信仰的力量，未與真如法身完全契合。"]
+  ]},
+  { t:"主題十：因緣俱滅、染淨盡不盡義", qs:[
+   [106,1,"「因滅故不相應心滅，緣滅故相應心滅」，其中之「因」與「緣」分別是指：",["無明為因，境界為緣","真如為因，無明為緣","妄心為因，信力為緣","業識為因，事識為緣"],"無明是產生微細心的根本（因），境界是引發粗顯分別的助緣（緣）。兩者盡滅，則妄心全消。"],
+   [107,2,"果地惑盡、復本心源名得涅槃，起不思議業用名為：",["差別業","自然業","變易業","資熏業"],"成佛後，斷盡煩惱證得涅槃，自然發起廣度眾生的妙用，稱為「自然業」。"],
+   [108,2,"關於「染法與淨法」之盡不盡義，下列何者完全正確？",["染法無始無終，淨法有始有終","染法無始有終（得佛後有斷），淨法無始無終（盡於未來無有斷）","兩者皆無始無終","兩者皆有始有終"],"染法因無明而起，成佛後即斷（有終）；淨法本自具足，成佛後起大用無盡（無終）。"],
+   [109,3,"針對「染淨盡不盡義」，論文判定「染法熏習」與「淨法熏習」的最終宿命與時間性，下列何者正確？",["染法與淨法皆有始有終","染法無始無終，淨法有始有終","染法無始有終（至成佛後則有斷）；淨法無始無終（盡於未來無有斷盡）","染法有始無終，淨法無始有終"],"同第108題，虛妄的染法必定斷盡，清淨的淨法起大用無盡。"],
+   [110,2,"淨法熏習「盡於未來無有斷」之根本原因為何？",["無明源永不絕","真如法常熏習，妄心滅法身顯現，起用熏習故無有斷","凡夫執著不捨","六塵境界永不滅除"],"妄心滅盡後，清淨法身徹底顯現，生起不思議的大悲妙用，盡未來際永不間斷。"]
+  ]}
+ ]}
+];
+
+(function(){
+  var KEY = 'quiz-qixin-midterm110-r2';
+  var CIRC = ['①','②','③','④'];
+  var st = {a:{}, s:{}};      // a: 作答 {no:選項}  s: 已顯示解析 {no:true}
+    function save(){}
+
+  var paper = document.getElementById('paper');
+  var Q = {};   // no -> {type, ans, el, topicEl}
+  var filter = 'all';
+
+  function h(tag, cls, text){ var e = document.createElement(tag); if(cls) e.className = cls; if(text != null) e.textContent = text; return e; }
+
+  function appendQuoted(box, text){
+    var parts = text.split(/(『[^』]*』)/);
+    parts.forEach(function(t){
+      if(!t) return;
+      if(t.charAt(0)==='『'){ box.appendChild(h('mark','highlight',t)); }
+      else box.appendChild(document.createTextNode(t));
+    });
+  }
+  function buildExp(host, text){
+    var m = text.match(/^(.*?)([^。；「」\s]{1,14}(?:云|明言|《直解》)：)「([^「」]+)」(.*)$/);
+    if(!m){ host.appendChild(h('p','explanation-text',text)); return; }
+    if(m[1].trim()) host.appendChild(h('p','explanation-text',m[1].trim()));
+    var bq = h('blockquote','quote-box');
+    bq.appendChild(h('div','quote-author',m[2]));
+    var qc = h('div','quote-content'); qc.appendChild(document.createTextNode('「')); appendQuoted(qc, m[3]); qc.appendChild(document.createTextNode('」'));
+    bq.appendChild(qc); host.appendChild(bq);
+    if(m[4].trim()) host.appendChild(h('p','explanation-text',m[4].trim()));
+  }
+
+  SEC.forEach(function(sec){
+    var secEl = h('section'); secEl.dataset.type = sec.type;
+    secEl.appendChild(h('div','part-title',sec.title));
+    sec.topics.forEach(function(tp){
+      var grp = h('div','grp');
+      grp.appendChild(h('div','topic',tp.t));
+      tp.qs.forEach(function(q){
+        var no = q[0], ans = q[1];
+        var art = h('article','q'); art.id = 'q'+no;
+
+        var card = h('div','quiz-card main-question-card');
+        var qh = h('div','quiz-header');
+        qh.appendChild(h('span','quiz-type', sec.type==='tf' ? '是非題' : '選擇題'));
+        qh.appendChild(h('span','quiz-number','第 ' + no + ' 題'));
+        var src = sec.type==='tf' ? q[4] : null;
+        if(src) qh.appendChild(h('span','src',src));
+        var bmb = h('button','bm-btn'); bmb.type='button'; bmb.setAttribute('aria-label','標籤'); bmb.innerHTML = BMSVG;
+        bmb.addEventListener('click', function(){ setBM(no); });
+        qh.appendChild(bmb);
+        card.appendChild(qh);
+        card.appendChild(h('div','question-text', q[2]));
+        if(BH[no]){
+          var vb = h('details','vernacular-box');
+          var vt = h('summary','vernacular-title'); vt.appendChild(document.createTextNode('白話意譯'));
+          vb.appendChild(vt); vb.appendChild(h('div','vernacular-content',BH[no]));
+          card.appendChild(vb);
+        }
+        art.appendChild(card);
+
+        var opts = h('div','options-group');
+        var labels;
+        if(sec.type==='tf'){ labels = [['〇','正確'],['╳','錯誤']]; }
+        else { labels = q[3].map(function(t,i){ return [CIRC[i], t]; }); }
+        labels.forEach(function(lb, i){
+          var b = h('button','option-btn'); b.type = 'button';
+          b.appendChild(h('span','option-icon',lb[0]));
+          b.appendChild(h('span','option-label',lb[1]));
+          b.addEventListener('click', function(){ choose(no, i+1); });
+          opts.appendChild(b);
+        });
+        art.appendChild(opts);
+
+        var acts = h('div','acts');
+        var peek = h('button','lnk','看答案'); peek.type='button';
+        peek.addEventListener('click', function(){ peekAns(no); });
+                art.appendChild(acts);
+
+        var fb = h('div','quiz-card feedback-card');
+        var status = h('div','feedback-status');
+        var sicon = h('span','status-icon'); var stxt = h('span','status-text'); var ca = h('span','correct-answer');
+        status.appendChild(sicon); status.appendChild(stxt); status.appendChild(ca);
+        fb.appendChild(status);
+        var es = h('div','explanation-section');
+        es.appendChild(h('div','explanation-title','解析說明'));
+        buildExp(es, sec.type==='tf' ? q[3] : q[4]);
+        fb.appendChild(es);
+        var retry = h('button','retry-btn'); retry.style.display='none';
+        art.appendChild(fb);
+
+        grp.appendChild(art);
+        Q[no] = {type:sec.type, ans:ans, el:art, fb:fb, sicon:sicon, stxt:stxt, ca:ca, opts:opts, peek:peek, retry:retry, acts:acts, grp:grp, sec:secEl};
+      });
+      secEl.appendChild(grp);
+    });
+    paper.appendChild(secEl);
+  });
+
+  function ansText(no){
+    var q = Q[no];
+    if(q.type==='tf') return q.ans===1 ? '〇 正確' : '╳ 錯誤';
+    var i = q.ans - 1;
+    return CIRC[i] + ' ' + q.opts.children[i].lastChild.textContent;
+  }
+
+  function paint(no){
+    var q = Q[no], chosen = st.a[no], shown = !!st.s[no] || !!chosen;
+    var btns = q.opts.children;
+    for(var i=0;i<btns.length;i++){ btns[i].classList.remove('selected-right','selected-wrong'); }
+    q.el.classList.toggle('done', !!chosen);
+    if(chosen){
+      if(chosen === q.ans) btns[chosen-1].classList.add('selected-right');
+      else { btns[chosen-1].classList.add('selected-wrong'); btns[q.ans-1].classList.add('selected-right'); }
+    }else if(st.s[no]){
+      btns[q.ans-1].classList.add('selected-right');
+    }
+    q.el.classList.toggle('show', shown);
+    if(shown){
+      var ok = chosen === q.ans;
+      q.fb.classList.toggle('success', !!chosen && ok);
+      q.fb.classList.toggle('wrong', !!chosen && !ok);
+      q.sicon.textContent = '';
+      q.stxt.textContent = chosen ? (ok ? '答對了！' : '答錯了') : '參考答案';
+      q.ca.textContent = '正確答案：' + ansText(no);
+    }
+    q.acts.style.display = shown ? 'none' : '';
+    q.retry.style.display = chosen ? '' : 'none';
+  }
+
+  function choose(no, c){
+    if(window.HLMODE) return;
+    if(st.a[no]) return;
+    st.a[no] = c; st.s[no] = true; save(); paint(no); update();
+  }
+  function peekAns(no){ st.s[no] = true; save(); paint(no); update(); }
+  function retryQ(no){ delete st.a[no]; delete st.s[no]; save(); paint(no); update(); }
+
+  function update(){
+    var total = 0, done = 0, right = 0, nos = Object.keys(Q);
+    nos.forEach(function(n){ total++; var c = st.a[n]; if(c){ done++; if(c === Q[n].ans) right++; } });
+    document.getElementById('score').innerHTML = '已作答 <b>' + done + '</b> / ' + total + '　答對 <b>' + right + '</b>　答錯 <b>' + (done-right) + '</b>' + (done ? '　正確率 <b>' + Math.round(right*100/done) + '%</b>' : '');
+    applyFilter();
+  }
+
+  function applyFilter(){
+    var any = false;
+    Object.keys(Q).forEach(function(n){
+      var q = Q[n], c = st.a[n], v = true;
+      if(filter==='tf') v = q.type==='tf';
+      else if(filter==='mc') v = q.type==='mc';
+      else if(filter==='todo') v = !c;
+      else if(filter==='wrong') v = !!c && c !== q.ans;
+      q.el.classList.toggle('hide', !v);
+      if(v) any = true;
+    });
+    document.querySelectorAll('.grp').forEach(function(g){
+      g.classList.toggle('sec-hide', !g.querySelector('.q:not(.hide)'));
+    });
+    document.querySelectorAll('#paper > section').forEach(function(s){
+      s.classList.toggle('sec-hide', !s.querySelector('.q:not(.hide)'));
+    });
+    document.getElementById('empty').style.display = any ? 'none' : 'block';
+  }
+
+  document.getElementById('chips').addEventListener('click', function(ev){
+    var b = ev.target.closest('.chip'); if(!b || !b.dataset.f) return;
+    filter = b.dataset.f;
+    document.querySelectorAll('.chip').forEach(function(x){ x.classList.toggle('on', x === b); });
+    applyFilter();
+    window.scrollTo(0, document.querySelector('.head').offsetHeight);
+  });
+
+  /* ===== 標籤：從標籤處繼續閱讀 ===== */
+  var BMKEY = 'bm-qixin-midterm110-r2-v1';
+  var bm = null;
+  try{ var braw = localStorage.getItem(BMKEY); if(braw) bm = parseInt(braw,10) || null; }catch(e){}
+  function bmSave(){ try{ if(bm) localStorage.setItem(BMKEY, String(bm)); else localStorage.removeItem(BMKEY); }catch(e){} }
+  function bmLabel(n){ return '第 ' + n + ' 題'; }
+  function bmPaint(){
+    Object.keys(Q).forEach(function(n){
+      var on = (+n === bm);
+      Q[n].el.classList.toggle('bookmarked', on);
+      
+    });
+    var rs = document.getElementById('resume'), go = document.getElementById('gobm');
+    if(bm && Q[bm]){
+      document.getElementById('resumeText').textContent = '上次讀到' + bmLabel(bm);
+      rs.classList.add('on'); go.classList.add('on2'); go.innerHTML = BMSVG + '<span>第 ' + bm + ' 題</span>';
+    }else{ rs.classList.remove('on'); go.classList.remove('on2'); }
+  }
+  function setBM(no){ bm = (bm === no) ? null : no; bmSave(); bmPaint(); }
+  function goBM(){
+    if(!bm || !Q[bm]) return;
+    if(Q[bm].el.classList.contains('hide')){
+      filter = 'all';
+      document.querySelectorAll('.chip').forEach(function(x){ x.classList.toggle('on', x.dataset.f === 'all'); });
+      applyFilter();
+    }
+    var ctrlH = document.querySelector('.ctrl').offsetHeight;
+    var y = Q[bm].el.getBoundingClientRect().top + window.pageYOffset - ctrlH - 12;
+    window.scrollTo(0, Math.max(0, y));
+  }
+  document.getElementById('resumeGo').addEventListener('click', goBM);
+  document.getElementById('gobm').addEventListener('click', goBM);
+
+  /* ===== 螢光筆 ===== */
+  var HKEY = 'hl-qixin-midterm110-r2-v1';
+  var HSEL = '.question-text,.vernacular-content,.option-label,.explanation-text,.quote-content,.quote-author';
+  var hmode = null, hdata = {};
+  var HN = {y:'黃色', g:'綠色'};
+  var hbar = document.getElementById('hl-bar'), hfab = document.getElementById('hl-fab'), hstat = document.getElementById('hl-status');
+  try{ var hraw = localStorage.getItem(HKEY); if(hraw) hdata = JSON.parse(hraw) || {}; }catch(e){ hdata = {}; }
+  function hsave(){ try{ localStorage.setItem(HKEY, JSON.stringify(hdata)); }catch(e){} }
+  function eligible(art){
+    var w = document.createTreeWalker(art, NodeFilter.SHOW_TEXT, null), out = [], n;
+    while((n = w.nextNode())){ var p = n.parentElement; if(p && p.closest(HSEL)) out.push(n); }
+    return out;
+  }
+  function unwrapArt(art){
+    art.querySelectorAll('mark.hl').forEach(function(m){
+      var p = m.parentNode; while(m.firstChild) p.insertBefore(m.firstChild, m); p.removeChild(m); p.normalize();
+    });
+  }
+  function applyOne(art, no, iv, idx){
+    var nodes = eligible(art), pos = 0, jobs = [];
+    nodes.forEach(function(n){
+      var a = pos, b = pos + n.data.length; pos = b;
+      if(b <= iv.s || a >= iv.e || !n.data.trim()) return;
+      jobs.push({n:n, ls:Math.max(iv.s,a)-a, le:Math.min(iv.e,b)-a});
+    });
+    jobs.forEach(function(j){
+      var t = j.n;
+      if(j.ls > 0) t = t.splitText(j.ls);
+      var span = j.le - j.ls; if(span < t.data.length) t.splitText(span);
+      var m = document.createElement('mark'); m.className = 'hl c-' + iv.c;
+      m.setAttribute('data-i', idx); m.setAttribute('data-q', no);
+      t.parentNode.insertBefore(m, t); m.appendChild(t);
+    });
+  }
+  function hrender(no){
+    var art = Q[no].el; unwrapArt(art);
+    (hdata[no] || []).forEach(function(iv,i){ applyOne(art, no, iv, i); });
+  }
+  function hcount(){ var n=0; Object.keys(hdata).forEach(function(k){ n += hdata[k].length; }); return n; }
+  function off(art, node, o){
+    var acc = 0, nodes = eligible(art);
+    var br = document.createRange(); br.setStart(node, o); br.collapse(true);
+    for(var i=0;i<nodes.length;i++){
+      var t = nodes[i];
+      if(t === node) return acc + o;
+      if(node.nodeType !== 3){ if(br.comparePoint(t,0) >= 0) return acc; }
+      else if(br.comparePoint(t,0) >= 0) return acc;
+      acc += t.data.length;
+    }
+    return acc;
+  }
+  function subtract(list, s, e){
+    var out = [];
+    list.forEach(function(iv){
+      if(iv.e <= s || iv.s >= e){ out.push(iv); return; }
+      if(iv.s < s) out.push({s:iv.s, e:s, c:iv.c});
+      if(iv.e > e) out.push({s:e, e:iv.e, c:iv.c});
+    });
+    return out;
+  }
+  function artOf(node){ var el = node.nodeType === 3 ? node.parentElement : node; return el && el.closest ? el.closest('.q') : null; }
+  function curSel(){
+    var sel = window.getSelection();
+    if(!sel || !sel.rangeCount || sel.isCollapsed) return null;
+    var r = sel.getRangeAt(0), a1 = artOf(r.startContainer), a2 = artOf(r.endContainer);
+    if(!a1 || a1 !== a2) return null;
+    var s = off(a1, r.startContainer, r.startOffset), e = off(a1, r.endContainer, r.endOffset);
+    if(e <= s) return null;
+    return {no: a1.id.slice(1), s:s, e:e};
+  }
+  var htimer = null;
+  document.addEventListener('selectionchange', function(){
+    if(!hmode) return;
+    clearTimeout(htimer);
+    htimer = setTimeout(function(){
+      var r = curSel(); if(!r) return;
+      var list = subtract(hdata[r.no] || [], r.s, r.e);
+      if(hmode !== 'erase') list.push({s:r.s, e:r.e, c:hmode});
+      list.sort(function(a,b){ return a.s - b.s; });
+      if(list.length) hdata[r.no] = list; else delete hdata[r.no];
+      hsave(); hrender(r.no);
+      var sel = window.getSelection(); if(sel) sel.removeAllRanges();
+      hstatus();
+    }, 600);
+  });
+  document.getElementById('paper').addEventListener('click', function(ev){
+    if(hmode !== 'erase') return;
+    var m = ev.target.closest && ev.target.closest('mark.hl'); if(!m) return;
+    var no = m.getAttribute('data-q'), i = parseInt(m.getAttribute('data-i'),10);
+    if(!hdata[no] || isNaN(i)) return;
+    hdata[no].splice(i,1); if(!hdata[no].length) delete hdata[no];
+    hsave(); hrender(no); hstatus();
+  });
+  function hstatus(){
+    var t;
+    if(hmode === 'erase') t = '橡皮擦：點一下標記，或選取文字，即可擦除。';
+    else if(hmode) t = HN[hmode] + '螢光筆：用手指選取文字，即自動畫線。（畫線時暫停作答）';
+    else t = '選一個顏色，再用手指選取文字，即自動畫線。';
+    hstat.textContent = t + '（共 ' + hcount() + ' 處）';
+  }
+  function setHMode(m){
+    hmode = (hmode === m) ? null : m;
+    window.HLMODE = !!hmode;
+    document.body.classList.toggle('erase', hmode === 'erase');
+    document.body.classList.toggle('hlmode', !!hmode);
+    hbar.querySelectorAll('.sw').forEach(function(b){ b.classList.toggle('on', b.getAttribute('data-c') === hmode); });
+    document.getElementById('hl-erase').classList.toggle('on', hmode === 'erase');
+    hstatus();
+  }
+  hbar.querySelectorAll('.sw').forEach(function(b){ b.addEventListener('click', function(){ setHMode(b.getAttribute('data-c')); }); });
+  document.getElementById('hl-erase').addEventListener('click', function(){ setHMode('erase'); });
+  document.getElementById('hl-clear').addEventListener('click', function(){
+    if(!hcount()) return;
+    if(confirm('確定清除全部螢光筆標記？')){
+      var ks = Object.keys(hdata); hdata = {}; hsave(); ks.forEach(hrender); hstatus();
+    }
+  });
+  document.getElementById('hl-copy').addEventListener('click', function(){
+    var lines = [];
+    Object.keys(hdata).map(Number).sort(function(a,b){ return a-b; }).forEach(function(no){
+      var plain = eligible(Q[no].el).map(function(n){ return n.data; }).join('');
+      var merged = [];
+      hdata[no].slice().sort(function(a,b){ return a.s-b.s; }).forEach(function(iv){
+        var l = merged[merged.length-1];
+        if(l && iv.s <= l.e) l.e = Math.max(l.e, iv.e); else merged.push({s:iv.s, e:iv.e});
+      });
+      merged.forEach(function(iv){ var t = plain.slice(iv.s, iv.e).replace(/\s+/g,' ').trim(); if(t) lines.push('第' + no + '題：' + t); });
+    });
+    if(!lines.length){ hstat.textContent = '目前沒有標記可複製。'; return; }
+    var txt = lines.join('\n');
+    function done(ok){ hstat.textContent = ok ? ('已複製 ' + lines.length + ' 段重點。') : '無法自動複製，請改用手動選取。'; }
+    if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(txt).then(function(){ done(true); }, function(){ done(false); }); }
+    else{ try{ var ta = document.createElement('textarea'); ta.value = txt; document.body.appendChild(ta); ta.select(); var ok = document.execCommand('copy'); document.body.removeChild(ta); done(ok); }catch(e){ done(false); } }
+  });
+  hfab.addEventListener('click', function(){ hbar.classList.add('open'); hfab.style.display = 'none'; hstatus(); });
+  document.getElementById('hl-close').addEventListener('click', function(){
+    hbar.classList.remove('open'); hfab.style.display = 'flex';
+    hmode = null; window.HLMODE = false; document.body.classList.remove('erase','hlmode');
+    hbar.querySelectorAll('.sw').forEach(function(b){ b.classList.remove('on'); });
+    document.getElementById('hl-erase').classList.remove('on');
+  });
+  Object.keys(hdata).forEach(function(no){ if(Q[no]) hrender(no); });
+  bmPaint();
+
+  Object.keys(Q).forEach(function(n){ paint(n); });
+  update();
+})();
+</script>
+</body>
+</html>
