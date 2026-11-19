@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>大手印與漢傳禪宗（六祖・中台）：心性修行比較</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC:wght@300;400;700&family=Noto+Serif+TC:wght@400;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f4ecd8; --paper2:#efe4c8; --card:#fbf6e8; --ink:#3a2e22; --ink2:#6b5a46;
+  --vermilion:#a8452f; --gold:#a8853a; --line:#d9c9a3; --blue:#2f4a5e;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{
+  background:var(--paper);color:var(--ink);
+  font-family:"LXGW WenKai TC","Noto Serif TC",serif;
+  font-size:19px;line-height:1.95;letter-spacing:.02em;
+}
+body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;opacity:.35;z-index:0;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .45  0 0 0 0 .36  0 0 0 0 .22  0 0 0 .22 0'/></filter><rect width='200' height='200' filter='url(%23n)'/></svg>");
+}
+.wrap{position:relative;z-index:1;max-width:600px;margin:0 auto;padding:0 18px 60px}
+
+/* cover */
+.cover{padding:64px 6px 40px;text-align:center;border-bottom:1px solid var(--line);position:relative}
+.cover .seal{
+  display:inline-block;border:2px solid var(--vermilion);color:var(--vermilion);
+  font-size:15px;padding:2px 10px;border-radius:3px;letter-spacing:.3em;margin-bottom:26px;transform:rotate(-2deg)
+}
+.cover h1{font-family:"Noto Serif TC",serif;font-weight:700;font-size:32px;line-height:1.5;letter-spacing:.08em}
+.cover h1 em{font-style:normal;color:var(--vermilion)}
+.cover .sub{margin-top:16px;color:var(--ink2);font-size:18px}
+.cover .quote{
+  margin:30px auto 0;max-width:440px;font-size:18px;color:var(--ink2);
+  border-left:3px solid var(--gold);padding:4px 0 4px 14px;text-align:left
+}
+.cover .quote b{color:var(--vermilion);font-weight:700}
+
+/* sections */
+section{margin-top:44px}
+.num{
+  font-family:"Noto Serif TC",serif;color:var(--gold);font-size:15px;letter-spacing:.35em;display:block;margin-bottom:2px
+}
+h2{font-family:"Noto Serif TC",serif;font-size:25px;font-weight:700;line-height:1.5;margin-bottom:14px;letter-spacing:.06em}
+h3{font-family:"Noto Serif TC",serif;font-size:20px;font-weight:700;margin:22px 0 8px;color:var(--blue)}
+p{margin:10px 0}
+strong{color:var(--vermilion);font-weight:700}
+.lead{font-size:20px}
+
+.card{
+  background:var(--card);border:1px solid var(--line);border-radius:10px;
+  padding:16px 18px;margin:16px 0;box-shadow:0 1px 0 rgba(120,90,40,.08)
+}
+.card .tag{
+  display:inline-block;font-family:"Noto Sans TC",sans-serif;font-size:14px;font-weight:700;
+  letter-spacing:.15em;color:#fff;background:var(--blue);padding:1px 10px;border-radius:12px;margin-bottom:6px
+}
+.card.k .tag{background:var(--vermilion)}
+.card.z .tag{background:var(--blue)}
+.card.c .tag{background:var(--gold)}
+.sub-t{font-family:"Noto Sans TC",sans-serif;font-size:14px;font-weight:700;letter-spacing:.12em;color:var(--gold);margin:12px 0 2px}
+.card p:first-of-type{margin-top:4px}
+ul{margin:8px 0 8px 1.2em}
+li{margin:4px 0}
+
+.say{
+  margin:16px 0;padding:12px 16px;background:var(--paper2);border-left:4px solid var(--vermilion);
+  border-radius:0 8px 8px 0;font-family:"Noto Serif TC",serif;font-size:19px;font-weight:600
+}
+.say small{display:block;margin-top:2px;font-weight:400;font-size:15px;color:var(--ink2);font-family:"LXGW WenKai TC",serif}
+
+/* yoga steps */
+.steps{list-style:none;margin:12px 0;counter-reset:s}
+.steps li{
+  counter-increment:s;position:relative;margin:10px 0;padding:10px 14px 10px 54px;
+  background:var(--card);border:1px solid var(--line);border-radius:10px
+}
+.steps li::before{
+  content:counter(s);position:absolute;left:12px;top:10px;width:30px;height:30px;line-height:30px;text-align:center;
+  border-radius:50%;background:var(--vermilion);color:#fff;font-family:"Noto Serif TC",serif;font-size:16px
+}
+.steps b{font-family:"Noto Serif TC",serif;color:var(--ink)}
+
+/* table */
+.tbl{overflow-x:auto;margin:16px -4px;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;width:100%;min-width:500px;font-size:17px;line-height:1.7;background:var(--card)}
+th,td{border:1px solid var(--line);padding:9px 10px;vertical-align:top;text-align:left}
+th{background:var(--paper2);font-family:"Noto Serif TC",serif;font-size:16px;letter-spacing:.1em}
+td:first-child{font-weight:700;white-space:nowrap;color:var(--blue)}
+th.k{color:var(--vermilion)}
+
+/* questions */
+details{
+  background:var(--card);border:1px solid var(--line);border-radius:10px;margin:12px 0;padding:0 16px
+}
+summary{
+  cursor:pointer;list-style:none;padding:13px 22px 13px 0;position:relative;
+  font-family:"Noto Serif TC",serif;font-weight:600;font-size:18px;line-height:1.7
+}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"＋";position:absolute;right:0;top:13px;color:var(--vermilion)}
+details[open] summary::after{content:"－"}
+details p{padding-bottom:12px;color:var(--ink)}
+
+.note{
+  margin-top:20px;padding:12px 16px;border:1px dashed var(--gold);border-radius:8px;
+  font-size:17px;color:var(--ink2);background:rgba(255,250,235,.6)
+}
+.finale{
+  margin-top:50px;padding:26px 18px;text-align:center;background:var(--paper2);
+  border-top:2px solid var(--gold);border-bottom:2px solid var(--gold);
+  font-family:"Noto Serif TC",serif;font-size:21px;line-height:2;font-weight:600
+}
+.finale span{color:var(--vermilion)}
+.books ol{margin-left:1.4em}
+footer{margin-top:44px;text-align:center;font-size:15px;color:var(--ink2);letter-spacing:.15em}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="cover">
+  <span class="seal">心性比較</span>
+  <h1>大手印 <em>與</em> 漢傳禪宗</h1>
+  <p class="sub">以六祖禪法為源，以中台禪法為當代落實</p>
+  <div class="quote">近人劉銳之曾概括：「大手印之與禪宗，其相同之點，約為十之七八」。<b>相通在見地，不同在路徑與果位表述。</b></div>
+</header>
+
+<section>
+  <span class="num">壹</span>
+  <h2>總說：同一片月光，兩條路</h2>
+  <p class="lead">噶舉派大手印與漢傳禪宗，是漢藏佛教中最具「頓悟」色彩的兩個心性法門。二者都不向外馳求，不以知識累積、外在形式或特殊禪定境界為究竟，而是從心性直接入手。</p>
+  <p>本文把<strong>六祖惠能的南宗禪法</strong>與<strong>中台禪寺禪法</strong>合為「漢傳禪宗」一系來看：六祖是祖源與義理綱領，中台是以漢傳禪宗法脈為基礎、發展出自身教育與修行體系的現代道場，並非獨立於禪宗之外的門派。</p>
+  <div class="card k">
+    <span class="tag">噶舉大手印</span>
+    <p>代表祖師：岡波巴、密勒日巴。<br>見地：認識心的本性，明空不二。<br>重點：止、觀、直指、保任。</p>
+  </div>
+  <div class="card z">
+    <span class="tag">漢傳禪宗</span>
+    <p class="sub-t">祖源・六祖惠能</p>
+    <p>自性本淨，直下明心見性；無念、無相、無住，定慧等持。</p>
+    <p class="sub-t">當代・中台禪寺（惟覺安公老和尚）</p>
+    <p>承明心見性傳統，重戒定慧三學；三環一體、覺察覺照覺悟、動靜一如、四箴行。</p>
+  </div>
+  <p>共同方向有二：<strong>不把妄念當成心的究竟本質</strong>，也<strong>不把禪定中的寂靜誤認為究竟解脫</strong>。</p>
+</section>
+
+<section>
+  <span class="num">貳</span>
+  <h2>見地：心性本淨的共同基礎</h2>
+  <h3>禪宗：自性本淨，即心即佛</h3>
+  <p>六祖教法建立在「自性」之上，強調佛性與自性不二、真心與妄心不二，旨趣在「直指心源，見性成佛」。《壇經》云「菩提自性，本來清淨，但用此心，直了成佛」。眾生本具智慧，只因妄想執著而不能顯發。</p>
+  <p>六祖並不要人另外製造一顆清淨心，而是以「<strong>無念為宗、無相為體、無住為本</strong>」，於諸法念念不住，於諸境心不染，外離一切相。</p>
+  <p>中台承此明心見性的傳統，以自性清淨與般若智慧為方向，並特別重視在日常中把見地用出來：以禪修為核心，戒定慧為基礎，覺察、覺照、覺悟為修行方向。</p>
+
+  <h3>大手印：明空不二，俱生智</h3>
+  <p>大手印的根本，同樣是體認本來清淨的心性。其核心被稱為「平常心」或「本元之心」，即遠離造作、無所緣取的當下心體。心性有兩個面向：</p>
+  <ul>
+    <li><b>空性</b>：心沒有獨立、固定的自性，不落邊見。</li>
+    <li><b>明知</b>：心具有覺知與光明的作用。</li>
+    <li><b>明空不二</b>：空與明不是兩種分離的性質。</li>
+  </ul>
+  <p>這裡的「明」不是普通的思考能力，也不是一個恆存的觀察者。一切現象與念頭，都是心性的自然顯現。</p>
+
+  <div class="note">元音老人曾直言，恒河大手印與禪宗太相近，須以禪宗的道理來印證。<br>但要留意：大手印的「明」不宜直接等同禪宗的「自性」。前者從中觀空性與明知說起，後者從自性本淨與般若智慧說起，可對照，而教理內涵仍有差異。</div>
+</section>
+
+<section>
+  <span class="num">參</span>
+  <h2>對妄念的處理：不是消滅，而是不被束縛</h2>
+  <p>兩者都反對強行壓抑念頭，入手處則各有風格。</p>
+
+  <div class="card k">
+    <span class="tag">大手印：認出本質</span>
+    <p>不去消滅煩惱，而是回光返照，觀察那個念頭本身：</p>
+    <ul>
+      <li>念頭如何生起？停留在哪裡？消失到哪裡？</li>
+      <li>能否找到一個有固定自性的念頭？</li>
+    </ul>
+    <p>一旦認出念頭的本質是空性，念頭便「自解脫」。比喻如<strong>波浪與大海、冰與水</strong>：冰融成水，煩惱即轉為智慧。</p>
+  </div>
+
+  <div class="card z">
+    <span class="tag">禪宗：不隨念轉</span>
+    <p class="sub-t">六祖：無念、無相、無住</p>
+    <p>「無念」並非百物不思、一念不生，而是<strong>於念而無念</strong>：</p>
+    <ul>
+      <li><b>無念</b>：於念而不執著於念。</li>
+      <li><b>無相</b>：於相而離相，不被形相束縛。</li>
+      <li><b>無住</b>：心不滯留於任何境界。</li>
+    </ul>
+    <p>念來不迎、去不送。《壇經》明言，若斷絕一切思考，反成對佛法的錯誤理解；「前念迷即凡夫，後念悟即佛」，煩惱即菩提。</p>
+    <p class="sub-t">中台：覺察、覺照、覺悟</p>
+    <ul>
+      <li><b>覺察</b>：知道自己的起心動念，不完全被牽著走。例如被批評時，立即察覺瞋心正在生起。</li>
+      <li><b>覺照</b>：以智慧觀察瞋心如何生起、如何變化、為何執著，以正見照破無明。</li>
+      <li><b>覺悟</b>：由觀照而體認心性，破除根本無明，走向解脫。</li>
+    </ul>
+    <p>中台強調在起心動念處用功、觸物起照、堅住正念。</p>
+  </div>
+  <div class="say">不是消滅念頭，而是不再被念頭束縛。<small>大手印、六祖、中台，三者在此一致</small></div>
+  <div class="note">覺察、覺照、覺悟用以理解禪修的教學方向，不宜視為中台正式制定、人人須依序通過的證量階位。覺察與覺照是重要訓練，但不能直接等同見性證悟。</div>
+</section>
+
+<section>
+  <span class="num">肆</span>
+  <h2>止觀與定慧：兩個傳統的呼應</h2>
+  <p><b>大手印的止觀雙運</b>：止使心安定，觀使智慧生起。修行深入後，止與觀逐漸融合，不再是兩種分離的修習。</p>
+  <p><b>禪宗的定慧等持</b>：六祖云，定是慧之體，慧是定之用；真正的定不是沒有智慧的靜止，真正的智慧也不離定而獨立。坐禪不在外相盤腿不動，而在「外離相為禪，內不亂為定」。中台則以戒定慧三學為基礎，把定慧放在戒的根基與正見的引導之下。</p>
+  <p>兩者思想明顯呼應，但論述架構不同：大手印<strong>從止觀的修習與融合</strong>說明心性的認識；禪宗<strong>從定慧不二</strong>說明修行與智慧的不可分離，並強調行住坐臥之中皆可實踐。</p>
+</section>
+
+<section>
+  <span class="num">伍</span>
+  <h2>修持路徑：次第漸修與單提直入</h2>
+  <p>這是兩者最顯著的差異。而禪宗內部，六祖的簡截與中台的體系化，又是同一條路的兩種面貌。</p>
+
+  <h3>大手印：嚴密的次第，上師為嚮導</h3>
+  <p>修習順序大致是：安住其心、觀察其心、認識心性、保任心性。正行之前通常先修加行（四共加行、四不共加行，如大禮拜、金剛薩埵百字明、獻曼達、上師相應法），淨障積資，尤重上師加持，並可輔以七支坐法乃至氣脈明點的方便，使其能三根普攝。</p>
+  <p>正行為<strong>四瑜伽</strong>，每一瑜伽又分上、中、下，合為十二階段，並與菩薩五道十地相互對應：</p>
+  <ol class="steps">
+    <li><b>專一瑜伽</b>　心逐漸穩定，能持續安住，不受散亂干擾（止）。</li>
+    <li><b>離戲瑜伽</b>　超越概念分別，體認諸法無自性（觀）。</li>
+    <li><b>一味瑜伽</b>　一切顯現與空性不二，煩惱與菩提無二，能所對立消融。</li>
+    <li><b>無修瑜伽</b>　超越刻意造作，任運自然，不依賴特定禪修狀態。</li>
+  </ol>
+  <p>上師的「直指心性」是關鍵環節，具有特定的傳承教授與修證條件。</p>
+
+  <h3>六祖：不立階梯，單提向上</h3>
+  <p>六祖反對神秀「時時勤拂拭」的漸修觀，主張頓悟，直指人心，意在言下認識本來面目，不須頭上安頭。修行不止於靜坐，而貫穿日常：自淨其心、無念、無相、無住、定慧等持。</p>
+  <p>這種風格簡截明快，但仰賴極高根器與明眼善知識的引導；善知識雖重要，仍強調自悟自度。禪宗不強調氣脈、本尊或複雜儀軌，重心在心性的直接契入，以及悟後的保任。</p>
+
+  <h3>中台：解行並重的完整體系</h3>
+  <p>中台把禪宗的明心見性，鋪成一套從觀念、身心訓練、煩惱對治到智慧開發的修行體系。</p>
+  <div class="card c">
+    <span class="tag">三環一體</span>
+    <p><b>教理</b>建立正確知見；<b>福德</b>透過服務、布施、護持道場，對治我執、培養慈悲，使修行不局限於個人禪定經驗；<b>禪定</b>透過靜坐、止觀與參禪，收攝六根、降伏妄念、開發智慧、體認心性。</p>
+    <p>三者不能偏廢：只有教理而缺乏實修，容易流於知識；只有禪定而缺乏正見，也可能把禪定境界誤認為證悟。</p>
+  </div>
+  <p>禪修方法並非單一，而是依學人程度與因緣運用，官方禪修教育資料提到：</p>
+  <ul>
+    <li><b>數息觀</b>：專注呼吸，數息安心，減少散亂。</li>
+    <li><b>觀息</b>：觀察呼吸的出入、長短與變化。</li>
+    <li><b>中道實相觀</b>：觀諸法因緣生滅、無自性，不落有無兩邊。</li>
+    <li><b>反聞聞自性</b>：不隨聲向外攀緣，返觀能聞之性，返照自心。</li>
+    <li><b>參話頭</b>：如參究「念佛的是誰」，藉疑情突破慣性分別。</li>
+  </ul>
+  <p>禪七開示也涉及轉識成智等法門；這些並非要求初學者同時修習。</p>
+  <p>中台另一鮮明特色是<strong>動靜一如</strong>，不把禪修限於禪堂：坐香、行香、課誦、過堂、出坡，皆是用功處。2026 年春季大眾精進禪七的官方紀錄，載明每日安排十支香，在動靜之間返照自心。</p>
+  <div class="say">人在哪裡，心在哪裡。<small>不論身處何種環境，都要照顧當下這一念心</small></div>
+
+  <div class="note">六祖沒有建立與四瑜伽完全對應的固定階位。四瑜伽描述<b>修證深化的程度</b>，無念、無相、無住與中台的三環一體，則是說明<b>修行的核心原則與體系</b>，不宜硬排成同一套階位。</div>
+</section>
+
+<section>
+  <span class="num">陸</span>
+  <h2>生活實踐與倫理：把心性帶進日常</h2>
+  <div class="card k">
+    <span class="tag">大手印</span>
+    <p>以菩提心與菩薩行為倫理基礎，悟後仍須保任心性，不令迷失。</p>
+  </div>
+  <div class="card z">
+    <span class="tag">禪宗</span>
+    <p><b>六祖</b>：無相布施、無住行持，念念無住，行住坐臥皆是修行。</p>
+    <p><b>中台四箴行</b>：惟覺老和尚提出「對上以敬、對下以慈、對人以和、對事以真」，也有對治煩惱的意義：</p>
+    <ul>
+      <li>對上以敬：對治我慢。</li>
+      <li>對下以慈：對治瞋恚。</li>
+      <li>對人以和：對治粗暴。</li>
+      <li>對事以真：對治虛偽。</li>
+    </ul>
+    <p>其特色是把禪修從個人內在觀照，延伸到人際與做事態度。例如義工工作出現意見衝突時，先覺察自己的情緒，再以慈悲、和諧與誠實處理，這就是把禪修帶進生活。</p>
+  </div>
+</section>
+
+<section>
+  <span class="num">柒</span>
+  <h2>果位：即身成就的共同指向</h2>
+  <p>兩者都指向即身成就，都要求悟後必須「保任」所見的心性，不令迷失，本質上都是先破無明見性，而後圓成佛果。</p>
+  <div class="card z">
+    <span class="tag">禪宗</span>
+    <p>說「見性成佛」，側重當下悟入佛之知見，語言緊扣「心、佛、眾生三無差別」的理境。中台則以明心見性、破除根本無明、走向解脫為方向。</p>
+  </div>
+  <div class="card k">
+    <span class="tag">大手印</span>
+    <p>在見性的基礎上，最終指向圓證法、報、化三身功德，並與密乘果位架構（如十一普光明地）銜接。</p>
+  </div>
+  <p>有藏地大德認為，禪宗的明心見性，可視為「實相大手印」的一種體現。</p>
+</section>
+
+<section>
+  <span class="num">捌</span>
+  <h2>總覽對照</h2>
+  <div class="tbl">
+  <table style="min-width:560px">
+    <tr><th>面向</th><th class="k">噶舉大手印</th><th>漢傳禪宗（六祖・中台）</th></tr>
+    <tr><td>核心見地</td><td>明空不二、俱生智、自解脫</td><td>自性本淨、即心即佛；中台承明心見性，重般若智慧</td></tr>
+    <tr><td>修行目標</td><td>認識心性，圓證三身</td><td>明心見性，見性成佛</td></tr>
+    <tr><td>妄念處理</td><td>觀察念頭的空性，認出本質</td><td>六祖：於念不執著，無念無相無住<br>中台：覺察、覺照，降伏妄念</td></tr>
+    <tr><td>禪修方法</td><td>止、觀、直指、保任</td><td>六祖：無念、無相、無住<br>中台：數息、觀息、中道實相觀、反聞、參話頭</td></tr>
+    <tr><td>定慧關係</td><td>止觀雙運</td><td>定慧等持；中台以戒定慧三學為基礎</td></tr>
+    <tr><td>修證架構</td><td>加行 → 四瑜伽（十二階段），有明確檢驗</td><td>六祖：不立階梯，頓悟與悟後保任<br>中台：教理、福德、禪定三環一體</td></tr>
+    <tr><td>日常實踐</td><td>保任心性</td><td>念念無住；中台動靜一如：坐香、行香、課誦、過堂、出坡</td></tr>
+    <tr><td>生活倫理</td><td>菩提心與菩薩行</td><td>無相布施、無住行持；中台四箴行</td></tr>
+    <tr><td>上師角色</td><td>極度關鍵，須依止具德上師直指</td><td>善知識點撥，更重自悟自度</td></tr>
+    <tr><td>輔助方便</td><td>加行、七支坐法、氣脈明點</td><td>不強調氣脈、本尊、儀軌</td></tr>
+    <tr><td>主要文獻</td><td>《大手印願文》、《了義海》、岡波巴著作</td><td>《六祖壇經》、《金剛經》；中台官方弘法與禪修教育資料</td></tr>
+    <tr><td>文化底蘊</td><td>印度晚期密教與藏地實修傳統，名相精密</td><td>大乘般若與中國自然無為精神，重機鋒公案；中台為現代道場體系</td></tr>
+  </table>
+  </div>
+</section>
+
+<section>
+  <span class="num">玖</span>
+  <h2>五個值得深入辨析的問題</h2>
+  <p>若要進一步研究，這幾個問題比單純比較方法更重要。</p>
+  <details>
+    <summary>一、「明空不二」與「自性本淨」是同一種心性觀嗎？</summary>
+    <p>這牽涉中觀空性、如來藏思想與禪宗自性思想的深層差異，不能因名相相近就等同。</p>
+  </details>
+  <details>
+    <summary>二、上師直指與言下頓悟有何不同？</summary>
+    <p>兩者都重視直接體認，但上師直指有特定的傳承教授與修證條件；禪宗的頓悟則有自身的教學脈絡。中台以教理、福德、禪定並重，又是另一種導引方式。</p>
+  </details>
+  <details>
+    <summary>三、無修瑜伽是否相當於無念、無住？</summary>
+    <p>這是最容易誤解之處。無修不是不修行，無念也不是沒有念頭，都須放回各自完整的教理脈絡中理解。</p>
+  </details>
+  <details>
+    <summary>四、兩者如何處理悟後的煩惱與習氣？</summary>
+    <p>這是檢驗修證是否成熟的關鍵，不能只憑禪定中的清明、寧靜或特殊體驗來判斷。中台的福德與四箴行，正是在人際中磨鍊習氣的一種設計。</p>
+  </details>
+  <details>
+    <summary>五、中台的覺察、覺照、覺悟，如何通向六祖的無念、無相、無住？</summary>
+    <p>從覺察自己的念頭，到覺照自己的心性，層次有別：覺察是知道正在起什麼念，覺照是看清念頭的原因、執著與無明，見性則是直接體認心的本性。這條由淺入深的用功線索，值得與六祖的頓悟、與大手印的直指相互對照，而不只是比對名相。</p>
+  </details>
+</section>
+
+<section>
+  <span class="num">拾</span>
+  <h2>結語</h2>
+  <p>禪宗是在漢地文化土壤中淬鍊出的<strong>減法</strong>：六祖減去一切方便與執著，單刀直入，直指心源；中台則在此基礎上，以三環一體與動靜一如，把明心見性鋪成可學、可行、可在生活中檢驗的當代道場體系。噶舉大手印則是一套<strong>系統嚴密的心性工程</strong>：以次第為階梯，以上師為嚮導，以氣脈為助緣，穩步趨入同一片心性光明。</p>
+  <p>若以「看見月亮」為喻：六祖像是直接帶你到戶外，指著天上說「看，那就是月亮」；中台像是帶你每天都在戶外走，坐著看、走著看、做事時也看；大手印則先幫你擦亮望遠鏡，教你對焦，再指給你看月光與夜空本是一體。</p>
+  <div class="finale">一者如利刃出鞘，一者如階梯入室，<br>路徑迥異，而所見之<span>明月</span>，未嘗有二。</div>
+  <p style="margin-top:24px">真正的比較，不在於名相有多相似，而在於它們如何解釋：<strong>從認識心，到轉化煩惱，再到究竟解脫。</strong></p>
+</section>
+
+<section class="books">
+  <span class="num">附</span>
+  <h2>建議優先閱讀</h2>
+  <ol>
+    <li>《六祖壇經》：般若品、定慧品、坐禪品、付囑品。</li>
+    <li>岡波巴《解脫莊嚴寶論》：菩提心、止觀與修道次第。</li>
+    <li>岡波巴大手印相關教授：四瑜伽與十二階段。</li>
+    <li>中台禪寺官方資料：弘法理念與宗風、禪修教育、禪七紀錄。</li>
+  </ol>
+  <p>最值得逐段對照的幾組：《壇經》的無念、無相、無住，中台的覺察、覺照、覺悟，與大手印的專一、離戲、一味、無修。</p>
+  <div class="note">整理說明：本文綜合四份資料。其中「漢藏歷史交會」（如岡波巴是否吸納摩訶衍禪法、「俱生和合」的淵源）一類說法，學界與傳承間看法不一，此處未列為定論，引用前宜另查原典。</div>
+</section>
+
+<footer>若有所思 (AQE @ 2026)</footer>
+</div>
+</body>
+</html>
